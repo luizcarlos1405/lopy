@@ -1,0 +1,16 @@
+{
+  "short_name": "Lopy",
+  "name": "Lopy",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/images/pwa-icon-192.jpeg",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "background_color": "#000000",
+  "scope": "/",
+  "theme_color": "#FFFFFF"
+}
