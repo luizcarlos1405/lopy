@@ -5699,11 +5699,21 @@ var $author$project$EnvelopeDialog$update = F2(
 					_Utils_update(
 						model,
 						{transactionMode: $author$project$EnvelopeDialog$Save}),
-					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(
+					A2(
+						$elm$core$Task$attempt,
+						function (_v6) {
+							return toMsg($author$project$EnvelopeDialog$NoOp);
+						},
+						$elm$browser$Browser$Dom$focus($author$project$EnvelopeDialog$transactionValueId))) : _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{transactionMode: $author$project$EnvelopeDialog$Spend}),
-					$elm$core$Platform$Cmd$none);
+					A2(
+						$elm$core$Task$attempt,
+						function (_v7) {
+							return toMsg($author$project$EnvelopeDialog$NoOp);
+						},
+						$elm$browser$Browser$Dom$focus($author$project$EnvelopeDialog$transactionValueId)));
 		}
 	});
 var $author$project$Main$update = F2(
@@ -14494,6 +14504,7 @@ var $author$project$Envelopes$removeFirstCharacter = function (name) {
 			1,
 			$elm$core$String$toList(name)));
 };
+var $elm$core$String$trim = _String_trim;
 var $author$project$Envelopes$envelopeCard = F3(
 	function (msg, index, envelope) {
 		return A2(
@@ -14505,13 +14516,12 @@ var $author$project$Envelopes$envelopeCard = F3(
 					$mdgriffith$elm_ui$Element$height(
 					$mdgriffith$elm_ui$Element$px(100)),
 					$mdgriffith$elm_ui$Element$alignTop,
-					$mdgriffith$elm_ui$Element$Font$color(
-					$author$project$Theme$colorHex('#373258')),
-					$mdgriffith$elm_ui$Element$Border$rounded($author$project$Theme$spacing * 2),
 					$mdgriffith$elm_ui$Element$spacing($author$project$Theme$spacing),
 					$mdgriffith$elm_ui$Element$padding($author$project$Theme$spacing),
-					$mdgriffith$elm_ui$Element$Events$onClick(
-					msg.selectHandler(envelope)),
+					A2($author$project$Theme$htmlStyle, 'margin-bottom', 'unset'),
+					$mdgriffith$elm_ui$Element$Border$rounded($author$project$Theme$spacing * 2),
+					$mdgriffith$elm_ui$Element$Font$color(
+					$author$project$Theme$colorHex('#373258')),
 					$mdgriffith$elm_ui$Element$Background$color(
 					$author$project$Theme$colorHex('#EDC08C')),
 					$mdgriffith$elm_ui$Element$Border$shadow(
@@ -14520,7 +14530,9 @@ var $author$project$Envelopes$envelopeCard = F3(
 						color: $author$project$Theme$colorHex('#00000020'),
 						offset: _Utils_Tuple2(8, 16),
 						size: 4
-					})
+					}),
+					$mdgriffith$elm_ui$Element$Events$onClick(
+					msg.selectHandler(envelope))
 				]),
 			_List_fromArray(
 				[
@@ -14549,7 +14561,8 @@ var $author$project$Envelopes$envelopeCard = F3(
 									$mdgriffith$elm_ui$Element$Font$size(26)
 								]),
 							$mdgriffith$elm_ui$Element$text(
-								$author$project$Envelopes$removeFirstCharacter(envelope.name))),
+								$elm$core$String$trim(
+									$author$project$Envelopes$removeFirstCharacter(envelope.name)))),
 							A2(
 							$mdgriffith$elm_ui$Element$el,
 							_List_fromArray(
@@ -14566,205 +14579,18 @@ var $author$project$Envelopes$envelopeCard = F3(
 						]))
 				]));
 	});
-var $mdgriffith$elm_ui$Internal$Model$Padding = F5(
-	function (a, b, c, d, e) {
-		return {$: 'Padding', a: a, b: b, c: c, d: d, e: e};
-	});
-var $mdgriffith$elm_ui$Internal$Model$Spaced = F3(
-	function (a, b, c) {
-		return {$: 'Spaced', a: a, b: b, c: c};
-	});
-var $mdgriffith$elm_ui$Internal$Model$extractSpacingAndPadding = function (attrs) {
-	return A3(
-		$elm$core$List$foldr,
-		F2(
-			function (attr, _v0) {
-				var pad = _v0.a;
-				var spacing = _v0.b;
-				return _Utils_Tuple2(
-					function () {
-						if (pad.$ === 'Just') {
-							var x = pad.a;
-							return pad;
-						} else {
-							if ((attr.$ === 'StyleClass') && (attr.b.$ === 'PaddingStyle')) {
-								var _v3 = attr.b;
-								var name = _v3.a;
-								var t = _v3.b;
-								var r = _v3.c;
-								var b = _v3.d;
-								var l = _v3.e;
-								return $elm$core$Maybe$Just(
-									A5($mdgriffith$elm_ui$Internal$Model$Padding, name, t, r, b, l));
-							} else {
-								return $elm$core$Maybe$Nothing;
-							}
-						}
-					}(),
-					function () {
-						if (spacing.$ === 'Just') {
-							var x = spacing.a;
-							return spacing;
-						} else {
-							if ((attr.$ === 'StyleClass') && (attr.b.$ === 'SpacingStyle')) {
-								var _v6 = attr.b;
-								var name = _v6.a;
-								var x = _v6.b;
-								var y = _v6.c;
-								return $elm$core$Maybe$Just(
-									A3($mdgriffith$elm_ui$Internal$Model$Spaced, name, x, y));
-							} else {
-								return $elm$core$Maybe$Nothing;
-							}
-						}
-					}());
-			}),
-		_Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
-		attrs);
-};
-var $mdgriffith$elm_ui$Element$wrappedRow = F2(
-	function (attrs, children) {
-		var _v0 = $mdgriffith$elm_ui$Internal$Model$extractSpacingAndPadding(attrs);
-		var padded = _v0.a;
-		var spaced = _v0.b;
-		if (spaced.$ === 'Nothing') {
-			return A4(
-				$mdgriffith$elm_ui$Internal$Model$element,
-				$mdgriffith$elm_ui$Internal$Model$asRow,
-				$mdgriffith$elm_ui$Internal$Model$div,
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.wrapped)))),
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-						A2(
-							$elm$core$List$cons,
-							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-							attrs))),
-				$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
-		} else {
-			var _v2 = spaced.a;
-			var spaceName = _v2.a;
-			var x = _v2.b;
-			var y = _v2.c;
-			var newPadding = function () {
-				if (padded.$ === 'Just') {
-					var _v5 = padded.a;
-					var name = _v5.a;
-					var t = _v5.b;
-					var r = _v5.c;
-					var b = _v5.d;
-					var l = _v5.e;
-					if ((_Utils_cmp(r, x / 2) > -1) && (_Utils_cmp(b, y / 2) > -1)) {
-						var newTop = t - (y / 2);
-						var newRight = r - (x / 2);
-						var newLeft = l - (x / 2);
-						var newBottom = b - (y / 2);
-						return $elm$core$Maybe$Just(
-							A2(
-								$mdgriffith$elm_ui$Internal$Model$StyleClass,
-								$mdgriffith$elm_ui$Internal$Flag$padding,
-								A5(
-									$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
-									A4($mdgriffith$elm_ui$Internal$Model$paddingNameFloat, newTop, newRight, newBottom, newLeft),
-									newTop,
-									newRight,
-									newBottom,
-									newLeft)));
-					} else {
-						return $elm$core$Maybe$Nothing;
-					}
-				} else {
-					return $elm$core$Maybe$Nothing;
-				}
-			}();
-			if (newPadding.$ === 'Just') {
-				var pad = newPadding.a;
-				return A4(
-					$mdgriffith$elm_ui$Internal$Model$element,
-					$mdgriffith$elm_ui$Internal$Model$asRow,
-					$mdgriffith$elm_ui$Internal$Model$div,
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.wrapped)))),
-						A2(
-							$elm$core$List$cons,
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-							A2(
-								$elm$core$List$cons,
-								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-								_Utils_ap(
-									attrs,
-									_List_fromArray(
-										[pad]))))),
-					$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
-			} else {
-				var halfY = -(y / 2);
-				var halfX = -(x / 2);
-				return A4(
-					$mdgriffith$elm_ui$Internal$Model$element,
-					$mdgriffith$elm_ui$Internal$Model$asEl,
-					$mdgriffith$elm_ui$Internal$Model$div,
-					attrs,
-					$mdgriffith$elm_ui$Internal$Model$Unkeyed(
-						_List_fromArray(
-							[
-								A4(
-								$mdgriffith$elm_ui$Internal$Model$element,
-								$mdgriffith$elm_ui$Internal$Model$asRow,
-								$mdgriffith$elm_ui$Internal$Model$div,
-								A2(
-									$elm$core$List$cons,
-									$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.wrapped)))),
-									A2(
-										$elm$core$List$cons,
-										$mdgriffith$elm_ui$Internal$Model$Attr(
-											A2(
-												$elm$html$Html$Attributes$style,
-												'margin',
-												$elm$core$String$fromFloat(halfY) + ('px' + (' ' + ($elm$core$String$fromFloat(halfX) + 'px'))))),
-										A2(
-											$elm$core$List$cons,
-											$mdgriffith$elm_ui$Internal$Model$Attr(
-												A2(
-													$elm$html$Html$Attributes$style,
-													'width',
-													'calc(100% + ' + ($elm$core$String$fromInt(x) + 'px)'))),
-											A2(
-												$elm$core$List$cons,
-												$mdgriffith$elm_ui$Internal$Model$Attr(
-													A2(
-														$elm$html$Html$Attributes$style,
-														'height',
-														'calc(100% + ' + ($elm$core$String$fromInt(y) + 'px)'))),
-												A2(
-													$elm$core$List$cons,
-													A2(
-														$mdgriffith$elm_ui$Internal$Model$StyleClass,
-														$mdgriffith$elm_ui$Internal$Flag$spacing,
-														A3($mdgriffith$elm_ui$Internal$Model$SpacingStyle, spaceName, x, y)),
-													_List_Nil))))),
-								$mdgriffith$elm_ui$Internal$Model$Unkeyed(children))
-							])));
-			}
-		}
-	});
 var $author$project$Envelopes$render = F2(
 	function (msg, envelopes) {
 		return A2(
-			$mdgriffith$elm_ui$Element$wrappedRow,
+			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$clipX,
 					$mdgriffith$elm_ui$Element$spacing($author$project$Theme$spacing),
-					A2($author$project$Theme$htmlStyle, 'min-height', 'unset'),
-					A2(
-					$author$project$Theme$htmlStyle,
-					'padding',
-					$elm$core$String$fromInt($author$project$Theme$spacing) + 'px')
+					$mdgriffith$elm_ui$Element$padding($author$project$Theme$spacing),
+					A2($author$project$Theme$htmlStyle, 'min-height', 'unset')
 				]),
 			A2(
 				$elm$core$List$indexedMap,

@@ -4,7 +4,7 @@
   "orientation": "portrait",
   "display": "standalone",
   "background_color": "#48426D",
-  "theme_color": "#EDC08C",
+  "theme_color": "#48426D",
   "scope": "/",
   "start_url": "/lopy",
   "icons": [
