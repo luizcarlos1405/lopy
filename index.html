@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <script>
+      if ('serviceWorker' in navigator) {
+        console.log('Service worker is in navigator');
+        window.addEventListener('load', function() {
+          console.log('Register called');
+          navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            // registration failed
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+
+    <meta charset="UTF-8">
+    <link rel="manifest" href="manifest.json">
     <meta name="application-name" content="Lopy">
     <meta name="viewport" content="initial-scale=1, maximum-scale=5, minimum-scale=-5"/>
-    <meta name="theme-color" content="#FF00AA">
-    <link rel="manifest" href="manifest.json">
-    <link rel="shortcut icon" type="image/png" href="images/icons-192?v1" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="192x192" href="images/icons-192.png">
-    <link rel="fluid-icon" href="images/icons-192.png?v1" title="app icon">
-    <meta charset="UTF-8">
 
-    <!-- <link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2"> -->
+    <meta name="theme-color" content="#EDC08C">
+    <link rel="shortcut icon" type="images/x-icon" href="/lopy/favicon.ico" />
   </head>
 
   <body>
   <div id="app"></div>
   <script src="elm.js"></script>
   <script src="bundle.js"></script>
+
+  <noscript>
+    <div>
+      Your browser doesn't support javascript.
+    </div>
+  </noscript>
   </body>
 </html>

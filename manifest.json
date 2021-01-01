@@ -1,16 +1,22 @@
 {
-  "short_name": "Lopy",
   "name": "Lopy",
-  "start_url": "/",
+  "short_name": "Lopy",
+  "orientation": "portrait",
   "display": "standalone",
+  "background_color": "#48426D",
+  "theme_color": "#EDC08C",
+  "scope": "/",
+  "start_url": "/lopy",
   "icons": [
     {
-      "src": "/images/pwa-icon-192.jpeg",
+      "src": "images/icon-192.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-  ],
-  "background_color": "#000000",
-  "scope": "/",
-  "theme_color": "#FFFFFF"
+  ]
 }
