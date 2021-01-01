@@ -1,12 +1,12 @@
 let CACHE_NAME = 'lopy-v1';
 let urlsToCache = [
   '/lopy',
-  '/manifest.json',
-  '/images/icon-192.png',
-  '/images/icon-512.png',
-  '/favicon.ico',
-  '/elm.js',
-  '/bundle.js',
+  '/lopy/manifest.json',
+  '/lopy/images/icon-192.png',
+  '/lopy/images/icon-512.png',
+  '/lopy/favicon.ico',
+  '/lopy/elm.js',
+  '/lopy/bundle.js',
 ];
 
 self.addEventListener('activate', event => {

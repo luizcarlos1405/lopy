@@ -11968,6 +11968,71 @@ var $mdgriffith$elm_ui$Internal$Model$Fill = function (a) {
 	return {$: 'Fill', a: a};
 };
 var $mdgriffith$elm_ui$Element$fill = $mdgriffith$elm_ui$Internal$Model$Fill(1);
+var $elm$core$Basics$always = F2(
+	function (a, _v0) {
+		return a;
+	});
+var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
+var $mdgriffith$elm_ui$Element$html = $mdgriffith$elm_ui$Internal$Model$unstyled;
+var $elm$svg$Svg$Attributes$class = _VirtualDom_attribute('class');
+var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
+var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
+var $elm$svg$Svg$map = $elm$virtual_dom$VirtualDom$map;
+var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
+var $elm$svg$Svg$Attributes$strokeLinecap = _VirtualDom_attribute('stroke-linecap');
+var $elm$svg$Svg$Attributes$strokeLinejoin = _VirtualDom_attribute('stroke-linejoin');
+var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
+var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
+var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
+var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
+var $feathericons$elm_feather$FeatherIcons$toHtml = F2(
+	function (attributes, _v0) {
+		var src = _v0.a.src;
+		var attrs = _v0.a.attrs;
+		var strSize = $elm$core$String$fromFloat(attrs.size);
+		var baseAttributes = _List_fromArray(
+			[
+				$elm$svg$Svg$Attributes$fill('none'),
+				$elm$svg$Svg$Attributes$height(
+				_Utils_ap(strSize, attrs.sizeUnit)),
+				$elm$svg$Svg$Attributes$width(
+				_Utils_ap(strSize, attrs.sizeUnit)),
+				$elm$svg$Svg$Attributes$stroke('currentColor'),
+				$elm$svg$Svg$Attributes$strokeLinecap('round'),
+				$elm$svg$Svg$Attributes$strokeLinejoin('round'),
+				$elm$svg$Svg$Attributes$strokeWidth(
+				$elm$core$String$fromFloat(attrs.strokeWidth)),
+				$elm$svg$Svg$Attributes$viewBox(attrs.viewBox)
+			]);
+		var combinedAttributes = _Utils_ap(
+			function () {
+				var _v1 = attrs._class;
+				if (_v1.$ === 'Just') {
+					var c = _v1.a;
+					return A2(
+						$elm$core$List$cons,
+						$elm$svg$Svg$Attributes$class(c),
+						baseAttributes);
+				} else {
+					return baseAttributes;
+				}
+			}(),
+			attributes);
+		return A2(
+			$elm$svg$Svg$svg,
+			combinedAttributes,
+			A2(
+				$elm$core$List$map,
+				$elm$svg$Svg$map($elm$core$Basics$never),
+				src));
+	});
+var $author$project$Theme$icon = F2(
+	function (svgAttributes, featherIcon) {
+		return $mdgriffith$elm_ui$Element$html(
+			A2($feathericons$elm_feather$FeatherIcons$toHtml, svgAttributes, featherIcon));
+	});
 var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
 var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
 	function (a, b) {
@@ -12240,6 +12305,57 @@ var $mdgriffith$elm_ui$Element$layoutWith = F3(
 	});
 var $mdgriffith$elm_ui$Element$layout = $mdgriffith$elm_ui$Element$layoutWith(
 	{options: _List_Nil});
+var $elm$svg$Svg$line = $elm$svg$Svg$trustedNode('line');
+var $feathericons$elm_feather$FeatherIcons$Icon = function (a) {
+	return {$: 'Icon', a: a};
+};
+var $feathericons$elm_feather$FeatherIcons$defaultAttributes = function (name) {
+	return {
+		_class: $elm$core$Maybe$Just('feather feather-' + name),
+		size: 24,
+		sizeUnit: '',
+		strokeWidth: 2,
+		viewBox: '0 0 24 24'
+	};
+};
+var $feathericons$elm_feather$FeatherIcons$makeBuilder = F2(
+	function (name, src) {
+		return $feathericons$elm_feather$FeatherIcons$Icon(
+			{
+				attrs: $feathericons$elm_feather$FeatherIcons$defaultAttributes(name),
+				src: src
+			});
+	});
+var $elm$svg$Svg$Attributes$x1 = _VirtualDom_attribute('x1');
+var $elm$svg$Svg$Attributes$x2 = _VirtualDom_attribute('x2');
+var $elm$svg$Svg$Attributes$y1 = _VirtualDom_attribute('y1');
+var $elm$svg$Svg$Attributes$y2 = _VirtualDom_attribute('y2');
+var $feathericons$elm_feather$FeatherIcons$plus = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'plus',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x1('12'),
+					$elm$svg$Svg$Attributes$y1('5'),
+					$elm$svg$Svg$Attributes$x2('12'),
+					$elm$svg$Svg$Attributes$y2('19')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x1('5'),
+					$elm$svg$Svg$Attributes$y1('12'),
+					$elm$svg$Svg$Attributes$x2('19'),
+					$elm$svg$Svg$Attributes$y2('12')
+				]),
+			_List_Nil)
+		]));
 var $author$project$EnvelopeDialog$ChangeForm = function (a) {
 	return {$: 'ChangeForm', a: a};
 };
@@ -12286,6 +12402,31 @@ var $author$project$EnvelopeDialog$SaveEnvelope = F2(
 	function (a, b) {
 		return {$: 'SaveEnvelope', a: a, b: b};
 	});
+var $elm$svg$Svg$Attributes$points = _VirtualDom_attribute('points');
+var $elm$svg$Svg$polyline = $elm$svg$Svg$trustedNode('polyline');
+var $feathericons$elm_feather$FeatherIcons$arrowLeft = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'arrow-left',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x1('19'),
+					$elm$svg$Svg$Attributes$y1('12'),
+					$elm$svg$Svg$Attributes$x2('5'),
+					$elm$svg$Svg$Attributes$y2('12')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$polyline,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$points('12 19 5 12 12 5')
+				]),
+			_List_Nil)
+		]));
 var $mdgriffith$elm_ui$Internal$Flag$borderColor = $mdgriffith$elm_ui$Internal$Flag$flag(28);
 var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
 	return A2(
@@ -12416,7 +12557,6 @@ var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
 var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
 	return {$: 'Text', a: a};
 };
-var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
 var $mdgriffith$elm_ui$Internal$Model$map = F2(
 	function (fn, el) {
 		switch (el.$) {
@@ -13276,11 +13416,6 @@ var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$html$Html$Attributes$spellcheck = $elm$html$Html$Attributes$boolProperty('spellcheck');
 var $mdgriffith$elm_ui$Element$Input$spellcheck = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Attr, $elm$html$Html$Attributes$spellcheck);
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $elm$core$Basics$always = F2(
-	function (a, _v0) {
-		return a;
-	});
-var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $mdgriffith$elm_ui$Element$Input$value = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Attr, $elm$html$Html$Attributes$value);
 var $mdgriffith$elm_ui$Element$Input$textHelper = F3(
@@ -13606,6 +13741,48 @@ var $author$project$Theme$topBar = function (child) {
 			]),
 		A2($mdgriffith$elm_ui$Element$el, $author$project$Theme$topBarAttributes, child));
 };
+var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
+var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
+var $feathericons$elm_feather$FeatherIcons$trash2 = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'trash-2',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$polyline,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$points('3 6 5 6 21 6')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x1('10'),
+					$elm$svg$Svg$Attributes$y1('11'),
+					$elm$svg$Svg$Attributes$x2('10'),
+					$elm$svg$Svg$Attributes$y2('17')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x1('14'),
+					$elm$svg$Svg$Attributes$y1('11'),
+					$elm$svg$Svg$Attributes$x2('14'),
+					$elm$svg$Svg$Attributes$y2('17')
+				]),
+			_List_Nil)
+		]));
 var $author$project$EnvelopeDialog$editing = F5(
 	function (_v0, envelope, toMsg, onChangeText, isNew) {
 		var form = _v0.form;
@@ -13642,7 +13819,7 @@ var $author$project$EnvelopeDialog$editing = F5(
 											]))
 									]),
 								{
-									label: $mdgriffith$elm_ui$Element$text('❮'),
+									label: A2($author$project$Theme$icon, _List_Nil, $feathericons$elm_feather$FeatherIcons$arrowLeft),
 									onPress: $elm$core$Maybe$Just(
 										toMsg($author$project$EnvelopeDialog$Close))
 								}),
@@ -13659,7 +13836,7 @@ var $author$project$EnvelopeDialog$editing = F5(
 											]))
 									]),
 								{
-									label: $mdgriffith$elm_ui$Element$text('🗑'),
+									label: A2($author$project$Theme$icon, _List_Nil, $feathericons$elm_feather$FeatherIcons$trash2),
 									onPress: $elm$core$Maybe$Just(
 										toMsg(
 											$author$project$EnvelopeDialog$DeleteEnvelope(envelope)))
@@ -13772,6 +13949,26 @@ var $mdgriffith$elm_ui$Internal$Model$Below = {$: 'Below'};
 var $mdgriffith$elm_ui$Element$below = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$Below, element);
 };
+var $feathericons$elm_feather$FeatherIcons$edit3 = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'edit-3',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M12 20h9')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z')
+				]),
+			_List_Nil)
+		]));
 var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
@@ -14361,7 +14558,7 @@ var $author$project$EnvelopeDialog$normal = F4(
 								_List_fromArray(
 									[$mdgriffith$elm_ui$Element$alignRight]),
 								{
-									label: $mdgriffith$elm_ui$Element$text('🖉'),
+									label: A2($author$project$Theme$icon, _List_Nil, $feathericons$elm_feather$FeatherIcons$edit3),
 									onPress: $elm$core$Maybe$Just(
 										toMsg($author$project$EnvelopeDialog$Edit))
 								})
@@ -14460,12 +14657,11 @@ var $author$project$EnvelopeDialog$render = function (_v0) {
 };
 var $mdgriffith$elm_ui$Element$clipX = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clipX);
 var $author$project$Envelopes$firstCharacter = function (name) {
-	return $elm$core$String$fromChar(
-		A2(
-			$elm$core$Maybe$withDefault,
-			_Utils_chr('?'),
-			$elm$core$List$head(
-				$elm$core$String$toList(name))));
+	return A2(
+		$elm$core$Maybe$withDefault,
+		_Utils_chr('?'),
+		$elm$core$List$head(
+			$elm$core$String$toList(name)));
 };
 var $mdgriffith$elm_ui$Internal$Model$Min = F2(
 	function (a, b) {
@@ -14507,16 +14703,16 @@ var $author$project$Envelopes$removeFirstCharacter = function (name) {
 var $elm$core$String$trim = _String_trim;
 var $author$project$Envelopes$envelopeCard = F3(
 	function (msg, index, envelope) {
+		var firstNameChar = $author$project$Envelopes$firstCharacter(envelope.name);
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
 			_List_fromArray(
 				[
 					$mdgriffith$elm_ui$Element$width(
 					A2($mdgriffith$elm_ui$Element$minimum, 250, $mdgriffith$elm_ui$Element$fill)),
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(100)),
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
 					$mdgriffith$elm_ui$Element$alignTop,
-					$mdgriffith$elm_ui$Element$spacing($author$project$Theme$spacing),
+					$mdgriffith$elm_ui$Element$spacing(($author$project$Theme$spacing / 2) | 0),
 					$mdgriffith$elm_ui$Element$padding($author$project$Theme$spacing),
 					A2($author$project$Theme$htmlStyle, 'margin-bottom', 'unset'),
 					$mdgriffith$elm_ui$Element$Border$rounded($author$project$Theme$spacing * 2),
@@ -14540,10 +14736,18 @@ var $author$project$Envelopes$envelopeCard = F3(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(60)
+							$mdgriffith$elm_ui$Element$Font$size(50),
+							$mdgriffith$elm_ui$Element$width(
+							$mdgriffith$elm_ui$Element$px(62)),
+							$mdgriffith$elm_ui$Element$centerX,
+							$mdgriffith$elm_ui$Element$alignRight
 						]),
-					$mdgriffith$elm_ui$Element$text(
-						$author$project$Envelopes$firstCharacter(envelope.name))),
+					A2(
+						$mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[$mdgriffith$elm_ui$Element$centerX]),
+						$mdgriffith$elm_ui$Element$text(
+							$elm$core$String$fromChar(firstNameChar)))),
 					A2(
 					$mdgriffith$elm_ui$Element$column,
 					_List_fromArray(
@@ -14562,7 +14766,7 @@ var $author$project$Envelopes$envelopeCard = F3(
 								]),
 							$mdgriffith$elm_ui$Element$text(
 								$elm$core$String$trim(
-									$author$project$Envelopes$removeFirstCharacter(envelope.name)))),
+									($elm$core$Char$isAlphaNum(firstNameChar) ? $elm$core$Basics$identity : $author$project$Envelopes$removeFirstCharacter)(envelope.name)))),
 							A2(
 							$mdgriffith$elm_ui$Element$el,
 							_List_fromArray(
@@ -14639,9 +14843,14 @@ var $author$project$Main$view = function (model) {
 										A2(
 										$mdgriffith$elm_ui$Element$Input$button,
 										_List_fromArray(
-											[$mdgriffith$elm_ui$Element$alignTop, $mdgriffith$elm_ui$Element$alignRight]),
+											[
+												$mdgriffith$elm_ui$Element$alignTop,
+												$mdgriffith$elm_ui$Element$alignRight,
+												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+												$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink)
+											]),
 										{
-											label: $mdgriffith$elm_ui$Element$text('➕'),
+											label: A2($author$project$Theme$icon, _List_Nil, $feathericons$elm_feather$FeatherIcons$plus),
 											onPress: $elm$core$Maybe$Just($author$project$Main$CreateEnvelope)
 										})
 									]))),
