@@ -14526,33 +14526,33 @@ var $author$project$EnvelopeDialog$normal = F4(
 						$mdgriffith$elm_ui$Element$row,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$spacing($author$project$Theme$spacing)
 							]),
 						_List_fromArray(
 							[
 								A2(
-								$mdgriffith$elm_ui$Element$row,
+								$mdgriffith$elm_ui$Element$el,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$spacing($author$project$Theme$spacing)
+										$mdgriffith$elm_ui$Element$spacing($author$project$Theme$spacing),
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+										$mdgriffith$elm_ui$Element$clip
 									]),
+								$mdgriffith$elm_ui$Element$text(envelope.name)),
+								A2(
+								$mdgriffith$elm_ui$Element$el,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text(envelope.name),
-										A2(
-										$mdgriffith$elm_ui$Element$el,
+										$mdgriffith$elm_ui$Element$Font$family(
 										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$Font$family(
-												_List_fromArray(
-													[$mdgriffith$elm_ui$Element$Font$monospace]))
-											]),
-										$mdgriffith$elm_ui$Element$text(
-											A2(
-												$author$project$Envelopes$formatMoney,
-												'R$',
-												$elm$core$String$fromInt(envelope.amount))))
-									])),
+											[$mdgriffith$elm_ui$Element$Font$monospace]))
+									]),
+								$mdgriffith$elm_ui$Element$text(
+									A2(
+										$author$project$Envelopes$formatMoney,
+										'R$',
+										$elm$core$String$fromInt(envelope.amount)))),
 								A2(
 								$mdgriffith$elm_ui$Element$Input$button,
 								_List_fromArray(
@@ -14754,7 +14754,8 @@ var $author$project$Envelopes$envelopeCard = F3(
 						[
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-							$mdgriffith$elm_ui$Element$spacing(($author$project$Theme$spacing / 2) | 0)
+							$mdgriffith$elm_ui$Element$spacing(($author$project$Theme$spacing / 2) | 0),
+							$mdgriffith$elm_ui$Element$clip
 						]),
 					_List_fromArray(
 						[
