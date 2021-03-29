@@ -1,0 +1,7 @@
+{
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "svelteStrictMode": true
+}
