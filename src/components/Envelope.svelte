@@ -1,11 +1,9 @@
 <script>
   import { formatMoney } from '../js/helpers';
 
-  export let _id;
-  export let emoji = '💵';
-  export let name = 'Envelope';
-  export let value = 0;
-  export let transactions = [];
+  export let envelope;
+
+  let { _id, emoji, name, value } = envelope;
 </script>
 
 <div

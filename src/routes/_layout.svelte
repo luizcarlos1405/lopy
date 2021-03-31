@@ -1,6 +1,10 @@
 <script>
   import { overrideItemIdKeyNameBeforeInitialisingDndZones } from 'svelte-dnd-action';
 
+  export let segment;
+
+  console.log('segment', segment);
+
   overrideItemIdKeyNameBeforeInitialisingDndZones('_id');
 </script>
 

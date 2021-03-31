@@ -41,7 +41,7 @@
     {#each $envelopes as envelope (envelope._id)}
       <span class="outline-none cursor-unset">
         <Envelope
-          {...envelope}
+          envelope="{envelope}"
           on:click="{() => handleEnvelopeClicked(envelope)}"
         />
       </span>
