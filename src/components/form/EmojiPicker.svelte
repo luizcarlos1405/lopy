@@ -20,7 +20,7 @@
     Flags: `<svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M0 0l6 24h2L2 0zm21 5h-4l-1-4H4l3 12h3l1 4h13L21 5zM6.6 3h7.8l2 8H8.6l-2-8zm8.8 10l-2.9 1.9-.4-1.9h3.3zm3.6 0l-1.5-6h2l2 8H16l3-2z'></path></svg>`,
   };
   const emojisData = Object.entries(dataByEmoji.default)
-    .filter(([, { emoji_version }]) => +emoji_version <= 12)
+    .filter(([, { emoji_version }]) => +emoji_version <= 11)
     .map(([emoji, { group }]) => ({ emoji, group }));
 
   let open = false;
@@ -49,7 +49,7 @@
         {#each emojisData as { emoji, group }}
           {#if currentGroup === group}
             <div
-              class="cursor-pointer text-md"
+              class="cursor-pointer text-md max-h-8 max-w-lg"
               on:click="{() => {
                 value = emoji;
                 close();
