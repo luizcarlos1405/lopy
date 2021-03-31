@@ -14,7 +14,9 @@
   <title>Lopy</title>
 </svelte:head>
 
-<main class="flex flex-col overflow-hidden">
+<main
+  class="border-box w-screen h-screen overflow-x-hidden overflow-y-scroll text-light bg-background"
+>
   <slot />
 </main>
 
@@ -24,18 +26,9 @@
   @tailwind utilities;
 
   main {
-    position: absolute;
-
-    height: 100%;
-    width: 100%;
     font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     font-size: 16px;
-    color: var(--color-text-light);
     line-height: 1em;
-    background-color: var(--color-main);
-
-    /* Include margin and padding to calculate the size */
-    box-sizing: border-box;
   }
 </style>

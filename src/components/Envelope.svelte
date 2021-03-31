@@ -1,6 +1,5 @@
 <script>
   import { formatMoney } from '../js/helpers';
-  import { scale } from 'svelte/transition';
 
   export let _id;
   export let emoji = '💵';

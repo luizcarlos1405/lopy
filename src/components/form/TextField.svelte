@@ -3,7 +3,7 @@
   export let value = '';
   export let textarea = false;
 
-  let node;
+  export let inputRef;
 
   const focus = el => {
     if (autofocus) {
@@ -22,7 +22,7 @@
     <textarea
       {...$$restProps}
       bind:value
-      bind:this="{node}"
+      bind:this="{inputRef}"
       use:focus
       on:keyup
       on:input></textarea>
@@ -33,7 +33,7 @@
       {...$$restProps}
       size="1"
       type="text"
-      bind:this="{node}"
+      bind:this="{inputRef}"
       bind:value
       use:focus
       on:keyup

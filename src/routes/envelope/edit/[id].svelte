@@ -23,24 +23,24 @@
   let emoji = envelope?.emoji || undefined;
 </script>
 
-<TopBar>
-  LOPY
-
-  {#if envelope}
-    <div
-      class="cursor-pointer"
-      on:click="{() => {
-        $actions.deleteEnvelope(envelope);
-        goto('/');
-      }}"
-    >
-      <TrashIcon size="20" />
-    </div>
-  {/if}
-</TopBar>
-
 <Page>
-  <div class="flex flex-col space-y-2 h-full justify-end p-4">
+  <TopBar>
+    LOPY
+
+    {#if envelope}
+      <div
+        class="cursor-pointer"
+        on:click="{() => {
+          $actions.deleteEnvelope(envelope);
+          goto('/');
+        }}"
+      >
+        <TrashIcon size="20" />
+      </div>
+    {/if}
+  </TopBar>
+
+  <div class="flex flex-col space-y-2 mt-auto justify-end p-4">
     <div
       class="bg-primary border-box flex p-4 rounded-full space-x-2 space-y-1 "
     >
@@ -65,7 +65,8 @@
           }
           goto('/');
         }}"
-        >Cancel
+      >
+        Cancel
       </Button>
       <Button
         on:click="{() => {
@@ -74,7 +75,8 @@
             goto('/');
           }
         }}"
-        >Save
+      >
+        Save
       </Button>
     </div>
   </div>

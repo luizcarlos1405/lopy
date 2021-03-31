@@ -3,9 +3,9 @@
   import { quintOut } from 'svelte/easing';
 </script>
 
-<span
-  class="w-full h-full"
-  in:scale="{{ y: -1000, duration: 600, start: 0.9, easing: quintOut }}"
+<div
+  class="relative max-w-md min-h-full flex-grow mx-auto flex flex-col"
+  in:scale="{{ y: -1000, duration: 800, start: 0.95, easing: quintOut }}"
 >
   <slot />
-</span>
+</div>

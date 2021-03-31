@@ -1,107 +1,129 @@
 import { readable, writable } from 'svelte/store';
 import { isClient } from './helpers';
 import { v4 as uuid } from 'uuid';
+import Dexie from 'dexie';
+import { DateTime } from 'luxon';
 
 export const envelopes = writable([]);
-let envelopesCollection;
-
-if (isClient()) {
-  const initDb = async () => {
-    const db = new zango.Db('lopy', {
-      envelopes: ['_id'],
-    });
-    envelopesCollection = db.collection('envelopes');
-    const dbEnvelopes = await envelopesCollection
-      .find({})
-      .sort({ order: 1 })
-      .toArray();
-
-    console.log('dbEnvelopes', dbEnvelopes);
-
-    envelopes.set(dbEnvelopes);
-
-    return envelopesCollection;
-  };
-
-  initDb();
-}
+let db;
 
 const refreshEnvelopes = () =>
-  envelopesCollection
-    .find({})
-    .sort({ order: 1 })
+  db.envelopes
+    .orderBy('order')
     .toArray()
     .then(dbEnvelopes => {
       envelopes.set(dbEnvelopes);
     });
 
-export const actions = readable({
-  saveEnvelope: ({ _id, ...envelope }) => {
-    const result = _id
-      ? envelopesCollection.update({ _id }, { $set: envelope })
-      : envelopesCollection.insert({
-          _id: uuid(),
-          transactions: [],
-          value: 0,
-          ...envelope,
-        });
-    result.then(refreshEnvelopes);
+if (isClient()) {
+  db = new Dexie('lopy');
+  db.version(1).stores({
+    envelopes: '_id,order',
+    transactions: '_id,envelopeId,date',
+  });
 
-    return result;
-  },
-  deleteEnvelope: selector => {
-    const result = envelopesCollection.remove(selector);
-    result.then(refreshEnvelopes);
+  // Log current db content
+  console.log('db', db);
+  db.envelopes
+    .toCollection()
+    .toArray()
+    .then(result => console.log('envelopes', result));
+  db.transactions
+    .toCollection()
+    .toArray()
+    .then(result => console.log('transactions', result));
 
-    return result;
-  },
-  reorderEnvelopes: async envelopes => {
-    console.log('envelopes to reorder', envelopes);
-    const result = envelopes.map(({ _id }, index) =>
-      envelopesCollection.update({ _id }, { $set: { order: index } })
-    );
-    Promise.all(result).then(refreshEnvelopes);
+  refreshEnvelopes();
+}
 
-    return result;
-  },
-  saveTransaction: async (transaction, envelopeId) => {
-    const { transactions } = await envelopesCollection.findOne(
-      { _id: envelopeId },
-      { fields: { transactions: 1 } }
-    );
-    const result = envelopesCollection.update(
-      { _id: envelopeId },
-      {
-        $set: {
-          transactions: [{ _id: uuid(), ...transaction }, ...transactions],
+export const actions = readable(
+  isClient() && {
+    saveEnvelope: async ({ _id, ...envelope }) => {
+      const envelopeCount = await db.envelopes.count();
+
+      return _id
+        ? db.envelopes.update(_id, envelope)
+        : db.envelopes
+            .add({
+              _id: uuid(),
+              order: envelopeCount,
+              value: 0,
+              ...envelope,
+            })
+            .then(refreshEnvelopes);
+    },
+    deleteEnvelope: ({ _id }) =>
+      db.envelopes.where({ _id }).delete().then(refreshEnvelopes),
+    reorderEnvelopes: async orderedEnvelopes => {
+      db.transaction('rw', db.envelopes, async () =>
+        orderedEnvelopes.map(({ _id }, index) =>
+          db.envelopes.update(_id, { order: index })
+        )
+      ).then(refreshEnvelopes);
+    },
+    saveTransaction: (transaction, envelopeId) => {
+      console.log('saving transaction', transaction);
+      return db
+        .transaction('rw', db.transactions, db.envelopes, async () => {
+          const dbEnvelope = await db.envelopes.get(envelopeId);
+          await db.transactions.add({
+            _id: uuid(),
+            envelopeId,
+            date: DateTime.now().toSeconds(),
+            ...transaction,
+          });
+          await db.envelopes.update(envelopeId, {
+            value: dbEnvelope.value + transaction.value,
+          });
+        })
+        .then(refreshEnvelopes);
+    },
+    // TODO actually make it paginated...
+    getTransactionsPaginated: ({ actions, envelopeId, limit, offset }) => {
+      console.log('db.transactions', db.transactions);
+      return {
+        transactions: db.transactions
+          .where({ envelopeId })
+          .reverse()
+          .sortBy('date'),
+        previous: () => {},
+        next: () => {},
+        refresh: async () => {
+          const result = actions.getTransactionsPaginated({
+            actions,
+            envelopeId,
+            limit,
+            offset,
+          });
+          const transactions = await result.transactions;
+
+          return { ...result, transactions };
         },
-        $inc: { value: transaction.value },
-      }
-    );
-    result.then(refreshEnvelopes);
+      };
+    },
+    deleteTransactions: async (transactionIds, envelopeId) => {
+      return db
+        .transaction('rw', db.transactions, db.envelopes, async () => {
+          console.log('transactionIds', transactionIds);
+          const dbEnvelope = await db.envelopes.get(envelopeId);
+          const transactionsCollection = db.transactions
+            .where('_id')
+            .anyOf(transactionIds);
+          const dbTransactions = await transactionsCollection.toArray();
+          console.log('dbTransactions', dbTransactions);
+          const newEnvelopeValue = dbTransactions.reduce(
+            (acc, { value }) => acc - value,
+            dbEnvelope.value
+          );
 
-    return result;
-  },
-  deleteTransactions: async (indexes, envelopeId) => {
-    const { transactions } = await envelopesCollection.findOne(
-      { _id: envelopeId },
-      { fields: { transactions: 1 } }
-    );
-    const newTransactions = transactions.filter(
-      (_, index) => indexes.indexOf(`${index}`) < 0
-    );
-    const valueCorrection = indexes
-      .map(index => transactions[index])
-      .reduce((acc, { value }) => acc - value, 0);
-    const result = envelopesCollection.update(
-      { _id: envelopeId },
-      {
-        $set: { transactions: newTransactions },
-        $inc: { value: valueCorrection },
-      }
-    );
-    result.then(refreshEnvelopes);
-
-    return result;
-  },
-});
+          await db.envelopes.update(envelopeId, {
+            value: newEnvelopeValue,
+          });
+          await db.transactions
+            .bulkDelete(transactionIds)
+            .then(num => console.log('transactions deleted', num));
+        })
+        .then(refreshEnvelopes);
+    },
+  }
+);

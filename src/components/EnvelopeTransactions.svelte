@@ -4,44 +4,55 @@
   import { scale } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
   import { flip } from 'svelte/animate';
+  import { DateTime } from 'luxon';
 
-  export let envelope;
-  export let selectedTransactions = {};
+  export let transactions = [];
+  export let selectedTransactionsById = {};
 </script>
 
-<div class="flex flex-col space-y-2 text-dark w-full">
-  {#each envelope?.transactions || [] as transaction, index (transaction._id)}
+<div class="flex flex-col space-y-2 text-dark w-full p-4">
+  {#each transactions as transaction (transaction._id)}
     <div
       class="transaction relative"
       class:in="{transaction.value >= 0}"
       class:out="{transaction.value < 0}"
-      class:selected="{selectedTransactions[index]}"
+      class:selected="{selectedTransactionsById[transaction._id]}"
       in:scale|local="{{ easing: cubicOut }}"
       out:scale|local="{{ easing: cubicOut }}"
       animate:flip
       use:longpress="{300}"
       on:longpress="{() => {
-        if (!selectedTransactions[index]) {
-          selectedTransactions[index] = transaction;
+        if (!selectedTransactionsById[transaction._id]) {
+          selectedTransactionsById[transaction._id] = transaction;
           return;
         }
-        const { [index]: removedKey, ...newSelection } = selectedTransactions;
-        selectedTransactions = newSelection;
+        const {
+          [transaction._id]: removedKey,
+          ...newSelection
+        } = selectedTransactionsById;
+        selectedTransactionsById = newSelection;
       }}"
     >
-      <div class:hidden="{!transaction.comment}">{transaction.comment}</div>
-      <div class="font-mono">
-        {formatMoney(transaction.value, { showSign: false })}
+      <div class:hidden="{!transaction.comment}" class="whitespace-pre-wrap">
+        {transaction.comment}
       </div>
-      {#if selectedTransactions[index]}
+      <div class="flex justify-between">
+        <span class="font-mono">
+          {formatMoney(transaction.value, { showSign: false })}
+        </span>
+        <span>
+          {DateTime.fromSeconds(transaction.date).toLocaleString(
+            DateTime.DATETIME_MED
+          )}
+        </span>
+      </div>
+      {#if selectedTransactionsById[transaction._id]}
         <span
           transition:scale
           class="bg-background absolute right-2 top-2 w-4 h-4 rounded-full"
         ></span>
       {/if}
     </div>
-  {:else}
-    <div>No transactions yet.</div>
   {/each}
 </div>
 

@@ -10,7 +10,7 @@
   const handleEnvelopeClicked = envelope => {
     goto(`/envelope/${envelope._id}`);
   };
-  const handleDnd = ({ detail, info }) => {
+  const handleDnd = ({ detail }) => {
     $envelopes = detail.items;
 
     if (detail.info.trigger === 'droppedIntoZone') {
@@ -19,20 +19,20 @@
   };
 </script>
 
-<TopBar>
-  LOPY
-  <div on:click="{() => goto('envelope/edit/new')}" class="cursor-pointer">
-    <PlusIcon size="20" />
-  </div>
-</TopBar>
-
 <Page>
+  <TopBar>
+    LOPY
+    <div on:click="{() => goto('envelope/edit/new')}" class="cursor-pointer">
+      <PlusIcon size="20" />
+    </div>
+  </TopBar>
+
   <div
-    class="w-full h-full px-4 pt-20 mb-20 box-border envelopes-list flex flex-col space-y-3 overflow-y-scroll"
+    class="w-full p-4 flex flex-col space-y-3"
     use:dndzone="{{
       items: $envelopes,
       flipDurationMs: 200,
-      dropTargetClasses: ['opacity-50'],
+      dropTargetStyle: { opacity: '50%' },
     }}"
     on:consider="{handleDnd}"
     on:finalize="{handleDnd}"

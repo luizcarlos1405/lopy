@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "compression": "^1.7.1",
+    "dexie": "^3.0.3",
+    "luxon": "^1.26.0",
     "polka": "next",
     "sirv": "^1.0.0",
     "unicode-emoji-json": "^0.2.1",
