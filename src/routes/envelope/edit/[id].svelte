@@ -13,6 +13,7 @@
   import TopBar from '../../../components/TopBar.svelte';
   import { TrashIcon } from 'svelte-feather-icons';
   import Page from '../../../components/Page.svelte';
+  import { ROUTES } from '../../../js/constants';
 
   // This page creates a new envelope if id === 'new'
   export let id;
@@ -32,7 +33,7 @@
         class="cursor-pointer"
         on:click="{() => {
           $actions.deleteEnvelope(envelope);
-          goto('/');
+          goto(ROUTES.HOME);
         }}"
       >
         <TrashIcon size="20" />
@@ -60,10 +61,10 @@
       <Button
         on:click="{() => {
           if (id !== 'new') {
-            goto(`/envelope/${id}`);
+            goto(`${ROUTES.ENVELOPE}/${id}`);
             return;
           }
-          goto('/');
+          goto(ROUTES.HOME);
         }}"
       >
         Cancel
@@ -72,7 +73,7 @@
         on:click="{() => {
           if (name) {
             $actions.saveEnvelope({ ...envelope, name, emoji });
-            goto('/');
+            goto(ROUTES.HOME);
           }
         }}"
       >

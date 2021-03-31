@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build --legacy",
-    "export": "sapper export --legacy",
-    "start": "node __sapper__/build"
+    "start": "node __sapper__/build",
+    "clean": "rm -Rf __sapper__",
+    "export": "sapper export --legacy --basepath lopy-staging",
+    "deploy": "gh-pages -d __sapper__/export/lopy-staging",
+    "clean-deploy": "yarn clean; yarn export; yarn deploy"
   },
   "dependencies": {
     "compression": "^1.7.1",
@@ -32,6 +35,7 @@
     "@rollup/plugin-url": "^5.0.0",
     "@tailwindcss/forms": "^0.3.2",
     "autoprefixer": "^10.2.5",
+    "gh-pages": "^3.1.0",
     "postcss": "^8.2.8",
     "postcss-load-config": "^3.0.1",
     "postcss-nesting": "^7.0.1",

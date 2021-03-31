@@ -16,8 +16,8 @@
   <div class="text-5xl">
     {emoji}
   </div>
-  <div class="text-dark flex flex-col">
-    <div class="text-2xl">
+  <div class="text-dark flex flex-col overflow-hidden">
+    <div class="text-2xl truncate">
       {name}
     </div>
     <div class="font-mono text-base">

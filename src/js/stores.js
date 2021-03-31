@@ -12,6 +12,7 @@ const refreshEnvelopes = () =>
     .orderBy('order')
     .toArray()
     .then(dbEnvelopes => {
+      console.log('dbEnvelopes', dbEnvelopes);
       envelopes.set(dbEnvelopes);
     });
 
@@ -42,7 +43,7 @@ export const actions = readable(
       const envelopeCount = await db.envelopes.count();
 
       return _id
-        ? db.envelopes.update(_id, envelope)
+        ? db.envelopes.update(_id, envelope).then(refreshEnvelopes)
         : db.envelopes
             .add({
               _id: uuid(),

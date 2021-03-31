@@ -16,6 +16,7 @@
   import { TrashIcon, Edit2Icon } from 'svelte-feather-icons';
   import Page from '../../components/Page.svelte';
   import { scale } from 'svelte/transition';
+  import { ROUTES } from '../../js/constants';
 
   export let id;
 
@@ -71,7 +72,7 @@
     {:else}
       <span
         class="cursor-pointer flex space-x-2 items-end"
-        on:click="{() => goto(`envelope/edit/${id}`)}"
+        on:click="{() => goto(`${ROUTES.EDIT}/${id}`)}"
       >
         <Edit2Icon size="20" />
       </span>
@@ -104,7 +105,7 @@
       <Button
         class="w-20"
         on:click="{() => {
-          goto('/');
+          goto(ROUTES.HOME);
         }}"
       >
         Back

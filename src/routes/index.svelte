@@ -6,9 +6,10 @@
   import { goto } from '@sapper/app';
   import Page from '../components/Page.svelte';
   import { dndzone } from 'svelte-dnd-action';
+  import { ROUTES } from '../js/constants';
 
   const handleEnvelopeClicked = envelope => {
-    goto(`/envelope/${envelope._id}`);
+    goto(`${ROUTES.ENVELOPE}/${envelope._id}`);
   };
   const handleDnd = ({ detail }) => {
     $envelopes = detail.items;
@@ -22,7 +23,7 @@
 <Page>
   <TopBar>
     LOPY
-    <div on:click="{() => goto('envelope/edit/new')}" class="cursor-pointer">
+    <div on:click="{() => goto(`${ROUTES.EDIT}/new`)}" class="cursor-pointer">
       <PlusIcon size="20" />
     </div>
   </TopBar>
