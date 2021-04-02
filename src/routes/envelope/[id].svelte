@@ -73,7 +73,7 @@
       </span>
     {:else}
       <span
-        class="cursor-pointer flex space-x-2 items-end"
+        class="cursor-pointer flex space-x-2 items-end ml-auto"
         on:click="{() => goto(`${ROUTES.EDIT}/${id}`)}"
       >
         <Edit2Icon size="20" />
