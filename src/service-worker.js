@@ -11,7 +11,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches
       .open(ASSETS)
-      .then(cache => cache.addAll(to_cache))
+      .then(cache => cache.addAll(to_cache.map(file => `.${file}`)))
       .then(() => {
         self.skipWaiting();
       })
@@ -64,6 +64,13 @@ self.addEventListener('fetch', event => {
     url.host === self.location.host && staticAssets.has(url.pathname);
   const skipBecauseUncached =
     event.request.cache === 'only-if-cached' && !isStaticAsset;
+
+  console.log(
+    'isHttp, isDevServerRequest, skipBecauseUncached',
+    isHttp,
+    isDevServerRequest,
+    skipBecauseUncached
+  );
 
   if (isHttp && !isDevServerRequest && !skipBecauseUncached) {
     event.respondWith(

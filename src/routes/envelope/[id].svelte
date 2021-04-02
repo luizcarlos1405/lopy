@@ -37,7 +37,6 @@
         transaction.value = 0;
         transaction.comment = '';
         transactionsPaginated = await transactionsPaginated.refresh();
-        console.log('moneyInput', moneyInput);
 
         moneyInput.focus();
       });
@@ -58,8 +57,6 @@
     comment: '',
   };
   let isNegative = true;
-
-  $: console.log(transaction);
 </script>
 
 <Page>
