@@ -9,7 +9,8 @@ export function longpress(node, duration = 400) {
   };
 
   const handleMouseMove = event => {
-    let position = { x: event.clientX, y: event.clientY };
+    const c = event.touches ? event.touches[0] : event;
+    let position = { x: c.clientX, y: c.clientY };
     let dx = position.x - startPosition.x;
     let dy = position.y - startPosition.y;
     let distSqr = dx * dx + dy * dy;
@@ -20,14 +21,14 @@ export function longpress(node, duration = 400) {
   };
 
   const handleMousedown = event => {
-    startPosition = { x: event.clientX, y: event.clientY };
+    const c = event.touches ? event.touches[0] : event;
+    startPosition = { x: c.clientX, y: c.clientY };
 
     timer = setTimeout(() => {
-      console.log('LONGPRESS', node, event);
       node.dispatchEvent(
         new CustomEvent('longpress', {
           detail: {
-            startDragPosition: { x: event.clientX, y: event.clientY },
+            startDragPosition: startPosition,
           },
         })
       );
@@ -35,9 +36,12 @@ export function longpress(node, duration = 400) {
 
     node.addEventListener('mouseup', handleMouseup);
     node.addEventListener('mousemove', handleMouseMove);
+    node.addEventListener('touchend', handleMouseup);
+    node.addEventListener('touchmove', handleMouseMove);
   };
 
   node.addEventListener('mousedown', handleMousedown);
+  node.addEventListener('touchstart', handleMousedown);
 
   return {
     update(newDuration) {

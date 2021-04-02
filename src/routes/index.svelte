@@ -8,6 +8,7 @@
   import { dndzone, TRIGGERS } from 'svelte-dnd-action';
   import { ROUTES } from '../js/constants';
   import { longpress } from '../js/longpress';
+  import { onMount } from 'svelte';
 
   const handleEnvelopeClicked = envelope => {
     goto(`${ROUTES.ENVELOPE}/${envelope._id}`);
@@ -15,10 +16,25 @@
   const handleDnd = ({ detail }) => {
     $envelopes = detail.items;
 
+    if (detail.info.trigger === TRIGGERS.DRAG_STARTED) {
+      main.classList.add('overflow-hidden');
+      main.classList.remove('overflow-y-scroll');
+    }
+    if (detail.info.trigger.includes('dropped')) {
+      console.log('stopped');
+      main.classList.add('overflow-y-scroll');
+      main.classList.remove('overflow-hidden');
+    }
     if (detail.info.trigger === TRIGGERS.DROPPED_INTO_ZONE) {
       $actions.reorderEnvelopes(detail.items);
     }
   };
+
+  let main;
+
+  onMount(() => {
+    main = document.getElementsByTagName('main')[0];
+  });
 </script>
 
 <Page>
@@ -37,6 +53,7 @@
       dropTargetStyle: { opacity: '50%' },
       customStartEvent: 'longpress',
     }}"
+    on:start="{() => console.log('starteeed')}"
     on:consider="{handleDnd}"
     on:finalize="{handleDnd}"
   >
