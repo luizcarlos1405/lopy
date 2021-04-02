@@ -8,8 +8,8 @@
     "build": "sapper build --legacy",
     "start": "node __sapper__/build",
     "clean": "rm -Rf __sapper__",
-    "export": "sapper export --legacy --basepath lopy-staging",
-    "deploy": "yarn clean; yarn export; gh-pages -d __sapper__/export/lopy-staging"
+    "export": "sapper export --legacy --basepath lopy",
+    "deploy": "yarn clean; yarn export; gh-pages -d __sapper__/export/lopy"
   },
   "dependencies": {
     "compression": "^1.7.1",

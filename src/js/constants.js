@@ -1,4 +1,4 @@
-const BASE_URL = '/lopy-staging';
+const BASE_URL = '/lopy';
 
 export const ROUTES = {
   HOME: `${BASE_URL}`,

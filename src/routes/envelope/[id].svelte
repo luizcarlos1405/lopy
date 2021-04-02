@@ -17,6 +17,8 @@
   import Page from '../../components/Page.svelte';
   import { scale } from 'svelte/transition';
   import { ROUTES } from '../../js/constants';
+  import { formatMoney } from '../../js/helpers';
+  import { envelopes } from '../../js/stores';
 
   export let id;
 
@@ -57,11 +59,14 @@
     comment: '',
   };
   let isNegative = true;
+
+  $: envelope = $envelopes.find(({ _id }) => _id === id);
 </script>
 
 <Page>
   <TopBar>
-    LOPY
+    {envelope?.name} |
+    {formatMoney(envelope?.value)}
     {#if Object.keys(selectedTransactionsById).length >= 1}
       <span on:click="{handleDelete}">
         <TrashIcon size="20" />
