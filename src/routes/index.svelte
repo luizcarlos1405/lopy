@@ -9,6 +9,7 @@
   import { ROUTES } from '../js/constants';
   import { longpress } from '../js/longpress';
   import { onMount } from 'svelte';
+  import logo from '../../static/logo-transparent.svg';
 
   const handleEnvelopeClicked = envelope => {
     goto(`${ROUTES.ENVELOPE}/${envelope._id}`);
@@ -39,8 +40,12 @@
 
 <Page>
   <TopBar>
-    LOPY
-    <div on:click="{() => goto(`${ROUTES.EDIT}/new`)}" class="cursor-pointer">
+    <img class="mr-1 h-5 w-5" src="{logo}" alt="Lopy" />
+    Lopy
+    <div
+      on:click="{() => goto(`${ROUTES.EDIT}/new`)}"
+      class="cursor-pointer ml-auto"
+    >
       <PlusIcon size="20" />
     </div>
   </TopBar>

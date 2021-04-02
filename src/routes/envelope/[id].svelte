@@ -68,7 +68,7 @@
     {envelope?.name} |
     {formatMoney(envelope?.value)}
     {#if Object.keys(selectedTransactionsById).length >= 1}
-      <span on:click="{handleDelete}">
+      <span on:click="{handleDelete}" class="ml-auto">
         <TrashIcon size="20" />
       </span>
     {:else}

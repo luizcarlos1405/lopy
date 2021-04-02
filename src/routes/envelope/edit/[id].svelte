@@ -30,7 +30,7 @@
 
     {#if envelope}
       <div
-        class="cursor-pointer"
+        class="cursor-pointer ml-auto"
         on:click="{() => {
           $actions.deleteEnvelope(envelope);
           goto(ROUTES.HOME);
