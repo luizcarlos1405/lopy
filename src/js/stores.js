@@ -18,7 +18,7 @@ const refreshEnvelopes = () =>
 
 if (isClient()) {
   db = new Dexie('lopy');
-  db.version(1).stores({
+  db.version(2).stores({
     envelopes: '_id,order',
     transactions: '_id,envelopeId,date',
   });

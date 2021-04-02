@@ -9,8 +9,7 @@
     "start": "node __sapper__/build",
     "clean": "rm -Rf __sapper__",
     "export": "sapper export --legacy --basepath lopy-staging",
-    "deploy": "gh-pages -d __sapper__/export/lopy-staging",
-    "clean-deploy": "yarn clean; yarn export; yarn deploy"
+    "deploy": "yarn clean; yarn export; gh-pages -d __sapper__/export/lopy-staging"
   },
   "dependencies": {
     "compression": "^1.7.1",
