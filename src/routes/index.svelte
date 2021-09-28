@@ -2,12 +2,12 @@
   import TopBar from '../components/TopBar.svelte';
   import { PlusIcon } from 'svelte-feather-icons';
   import Envelope from '../components/Envelope.svelte';
-  import { envelopes, actions } from '../js/stores';
-  import { goto } from '@sapper/app';
+  import { envelopes, actions } from '$lib/stores';
+  import { goto } from '$app/navigation';
   import Page from '../components/Page.svelte';
   import { dndzone, TRIGGERS } from 'svelte-dnd-action';
-  import { ROUTES } from '../js/constants';
-  import { longpress } from '../js/longpress';
+  import { ROUTES } from '$lib/constants';
+  import { longpress } from '$lib/longpress';
   import { onMount } from 'svelte';
   import logo from '../../static/logo-transparent.svg';
 

@@ -4,29 +4,30 @@
   "version": "0.0.1",
   "license": "All Rights Reserved",
   "scripts": {
-    "dev": "sapper dev",
-    "build": "sapper build --legacy",
-    "start": "node __sapper__/build",
-    "clean": "rm -Rf __sapper__",
-    "export": "sapper export --legacy --basepath lopy",
-    "deploy": "yarn clean; yarn export; gh-pages -b main -d __sapper__/export/lopy",
-    "serve-static": "yarn export; npx serve __sapper__/export"
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "preview": "svelte-kit preview",
+    "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+    "format": "prettier --write --plugin-search-dir=. ."
   },
   "dependencies": {
-    "compression": "^1.7.1",
     "dexie": "^3.0.3",
     "luxon": "^1.26.0",
-    "polka": "next",
-    "sirv": "^1.0.0",
-    "svelte-dnd-action": "/home/luizcarlos1405/Suaveware/Outros/svelte-dnd-action",
     "unicode-emoji-json": "^0.2.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "workbox-precaching": "^6.1.5",
+    "workbox-routing": "^6.1.5",
+    "workbox-strategies": "^6.1.5"
   },
+  "type": "module",
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.14.6",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
+    "@babel/preset-env": "^7.14.7",
     "@babel/runtime": "^7.0.0",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -34,9 +35,10 @@
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-replace": "^2.2.0",
     "@rollup/plugin-url": "^5.0.0",
+    "@sveltejs/adapter-static": "^1.0.0-next.0",
+    "@sveltejs/kit": "^1.0.0-next.123",
     "@tailwindcss/forms": "^0.3.2",
     "autoprefixer": "^10.2.5",
-    "gh-pages": "^3.1.0",
     "postcss": "^8.2.8",
     "postcss-load-config": "^3.0.1",
     "postcss-nesting": "^7.0.1",
@@ -45,10 +47,9 @@
     "rollup": "^2.3.4",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
-    "sapper": "^0.28.0",
-    "svelte": "^3.17.3",
+    "svelte": "^3.34.0",
+    "svelte-dnd-action": "./src/svelte-dnd-action",
     "svelte-feather-icons": "^3.3.0",
-    "svelte-preprocess": "^4.7.0",
-    "tailwindcss": "^2.0.4"
+    "tailwindcss": "^2.2.4"
   }
 }

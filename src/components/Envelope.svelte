@@ -1,5 +1,5 @@
 <script>
-  import { formatMoney } from '../js/helpers';
+  import { formatMoney } from '$lib/helpers';
 
   export let envelope;
 

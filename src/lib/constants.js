@@ -1,4 +1,4 @@
-const BASE_URL = '/lopy';
+const BASE_URL = '';
 
 export const ROUTES = {
   HOME: `${BASE_URL}`,

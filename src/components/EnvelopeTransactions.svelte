@@ -1,6 +1,6 @@
 <script>
-  import { formatMoney } from '../js/helpers';
-  import { longpress } from '../js/longpress';
+  import { formatMoney } from '$lib/helpers';
+  import { longpress } from '$lib/longpress';
   import { scale } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
   import { flip } from 'svelte/animate';
@@ -26,10 +26,8 @@
           selectedTransactionsById[transaction._id] = transaction;
           return;
         }
-        const {
-          [transaction._id]: removedKey,
-          ...newSelection
-        } = selectedTransactionsById;
+        const { [transaction._id]: removedKey, ...newSelection } =
+          selectedTransactionsById;
         selectedTransactionsById = newSelection;
       }}"
     >

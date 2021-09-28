@@ -19,6 +19,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        ...colors,
         primary: {
           DEFAULT: '#FCD3BC',
         },

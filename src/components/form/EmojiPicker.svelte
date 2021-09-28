@@ -1,6 +1,6 @@
 <script>
   import * as dataByEmoji from 'unicode-emoji-json';
-  import { clickOutside } from '../../js/clickOutside';
+  import { clickOutside } from '$lib/clickOutside';
 
   export const close = () => {
     open = false;

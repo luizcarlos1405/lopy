@@ -1,6 +1,6 @@
 <script context="module">
-  export const preload = async ({ params }) => {
-    return params;
+  export const load = async ({ page }) => {
+    return { props: page.params };
   };
 </script>
 
@@ -8,12 +8,12 @@
   import TextField from '../../../components/form/TextField.svelte';
   import EmojiPicker from '../../../components/form/EmojiPicker.svelte';
   import Button from '../../../components/Button.svelte';
-  import { goto } from '@sapper/app';
-  import { envelopes, actions } from '../../../js/stores';
+  import { goto } from '$app/navigation';
+  import { envelopes, actions } from '$lib/stores';
   import TopBar from '../../../components/TopBar.svelte';
   import { TrashIcon } from 'svelte-feather-icons';
   import Page from '../../../components/Page.svelte';
-  import { ROUTES } from '../../../js/constants';
+  import { ROUTES } from '$lib/constants';
 
   // This page creates a new envelope if id === 'new'
   export let id;

@@ -1,5 +1,5 @@
 <script>
-  import { formatMoney, stripNonDigits } from '../../js/helpers';
+  import { formatMoney, stripNonDigits } from '$lib/helpers';
   import { createEventDispatcher } from 'svelte';
   import { PlusIcon, MinusIcon } from 'svelte-feather-icons';
   import TextField from './TextField.svelte';

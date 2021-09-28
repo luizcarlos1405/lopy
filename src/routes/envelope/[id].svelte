@@ -1,24 +1,24 @@
 <script context="module">
-  export const preload = async ({ params }) => {
-    return params;
+  export const load = async ({ page }) => {
+    return { props: page.params };
   };
 </script>
 
 <script>
   import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
-  import { actions } from '../../js/stores';
-  import { isClient } from '../../js/helpers';
+  import { actions } from '$lib/stores';
+  import { isClient } from '$lib/helpers';
   import TopBar from '../../components/TopBar.svelte';
   import MoneyField from '../../components/form/MoneyField.svelte';
   import Button from '../../components/Button.svelte';
   import TextField from '../../components/form/TextField.svelte';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
   import { TrashIcon, Edit2Icon } from 'svelte-feather-icons';
   import Page from '../../components/Page.svelte';
   import { scale } from 'svelte/transition';
-  import { ROUTES } from '../../js/constants';
-  import { formatMoney } from '../../js/helpers';
-  import { envelopes } from '../../js/stores';
+  import { ROUTES } from '$lib/constants';
+  import { formatMoney } from '$lib/helpers';
+  import { envelopes } from '$lib/stores';
 
   export let id;
 
@@ -53,6 +53,7 @@
       })
     : {};
 
+  console.log('transactions', transactionsPaginated);
   let selectedTransactionsById = {};
   let transaction = {
     value: 0,
@@ -107,7 +108,7 @@
       <Button
         class="w-20"
         on:click="{() => {
-          goto(ROUTES.HOME);
+          window.history.back();
         }}"
       >
         Back
