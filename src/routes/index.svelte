@@ -22,7 +22,6 @@
       main.classList.remove('overflow-y-scroll');
     }
     if (detail.info.trigger.includes('dropped')) {
-      console.log('stopped');
       main.classList.add('overflow-y-scroll');
       main.classList.remove('overflow-hidden');
     }

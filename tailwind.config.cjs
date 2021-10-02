@@ -1,20 +1,8 @@
 const colors = require('tailwindcss/colors');
 
-module.exports = {
-  plugins: [],
-  purge: {
-    enabled: process.env.NODE_ENV === 'production',
-    content: ['./src/**/*.svelte', './src/**/*.html'],
-    options: {
-      keyframes: true,
-      // considers dynamic class bindings when purging unused classes
-      // credit: https://github.com/matebek https://dev.to/matebek
-      defaultExtractor: content => [
-        ...(content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []),
-        ...(content.match(/(?<=class:)[^=>\/\s]*/g) || []),
-      ],
-    },
-  },
+const config = {
+  mode: 'jit',
+  purge: ['./src/**/*.{html,js,svelte,ts}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -35,7 +23,7 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: [],
-  },
+  plugins: [],
 };
+
+module.exports = config;

@@ -1,9 +1,6 @@
 <script>
+  import '../app.css';
   import { overrideItemIdKeyNameBeforeInitialisingDndZones } from 'svelte-dnd-action';
-
-  export let segment;
-
-  console.log('segment', segment);
 
   overrideItemIdKeyNameBeforeInitialisingDndZones('_id');
 </script>
@@ -24,11 +21,7 @@
   <slot />
 </main>
 
-<style global lang="postcss">
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
+<style global>
   main {
     font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
