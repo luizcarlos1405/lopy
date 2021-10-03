@@ -13,4 +13,4 @@ touch build/.nojekyll
 echo "lopy.suaveware.dev" > build/CNAME
 
 echo "\n==== Deploying with gh-pages ===="
-gh-pages -d build
+gh-pages -d build --dotfiles
