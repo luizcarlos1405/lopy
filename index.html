@@ -15,10 +15,10 @@
 	  });
 	      
 	      
-	db.envelopes.toArray().map(({name, value}) => ({name, value})).then(result => {
+	db.envelopes.toArray().then(result => {
 		var elemento = document.getElementById('DIV');
 		console.log(elemento);
-		elemento.innerText = JSON.stringify(result);
+		elemento.innerText = JSON.stringify(result.map(({name, value}) => ({name, value})));
 	});
 	console.log(db.envelopes);
           
