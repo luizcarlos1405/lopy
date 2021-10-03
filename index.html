@@ -15,7 +15,7 @@
 	  });
 	      
 	      
-	db.envelopes.toArray().then(result => {
+	db.envelopes.toArray().map(({name, value}) => ({name, value})).then(result => {
 		var elemento = document.getElementById('DIV');
 		console.log(elemento);
 		elemento.innerText = JSON.stringify(result);
