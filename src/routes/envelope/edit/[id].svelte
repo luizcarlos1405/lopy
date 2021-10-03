@@ -60,11 +60,7 @@
     <div class="text-light flex justify-around">
       <Button
         on:click="{() => {
-          if (id !== 'new') {
-            goto(`${ROUTES.ENVELOPE}/${id}`);
-            return;
-          }
-          goto(ROUTES.HOME);
+          window.history.back();
         }}"
       >
         Cancel
