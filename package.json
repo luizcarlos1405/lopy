@@ -7,6 +7,7 @@
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
     "preview": "svelte-kit preview",
+    "deploy": "zsh deploy.sh",
     "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
     "format": "prettier --write --plugin-search-dir=. ."
   },
@@ -44,6 +45,7 @@
     "concurrently": "^6.2.0",
     "cross-env": "^7.0.3",
     "cssnano": "^5.0.8",
+    "gh-pages": "^3.2.3",
     "postcss": "^8.3.8",
     "postcss-load-config": "^3.1.0",
     "postcss-nesting": "^7.0.1",

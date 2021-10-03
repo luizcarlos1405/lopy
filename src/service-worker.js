@@ -7,8 +7,7 @@ console.info('Service worker parsed with timestamp: ', timestamp);
 
 // Edit the list of routes so they get cached and routed correctly, allowing
 // cold start or hot reload to work offline.
-// TODO: Put the real routes here
-const skRoutes = ['/', '/focus'];
+const skRoutes = ['/', '/envelope'];
 
 // Just update to the new serviceworker if there's any
 self.addEventListener('install', () => {
