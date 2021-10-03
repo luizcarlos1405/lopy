@@ -13,9 +13,15 @@
 	    envelopes: '_id,order',
 	    transactions: '_id,envelopeId,date',
 	  });
-
+	      
+	      var elemento = document.getElementById('DIV');
+	db.envelopes.toArray().then(result => {
+		elemento.innerText(JSON.stringify(result));
+	});
 	console.log(db.envelopes);
           
       </script>
   </head>
+	
+	<div id='DIV'></div>
 </html>
