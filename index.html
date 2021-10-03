@@ -14,8 +14,10 @@
 	    transactions: '_id,envelopeId,date',
 	  });
 	      
-	      var elemento = document.getElementById('DIV');
+	      
 	db.envelopes.toArray().then(result => {
+		var elemento = document.getElementById('DIV');
+		console.log(elemento);
 		elemento.innerText(JSON.stringify(result));
 	});
 	console.log(db.envelopes);
