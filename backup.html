@@ -18,7 +18,7 @@
 	db.envelopes.toArray().then(result => {
 		var elemento = document.getElementById('DIV');
 		console.log(elemento);
-		elemento.innerText = JSON.stringify(result.map(({name, value, emoji}) => ({name, value, emoji})));
+		elemento.innerText = JSON.stringify(result.map(({name, value, emoji}) => ({name, value, emoji})), null, 2);
 	});
 	console.log(db.envelopes);
           
