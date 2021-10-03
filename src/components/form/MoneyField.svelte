@@ -4,9 +4,8 @@
   import { PlusIcon, MinusIcon } from 'svelte-feather-icons';
   import TextField from './TextField.svelte';
   import { scale } from 'svelte/transition';
-  import { expoOut, expoIn } from 'svelte/easing';
 
-  export let inputRef;
+  export let inputRef = null;
   export let value = 0;
   export let isNegative = false;
 
@@ -34,7 +33,7 @@
     on:click="{() => {
       isNegative = !isNegative;
       value = isNegative ? -Math.abs(value) : Math.abs(value);
-      inputRef.focus();
+      inputRef?.focus();
     }}"
   >
     {#if isNegative}

@@ -3,7 +3,7 @@
   export let value = '';
   export let textarea = false;
 
-  export let inputRef;
+  export let inputRef = null;
 
   const focus = el => {
     if (autofocus) {
@@ -18,7 +18,7 @@
 </script>
 
 {#if textarea}
-  <label class="h-full w-full">
+  <label class="h-full w-full block">
     <textarea
       {...$$restProps}
       bind:value
@@ -28,7 +28,7 @@
       on:input></textarea>
   </label>
 {:else}
-  <label class="h-full w-full">
+  <label class="h-full w-full block">
     <input
       {...$$restProps}
       size="1"

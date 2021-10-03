@@ -62,23 +62,28 @@ export const actions = readable(
         )
       ).then(refreshEnvelopes);
     },
-    saveTransaction: (transaction, envelopeId) => {
-      console.log('saving transaction', transaction);
-      return db
-        .transaction('rw', db.transactions, db.envelopes, async () => {
+    saveTransaction: (transaction, envelopeId) =>
+      new Promise((resolve, reject) => {
+        console.log('saving transaction', transaction);
+        const newTransaction = {
+          _id: uuid(),
+          envelopeId,
+          date: DateTime.now().toSeconds(),
+          ...transaction,
+        };
+        db.transaction('rw', db.transactions, db.envelopes, async () => {
           const dbEnvelope = await db.envelopes.get(envelopeId);
-          await db.transactions.add({
-            _id: uuid(),
-            envelopeId,
-            date: DateTime.now().toSeconds(),
-            ...transaction,
-          });
+          await db.transactions.add(newTransaction);
           await db.envelopes.update(envelopeId, {
             value: dbEnvelope.value + transaction.value,
           });
         })
-        .then(refreshEnvelopes);
-    },
+          .then(() => {
+            resolve(newTransaction);
+            refreshEnvelopes();
+          })
+          .catch(reject);
+      }),
     // TODO actually make it paginated...
     getTransactionsPaginated: ({ actions, envelopeId, limit, offset }) => {
       console.log('db.transactions', db.transactions);

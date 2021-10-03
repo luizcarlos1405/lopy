@@ -1,5 +1,5 @@
 {
-  "name": "Lopy",
+  "name": "lopy",
   "description": "Lopy",
   "version": "0.0.1",
   "license": "All Rights Reserved",
@@ -15,11 +15,13 @@
     "ipfs": "^0.59.1",
     "luxon": "^1.26.0",
     "orbit-db": "^0.26.1",
+    "svelte-preprocess": "^4.9.8",
     "unicode-emoji-json": "^0.2.1",
     "uuid": "^8.3.2",
     "workbox-precaching": "^6.1.5",
     "workbox-routing": "^6.1.5",
-    "workbox-strategies": "^6.1.5"
+    "workbox-strategies": "^6.1.5",
+    "yaml": "^2.0.0-8"
   },
   "type": "module",
   "devDependencies": {
@@ -41,6 +43,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "concurrently": "^6.2.0",
     "cross-env": "^7.0.3",
+    "cssnano": "^5.0.8",
     "postcss": "^8.3.8",
     "postcss-load-config": "^3.1.0",
     "postcss-nesting": "^7.0.1",
@@ -52,7 +55,6 @@
     "svelte": "^3.34.0",
     "svelte-dnd-action": "./src/svelte-dnd-action",
     "svelte-feather-icons": "^3.3.0",
-    "cssnano": "^5.0.8",
     "tailwindcss": "^2.2.16"
   }
 }
