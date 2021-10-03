@@ -4,13 +4,13 @@ read versionName
 echo "\nnpm version $versionName"
 npm version $versionName
 
-echo "\nBuilding..."
+echo "\n==== Building ===="
 yarn build
 
 # Github usually ignores files and folders that start with "_". This file makes it not do that.
-echo "\nEnsuring github configurations..."
+echo "\n==== Ensuring github configurations ===="
 touch build/.nojekyll
 echo "lopy.suaveware.dev" > build/CNAME
 
-echo "\nDeploying with gh-pages"
+echo "\n==== Deploying with gh-pages ===="
 gh-pages -d build
