@@ -49,12 +49,16 @@
 
       // LET THE GAMBIARRA BEGIN
       isPasting = false;
-      transactionsToSave?.forEach(({ envelope, ...pastedTransaction }) => {
-        $actions.saveTransaction(pastedTransaction, id).then(async () => {
-          selectedTransactionsById = {};
-          transactionsPaginated = await transactionsPaginated.refresh();
-        });
-      });
+      transactionsToSave?.forEach(
+        ({ envelope, value, ...pastedTransaction }) => {
+          $actions
+            .saveTransaction({ ...pastedTransaction, value: value * 100 }, id)
+            .then(async () => {
+              selectedTransactionsById = {};
+              transactionsPaginated = await transactionsPaginated.refresh();
+            });
+        }
+      );
       return;
     }
 
@@ -91,6 +95,7 @@
             ({ envelopeId, date, _id, ...relevantFields }) => ({
               envelope: envelope?.name,
               ...relevantFields,
+              value: relevantFields.value / 100,
             })
           )
         )
