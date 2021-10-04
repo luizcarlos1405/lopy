@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+      <!-- Include Dexie -->
+      <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
+      <script>
+          //
+          // Define your database
+          //
+          var db = new Dexie("lopy");
+  db.version(2).stores({
+    envelopes: "_id,order",
+    transactions: "_id,envelopeId,date"
+  });
+
+
+          db.envelopes.toArray().then(envelopes => {
+              document.getElementById.innerText = JSON.stringify(envelopes.map(({name, value, emoji, order}) => ({name, value, emoji, order})))
+          });
+      </script>
+  </head>
+  <body>
+    <div id="DIV"></div>
+  </body>
+</html>
