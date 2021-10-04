@@ -1,5 +1,5 @@
 echo "Which version to bump? [major | minor | patch] https://docs.npmjs.com/cli/v7/commands/npm-version"
-#read versionName
+read versionName
 
 echo "\nnpm version $versionName"
 npm version $versionName
