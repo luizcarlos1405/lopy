@@ -91,13 +91,11 @@
     navigator.clipboard
       .writeText(
         yaml.stringify(
-          transactionsToCopy.map(
-            ({ envelopeId, date, _id, ...relevantFields }) => ({
-              envelope: envelope?.name,
-              ...relevantFields,
-              value: relevantFields.value / 100,
-            })
-          )
+          transactionsToCopy.map(({ envelopeId, _id, ...relevantFields }) => ({
+            envelope: envelope?.name,
+            ...relevantFields,
+            value: relevantFields.value / 100,
+          }))
         )
       )
       .then(() => {
