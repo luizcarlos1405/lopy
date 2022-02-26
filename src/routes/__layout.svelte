@@ -1,8 +1,5 @@
 <script>
   import '../app.css';
-  import { overrideItemIdKeyNameBeforeInitialisingDndZones } from 'svelte-dnd-action';
-
-  overrideItemIdKeyNameBeforeInitialisingDndZones('_id');
 </script>
 
 <svelte:head>

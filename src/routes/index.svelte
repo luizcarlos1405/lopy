@@ -5,29 +5,39 @@
   import { envelopes, actions } from '$lib/stores';
   import { goto } from '$app/navigation';
   import Page from '../components/Page.svelte';
-  import { dndzone, TRIGGERS } from 'svelte-dnd-action';
   import { ROUTES } from '$lib/constants';
   import { longpress } from '$lib/longpress';
   import { onMount } from 'svelte';
   import logo from '../../static/logo-transparent.svg';
+  import { orderableChildren } from '../lib/orderableChildren.js';
+  import { moveArrayItem } from '$lib/helpers';
+
+  let isDragging = false;
 
   const handleEnvelopeClicked = envelope => {
     goto(`${ROUTES.ENVELOPE}/${envelope._id}`);
   };
-  const handleDnd = ({ detail }) => {
-    $envelopes = detail.items;
 
-    if (detail.info.trigger === TRIGGERS.DRAG_STARTED) {
-      main.classList.add('overflow-hidden');
-      main.classList.remove('overflow-y-scroll');
-    }
-    if (detail.info.trigger.includes('dropped')) {
-      main.classList.add('overflow-y-scroll');
-      main.classList.remove('overflow-hidden');
-    }
-    if (detail.info.trigger === TRIGGERS.DROPPED_INTO_ZONE) {
-      $actions.reorderEnvelopes(detail.items);
-    }
+  const handleOnDragStart = ({ itemNodeCopy }) => {
+    console.log('itemNodeCopy', itemNodeCopy);
+    itemNodeCopy.style['box-shadow'] = '0px 4px 6px -2px rgba(0,0,0,0.8)';
+    itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
+    // itemNodeCopy.style.opacity = '0%';
+  };
+
+  const handleOnDragMove = ({ itemNodeCopy, fromIndex, toIndex }) => {
+    isDragging = true;
+    const newOrder = moveArrayItem($envelopes, fromIndex, toIndex);
+    itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
+
+    $actions.reorderEnvelopes(newOrder);
+  };
+
+  const handleOnDragEnd = async () => {
+    setTimeout(() => {
+      isDragging = false;
+    }, 0);
+    /* itemNode.style.opacity = "100%"; */
   };
 
   let main;
@@ -51,15 +61,11 @@
 
   <div
     class="w-full p-4 flex flex-col space-y-3"
-    use:dndzone="{{
-      items: $envelopes,
-      flipDurationMs: 200,
-      dropTargetStyle: { opacity: '50%' },
-      customStartEvent: 'longpress',
+    use:orderableChildren="{{
+      onStart: handleOnDragStart,
+      onMove: handleOnDragMove,
+      onEnd: handleOnDragEnd,
     }}"
-    on:start="{() => console.log('starteeed')}"
-    on:consider="{handleDnd}"
-    on:finalize="{handleDnd}"
   >
     {#each $envelopes as envelope (envelope._id)}
       <span class="outline-none cursor-unset" use:longpress>

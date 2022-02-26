@@ -13,9 +13,7 @@
   },
   "dependencies": {
     "dexie": "^3.0.3",
-    "ipfs": "^0.59.1",
     "luxon": "^1.26.0",
-    "orbit-db": "^0.26.1",
     "svelte-preprocess": "^4.9.8",
     "unicode-emoji-json": "^0.2.1",
     "uuid": "^8.3.2",
@@ -55,7 +53,6 @@
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
     "svelte": "^3.34.0",
-    "svelte-dnd-action": "./src/svelte-dnd-action",
     "svelte-feather-icons": "^3.3.0",
     "tailwindcss": "^2.2.16"
   }
