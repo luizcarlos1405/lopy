@@ -18,11 +18,11 @@
     goto(`${ROUTES.ENVELOPE}/${envelope._id}`);
   };
 
-  const handleOnDragStart = ({ itemNodeCopy }) => {
+  const handleOnDragStart = ({ itemNodeCopy, itemNode }) => {
     console.log('itemNodeCopy', itemNodeCopy);
     itemNodeCopy.style['box-shadow'] = '0px 4px 6px -2px rgba(0,0,0,0.8)';
     itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
-    // itemNodeCopy.style.opacity = '0%';
+    itemNode.style.opacity = '10%';
   };
 
   const handleOnDragMove = ({ itemNodeCopy, fromIndex, toIndex }) => {
@@ -33,11 +33,11 @@
     $actions.reorderEnvelopes(newOrder);
   };
 
-  const handleOnDragEnd = async () => {
+  const handleOnDragEnd = async ({ itemNode }) => {
     setTimeout(() => {
       isDragging = false;
     }, 0);
-    /* itemNode.style.opacity = "100%"; */
+    itemNode.style.opacity = '100%';
   };
 
   let main;
@@ -62,6 +62,7 @@
   <div
     class="w-full p-4 flex flex-col space-y-3"
     use:orderableChildren="{{
+      startEvent: 'longpress',
       onStart: handleOnDragStart,
       onMove: handleOnDragMove,
       onEnd: handleOnDragEnd,
@@ -71,7 +72,7 @@
       <span class="outline-none cursor-unset" use:longpress>
         <Envelope
           envelope="{envelope}"
-          on:click="{() => handleEnvelopeClicked(envelope)}"
+          on:click="{() => !isDragging && handleEnvelopeClicked(envelope)}"
         />
       </span>
     {/each}

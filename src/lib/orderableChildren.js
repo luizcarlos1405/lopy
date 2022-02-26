@@ -72,7 +72,6 @@ export const orderableChildren = (
     itemNodeCopy.style['pointer-events'] = 'none';
     itemNodeCopy.style['touch-action'] = 'none';
     itemNodeCopy.style['z-index'] = 1;
-    itemNodeCopy.style.opacity = '0%';
     itemNodeCopy.style.width = `${itemNode.clientWidth}px`;
     itemNodeCopy.style.height = `${itemNode.clientHeight}px`;
     itemNodeCopy.style.position = 'fixed';
@@ -81,7 +80,6 @@ export const orderableChildren = (
     itemNodeCopy.style.transform = `translate(${targetRect.left}px, ${targetRect.top}px)`;
 
     containerNode.appendChild(itemNodeCopy);
-    console.log(`containerNode`, containerNode);
 
     onStart?.({
       event,

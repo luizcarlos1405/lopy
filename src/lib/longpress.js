@@ -28,7 +28,8 @@ export function longpress(node, duration = 400) {
       node.dispatchEvent(
         new CustomEvent('longpress', {
           detail: {
-            startDragPosition: startPosition,
+            clientX: c.clientX,
+            clientY: c.clientY,
           },
         })
       );
