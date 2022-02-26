@@ -1,5 +1,7 @@
 const BASE_URL = '/';
 
+export const COPY_PASTE_DATE_FORMAT = 'd/LL/yyyy';
+
 export const ROUTES = {
   HOME: `${BASE_URL}`,
   ENVELOPES: `${BASE_URL}envelopes`,

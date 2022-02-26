@@ -1,4 +1,6 @@
 <script context="module">
+  import { DateTime } from 'luxon';
+
   export const load = async ({ page }) => {
     return { props: page.params };
   };
@@ -25,6 +27,7 @@
   import { formatMoney } from '$lib/helpers';
   import { envelopes } from '$lib/stores';
   import yaml from 'yaml';
+  import { COPY_PASTE_DATE_FORMAT } from '../../lib/constants.js';
 
   export let id = '';
   let pasteInputRef = null;
@@ -50,9 +53,19 @@
       // LET THE GAMBIARRA BEGIN
       isPasting = false;
       transactionsToSave?.forEach(
-        ({ envelope, value, ...pastedTransaction }) => {
+        ({ envelope, value, date, ...pastedTransaction }) => {
           $actions
-            .saveTransaction({ ...pastedTransaction, value: value * 100 }, id)
+            .saveTransaction(
+              {
+                ...pastedTransaction,
+                value: value * 100,
+                date: DateTime.fromFormat(
+                  date,
+                  COPY_PASTE_DATE_FORMAT
+                ).toSeconds(),
+              },
+              id
+            )
             .then(async () => {
               selectedTransactionsById = {};
               transactionsPaginated = await transactionsPaginated.refresh();
@@ -95,6 +108,9 @@
             envelope: envelope?.name,
             ...relevantFields,
             value: relevantFields.value / 100,
+            date: DateTime.fromSeconds(relevantFields.date).toFormat(
+              COPY_PASTE_DATE_FORMAT
+            ),
           }))
         )
       )
