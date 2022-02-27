@@ -18,11 +18,12 @@
     goto(`${ROUTES.ENVELOPE}/${envelope._id}`);
   };
 
-  const handleOnDragStart = ({ itemNodeCopy, itemNode }) => {
+  const handleOnDragStart = ({ containerNode, itemNodeCopy, itemNode }) => {
     console.log('itemNodeCopy', itemNodeCopy);
     itemNodeCopy.style['box-shadow'] = '0px 4px 6px -2px rgba(0,0,0,0.8)';
     itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
     itemNode.style.opacity = '10%';
+    containerNode.style.overflow = 'hidden';
   };
 
   const handleOnDragMove = ({ itemNodeCopy, fromIndex, toIndex }) => {
@@ -33,11 +34,12 @@
     $actions.reorderEnvelopes(newOrder);
   };
 
-  const handleOnDragEnd = async ({ itemNode }) => {
+  const handleOnDragEnd = async ({ containerNode, itemNode }) => {
     setTimeout(() => {
       isDragging = false;
     }, 0);
     itemNode.style.opacity = '100%';
+    containerNode.style.overflow = 'auto';
   };
 
   let main;

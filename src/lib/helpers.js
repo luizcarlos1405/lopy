@@ -34,8 +34,13 @@ export const formatMoney = (value, { showSign = true } = {}) => {
 };
 
 export const moveArrayItem = (array, fromIndex, toIndex) => {
-  if (!(array[fromIndex] && array[toIndex])) {
-    console.warning('Tried to move elements from out of bounds index:', {
+  if (
+    fromIndex < 0 ||
+    fromIndex >= array.length ||
+    toIndex < 0 ||
+    toIndex >= array.length
+  ) {
+    console.warn('Tried to move elements from out of bounds index:', {
       array,
       fromIndex,
       toIndex,

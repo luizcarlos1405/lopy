@@ -5,16 +5,16 @@ const extractEventClientPosition = event => {
   // TODO: Maybe support multitouch
   const position = {
     x:
-      event.clientX ||
-      event.changedTouches?.[0]?.clientX ||
+      event.clientX ??
+      event.changedTouches?.[0]?.clientX ??
       event.detail?.clientX,
     y:
-      event.clientY ||
-      event.changedTouches?.[0]?.clientY ||
+      event.clientY ??
+      event.changedTouches?.[0]?.clientY ??
       event.detail?.clientY,
   };
 
-  if (!(position.x && position.y)) {
+  if (!(position.x != null && position.y != null)) {
     console.error('Unable to extract position from the event:', event);
   }
 
@@ -102,7 +102,11 @@ export const orderableChildren = (
       y: position.y + translateOffset.y,
     };
 
-    itemNodes = Array.from(containerNode?.children || []);
+    // Filter to remove itemNodeCopy from the children array, so it just stays
+    // quietly as the last item.
+    itemNodes = Array.from(containerNode?.children || []).filter(
+      node => node !== itemNodeCopy
+    );
     itemNodeIndex = itemNodes.findIndex(node => node === itemNode);
     itemNodeCopy.style.transform = `translate(${translate.x}px, ${translate.y}px)`;
 
@@ -112,7 +116,7 @@ export const orderableChildren = (
       position.y
     );
     const overNode = elementsUnderPoint.find(
-      node => node?.parentNode === containerNode
+      node => node?.parentNode === containerNode && node !== itemNodeCopy
     );
 
     // Don't change back with the same node right after switching places with it
@@ -123,7 +127,11 @@ export const orderableChildren = (
     const overNodeIndex = itemNodes.findIndex(node => node === overNode);
     lastOverNode = overNode;
 
-    if (overNodeIndex >= 0 && itemNodeIndex !== overNodeIndex) {
+    if (
+      overNodeIndex >= 0 &&
+      itemNodeIndex >= 0 &&
+      itemNodeIndex !== overNodeIndex
+    ) {
       onMove?.({
         event,
         position,
@@ -163,8 +171,8 @@ export const orderableChildren = (
     });
   };
 
-  const addEventListeners = itemNode => {
-    itemNode.addEventListener(startEvent, handleStartEvent);
+  const addEventListeners = node => {
+    node.addEventListener(startEvent, handleStartEvent);
     moveEvents.forEach(eventName =>
       window.addEventListener(eventName, handleMoveEvent)
     );
@@ -173,13 +181,13 @@ export const orderableChildren = (
     );
   };
 
-  const removeEventListeners = itemNode => {
-    itemNode.removeEventListener(startEvent, handleStartEvent);
+  const removeEventListeners = node => {
+    node.removeEventListener(startEvent, handleStartEvent);
     moveEvents.forEach(eventName =>
-      itemNode.removeEventListener(eventName, handleMoveEvent)
+      node.removeEventListener(eventName, handleMoveEvent)
     );
     endEvents.forEach(eventName =>
-      itemNode.removeEventListener(eventName, handleEndEvent)
+      node.removeEventListener(eventName, handleEndEvent)
     );
   };
 
@@ -206,7 +214,7 @@ export const orderableChildren = (
   observer.observe(containerNode, { childList: true });
 
   return {
-    update: newParameters => {
+    update: () => {
       console.error(
         'Parementer updating is not implemented. The dragging behavior will not change.'
       );
