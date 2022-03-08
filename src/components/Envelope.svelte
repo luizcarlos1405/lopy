@@ -8,17 +8,17 @@
 
 <div
   id={_id}
-  class="card overflow-visible flex-row bg-base-100 pl-5 border-box space-x-4 rounded-full p-2"
+  class="card overflow-visible flex-row bg-base-100 p-4 border-box space-x-2 rounded-3xl"
   on:click
 >
-  <div class="text-3xl self-center rounded-full">
+  <div class="text-3xl self-center">
     {emoji}
   </div>
-  <div class="text-dark flex flex-col">
-    <div class="text-2xl truncate">
+  <div class="text-dark font-semibold flex flex-col truncate">
+    <div class="text-base truncate">
       {name}
     </div>
-    <div class="font-mono text-base text-content opacity-75">
+    <div class="font-mono text-sm text-content opacity-70">
       {formatMoney(value)}
     </div>
   </div>

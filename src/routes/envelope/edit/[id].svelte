@@ -12,6 +12,7 @@
 
   const envelope = $envelopes.find((envelope) => id === envelope._id);
 
+
   let name = envelope?.name || "";
   let emoji = envelope?.emoji || undefined;
 </script>

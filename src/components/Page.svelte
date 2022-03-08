@@ -31,19 +31,19 @@
 
   {#if !hideBottomNavigation}
     <div
-      class="inline-flex justify-evenly sticky mx-4 bottom-4 bg-base-100 rounded-full"
+      class="inline-flex justify-evenly sticky mx-4 bottom-4 p-2 bg-base-100 rounded-3xl"
     >
       <button
         on:click={() => goto(`${ROUTES.HOME}`)}
-        class="btn btn-ghost text-base-content rounded-l-full"
+        class="btn btn-ghost text-base-content"
       >
-        <HomeIcon size="20" />
+        <HomeIcon size="30" />
       </button>
       <button
         on:click={() => goto(`${ROUTES.TRANSACTIONS}`)}
-        class="btn btn-ghost text-base-content rounded-r-full"
+        class="btn btn-ghost text-base-content"
       >
-        <ListIcon size="20" />
+        <ListIcon size="30" />
       </button>
     </div>
   {/if}
