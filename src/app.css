@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+main {
+  font-size: 16px;
+  line-height: 1em;
+}
+
+@layer base {
+  html {
+    font-family: 'Nunito', 'Fredoka', Roboto, system-ui, sans-serif;
+  }
+}

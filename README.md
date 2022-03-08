@@ -7,7 +7,7 @@ Simple and beautiful budgeting app.
 If you see an error related to the static adapter try replacing the code from
 `node_modules/@sveltejs/adapter-static/index.js` with
 
-```javascrip	t
+```javascrip t
 'use strict';
 
 module.exports = function({ pages = 'build', assets = pages, fallback } = {}) {

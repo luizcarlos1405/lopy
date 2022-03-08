@@ -8,7 +8,7 @@ export function longpress(node, duration = 400) {
     clearTimeout(timer);
   };
 
-  const handleMouseMove = event => {
+  const handleMouseMove = (event) => {
     const c = event.touches ? event.touches[0] : event;
     let position = { x: c.clientX, y: c.clientY };
     let dx = position.x - startPosition.x;
@@ -20,13 +20,13 @@ export function longpress(node, duration = 400) {
     }
   };
 
-  const handleMousedown = event => {
+  const handleMousedown = (event) => {
     const c = event.touches ? event.touches[0] : event;
     startPosition = { x: c.clientX, y: c.clientY };
 
     timer = setTimeout(() => {
       node.dispatchEvent(
-        new CustomEvent('longpress', {
+        new CustomEvent("longpress", {
           detail: {
             clientX: c.clientX,
             clientY: c.clientY,
@@ -35,23 +35,23 @@ export function longpress(node, duration = 400) {
       );
     }, duration);
 
-    node.addEventListener('mouseup', handleMouseup);
-    node.addEventListener('mousemove', handleMouseMove);
-    node.addEventListener('touchend', handleMouseup);
-    node.addEventListener('touchmove', handleMouseMove);
+    node.addEventListener("mouseup", handleMouseup);
+    node.addEventListener("mousemove", handleMouseMove);
+    node.addEventListener("touchend", handleMouseup);
+    node.addEventListener("touchmove", handleMouseMove);
   };
 
-  node.addEventListener('mousedown', handleMousedown);
-  node.addEventListener('touchstart', handleMousedown);
+  node.addEventListener("mousedown", handleMousedown);
+  node.addEventListener("touchstart", handleMousedown);
 
   return {
     update(newDuration) {
       duration = newDuration;
     },
     destroy() {
-      node.removeEventListener('mousedown', handleMousedown);
-      node.removeEventListener('mouseup', handleMouseup);
-      node.removeEventListener('mousemove', handleMouseMove);
+      node.removeEventListener("mousedown", handleMousedown);
+      node.removeEventListener("mouseup", handleMouseup);
+      node.removeEventListener("mousemove", handleMouseMove);
     },
   };
 }

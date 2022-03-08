@@ -8,9 +8,9 @@
     {#if current === state}
       <div
         class="px-3 py-2 border-dark bg-dark text-light {index && 'border-l'}"
-        on:click="{() => {
+        on:click={() => {
           current = state;
-        }}"
+        }}
       >
         {state}
       </div>
@@ -18,9 +18,9 @@
       <div
         class="px-3 py-2 border-dark bg-transparent text-dark {index &&
           'border-l'}"
-        on:click="{() => {
+        on:click={() => {
           current = state;
-        }}"
+        }}
       >
         {state}
       </div>

@@ -1,7 +1,7 @@
-const moveEvents = ['touchmove', 'mousemove'];
-const endEvents = ['touchend', 'mouseup'];
+const moveEvents = ["touchmove", "mousemove"];
+const endEvents = ["touchend", "mouseup"];
 
-const extractEventClientPosition = event => {
+const extractEventClientPosition = (event) => {
   // TODO: Maybe support multitouch
   const position = {
     x:
@@ -15,7 +15,7 @@ const extractEventClientPosition = event => {
   };
 
   if (!(position.x != null && position.y != null)) {
-    console.error('Unable to extract position from the event:', event);
+    console.error("Unable to extract position from the event:", event);
   }
 
   return position;
@@ -24,7 +24,7 @@ const extractEventClientPosition = event => {
 export const orderableChildren = (
   containerNode,
   {
-    startEvent = 'mousedown',
+    startEvent = "mousedown",
     preventClickWhenReleasing = false,
     onStart,
     onMove,
@@ -39,7 +39,7 @@ export const orderableChildren = (
   let lastOverNode = null;
   let translateOffset = { x: 0, y: 0 };
 
-  const stopEventPropagationOnce = useCapture => event => {
+  const stopEventPropagationOnce = (useCapture) => (event) => {
     event.stopPropagation();
     event.currentTarget.removeEventListener(
       event.type,
@@ -48,11 +48,11 @@ export const orderableChildren = (
     );
   };
 
-  const handleStartEvent = event => {
+  const handleStartEvent = (event) => {
     itemNode = event.currentTarget;
     if (preventClickWhenReleasing) {
       event.currentTarget.addEventListener(
-        'click',
+        "click",
         stopEventPropagationOnce(true),
         true
       );
@@ -66,15 +66,15 @@ export const orderableChildren = (
     translateOffset.x = targetRect.left - event.detail.clientX;
     translateOffset.y = targetRect.top - event.detail.clientY;
 
-    itemNodeIndex = itemNodes.findIndex(node => node === itemNode);
+    itemNodeIndex = itemNodes.findIndex((node) => node === itemNode);
     itemNodeCopy = itemNode.cloneNode(true);
 
-    itemNodeCopy.style['pointer-events'] = 'none';
-    itemNodeCopy.style['touch-action'] = 'none';
-    itemNodeCopy.style['z-index'] = 1;
+    itemNodeCopy.style["pointer-events"] = "none";
+    itemNodeCopy.style["touch-action"] = "none";
+    itemNodeCopy.style["z-index"] = 1;
     itemNodeCopy.style.width = `${itemNode.clientWidth}px`;
     itemNodeCopy.style.height = `${itemNode.clientHeight}px`;
-    itemNodeCopy.style.position = 'fixed';
+    itemNodeCopy.style.position = "fixed";
     itemNodeCopy.style.top = 0;
     itemNodeCopy.style.left = 0;
     itemNodeCopy.style.transform = `translate(${targetRect.left}px, ${targetRect.top}px)`;
@@ -91,7 +91,7 @@ export const orderableChildren = (
     });
   };
 
-  const handleMoveEvent = event => {
+  const handleMoveEvent = (event) => {
     if (!itemNodeCopy) {
       return;
     }
@@ -105,9 +105,9 @@ export const orderableChildren = (
     // Filter to remove itemNodeCopy from the children array, so it just stays
     // quietly as the last item.
     itemNodes = Array.from(containerNode?.children || []).filter(
-      node => node !== itemNodeCopy
+      (node) => node !== itemNodeCopy
     );
-    itemNodeIndex = itemNodes.findIndex(node => node === itemNode);
+    itemNodeIndex = itemNodes.findIndex((node) => node === itemNode);
     itemNodeCopy.style.transform = `translate(${translate.x}px, ${translate.y}px)`;
 
     // Get toIndex value
@@ -116,7 +116,7 @@ export const orderableChildren = (
       position.y
     );
     const overNode = elementsUnderPoint.find(
-      node => node?.parentNode === containerNode && node !== itemNodeCopy
+      (node) => node?.parentNode === containerNode && node !== itemNodeCopy
     );
 
     // Don't change back with the same node right after switching places with it
@@ -124,7 +124,7 @@ export const orderableChildren = (
       return;
     }
 
-    const overNodeIndex = itemNodes.findIndex(node => node === overNode);
+    const overNodeIndex = itemNodes.findIndex((node) => node === overNode);
     lastOverNode = overNode;
 
     if (
@@ -147,7 +147,7 @@ export const orderableChildren = (
     }
   };
 
-  const handleEndEvent = event => {
+  const handleEndEvent = (event) => {
     if (!itemNodeCopy) {
       return;
     }
@@ -155,8 +155,8 @@ export const orderableChildren = (
     event.stopImmediatePropagation();
     const position = extractEventClientPosition(event);
 
-    itemNode.style['pointer-events'] = 'auto';
-    itemNode.style['touch-action'] = 'auto';
+    itemNode.style["pointer-events"] = "auto";
+    itemNode.style["touch-action"] = "auto";
     itemNode.isDragging = undefined;
     itemNodeCopy.remove();
     itemNodeCopy = null;
@@ -171,22 +171,22 @@ export const orderableChildren = (
     });
   };
 
-  const addEventListeners = node => {
+  const addEventListeners = (node) => {
     node.addEventListener(startEvent, handleStartEvent);
-    moveEvents.forEach(eventName =>
+    moveEvents.forEach((eventName) =>
       window.addEventListener(eventName, handleMoveEvent)
     );
-    endEvents.forEach(eventName =>
+    endEvents.forEach((eventName) =>
       window.addEventListener(eventName, handleEndEvent)
     );
   };
 
-  const removeEventListeners = node => {
+  const removeEventListeners = (node) => {
     node.removeEventListener(startEvent, handleStartEvent);
-    moveEvents.forEach(eventName =>
+    moveEvents.forEach((eventName) =>
       node.removeEventListener(eventName, handleMoveEvent)
     );
-    endEvents.forEach(eventName =>
+    endEvents.forEach((eventName) =>
       node.removeEventListener(eventName, handleEndEvent)
     );
   };
@@ -196,12 +196,12 @@ export const orderableChildren = (
 
   // React to new children being added and interact with those too
   // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
-  const handleMutations = mutationRecords => {
+  const handleMutations = (mutationRecords) => {
     const mutations = Array.from(mutationRecords);
 
-    mutations.forEach(mutationList =>
-      mutationList.addedNodes?.forEach(newNode => {
-        if (itemNodes.find(node => node === newNode)) {
+    mutations.forEach((mutationList) =>
+      mutationList.addedNodes?.forEach((newNode) => {
+        if (itemNodes.find((node) => node === newNode)) {
           return;
         }
 
@@ -216,7 +216,7 @@ export const orderableChildren = (
   return {
     update: () => {
       console.error(
-        'Parementer updating is not implemented. The dragging behavior will not change.'
+        "Parementer updating is not implemented. The dragging behavior will not change."
       );
     },
     destroy: () => {

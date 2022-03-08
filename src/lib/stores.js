@@ -1,38 +1,38 @@
-import { readable, writable } from 'svelte/store';
-import { isClient } from './helpers';
-import { v4 as uuid } from 'uuid';
-import Dexie from 'dexie';
-import { DateTime } from 'luxon';
+import { readable, writable } from "svelte/store";
+import { isClient } from "./helpers";
+import { v4 as uuid } from "uuid";
+import Dexie from "dexie";
+import { DateTime } from "luxon";
 
 export const envelopes = writable([]);
 let db;
 
 const refreshEnvelopes = () =>
   db.envelopes
-    .orderBy('order')
+    .orderBy("order")
     .toArray()
-    .then(dbEnvelopes => {
-      console.log('dbEnvelopes', dbEnvelopes);
+    .then((dbEnvelopes) => {
+      console.log("dbEnvelopes", dbEnvelopes);
       envelopes.set(dbEnvelopes);
     });
 
 if (isClient()) {
-  db = new Dexie('lopy');
+  db = new Dexie("lopy");
   db.version(2).stores({
-    envelopes: '_id,order',
-    transactions: '_id,envelopeId,date',
+    envelopes: "_id,order",
+    transactions: "_id,envelopeId,date",
   });
 
   // Log current db content
-  console.log('db', db);
+  console.log("db", db);
   db.envelopes
     .toCollection()
     .toArray()
-    .then(result => console.log('envelopes', result));
+    .then((result) => console.log("envelopes", result));
   db.transactions
     .toCollection()
     .toArray()
-    .then(result => console.log('transactions', result));
+    .then((result) => console.log("transactions", result));
 
   refreshEnvelopes();
 }
@@ -55,8 +55,8 @@ export const actions = readable(
     },
     deleteEnvelope: ({ _id }) =>
       db.envelopes.where({ _id }).delete().then(refreshEnvelopes),
-    reorderEnvelopes: async orderedEnvelopes => {
-      db.transaction('rw', db.envelopes, async () =>
+    reorderEnvelopes: async (orderedEnvelopes) => {
+      db.transaction("rw", db.envelopes, async () =>
         orderedEnvelopes.map(({ _id }, index) =>
           db.envelopes.update(_id, { order: index })
         )
@@ -64,14 +64,14 @@ export const actions = readable(
     },
     saveTransaction: (transaction, envelopeId) =>
       new Promise((resolve, reject) => {
-        console.log('saving transaction', transaction);
+        console.log("saving transaction", transaction);
         const newTransaction = {
           _id: uuid(),
           envelopeId,
           date: DateTime.now().toSeconds(),
           ...transaction,
         };
-        db.transaction('rw', db.transactions, db.envelopes, async () => {
+        db.transaction("rw", db.transactions, db.envelopes, async () => {
           const dbEnvelope = await db.envelopes.get(envelopeId);
           await db.transactions.add(newTransaction);
           await db.envelopes.update(envelopeId, {
@@ -86,12 +86,11 @@ export const actions = readable(
       }),
     // TODO actually make it paginated...
     getTransactionsPaginated: ({ actions, envelopeId, limit, offset }) => {
-      console.log('db.transactions', db.transactions);
       return {
         transactions: db.transactions
           .where({ envelopeId })
           .reverse()
-          .sortBy('date'),
+          .sortBy("date"),
         previous: () => {},
         next: () => {},
         refresh: async () => {
@@ -107,16 +106,36 @@ export const actions = readable(
         },
       };
     },
+    // TODO actually make it paginated...
+		getAllTransactionsPaginated: ({ actions, limit, offset }) => {
+      return {
+        transactions: db.transactions
+          .reverse()
+          .sortBy("date"),
+        previous: () => {},
+        next: () => {},
+        refresh: async () => {
+          const result = actions.getAllTransactionsPaginated({
+            actions,
+            limit,
+            offset,
+          });
+          const transactions = await result.transactions;
+
+          return { ...result, transactions };
+        },
+      };
+		},
     deleteTransactions: async (transactionIds, envelopeId) => {
       return db
-        .transaction('rw', db.transactions, db.envelopes, async () => {
-          console.log('transactionIds', transactionIds);
+        .transaction("rw", db.transactions, db.envelopes, async () => {
+          console.log("transactionIds", transactionIds);
           const dbEnvelope = await db.envelopes.get(envelopeId);
           const transactionsCollection = db.transactions
-            .where('_id')
+            .where("_id")
             .anyOf(transactionIds);
           const dbTransactions = await transactionsCollection.toArray();
-          console.log('dbTransactions', dbTransactions);
+          console.log("dbTransactions", dbTransactions);
           const newEnvelopeValue = dbTransactions.reduce(
             (acc, { value }) => acc - value,
             dbEnvelope.value
@@ -127,7 +146,7 @@ export const actions = readable(
           });
           await db.transactions
             .bulkDelete(transactionIds)
-            .then(num => console.log('transactions deleted', num));
+            .then((num) => console.log("transactions deleted", num));
         })
         .then(refreshEnvelopes);
     },

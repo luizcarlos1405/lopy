@@ -1,9 +1,9 @@
 <script>
-  import { formatMoney, stripNonDigits } from '$lib/helpers';
-  import { createEventDispatcher } from 'svelte';
-  import { PlusIcon, MinusIcon } from 'svelte-feather-icons';
-  import TextField from './TextField.svelte';
-  import { scale } from 'svelte/transition';
+  import { formatMoney, stripNonDigits } from "$lib/helpers";
+  import { createEventDispatcher } from "svelte";
+  import { PlusIcon, MinusIcon } from "svelte-feather-icons";
+  import TextField from "./TextField.svelte";
+  import { scale } from "svelte/transition";
 
   export let inputRef = null;
   export let value = 0;
@@ -12,11 +12,11 @@
   const transitionDuration = 200;
   const dispatch = createEventDispatcher();
   const onKeyUp = ({ key }) => {
-    if (key === 'Enter') {
-      dispatch('enterPressed');
+    if (key === "Enter") {
+      dispatch("enterPressed");
     }
   };
-  const handleChange = event => {
+  const handleChange = (event) => {
     event.preventDefault();
     const newValue = +`${stripNonDigits(event.target.value)}`;
 
@@ -30,11 +30,11 @@
 >
   <div
     class="relative cursor-pointer w-6 flex items-center"
-    on:click="{() => {
+    on:click={() => {
       isNegative = !isNegative;
       value = isNegative ? -Math.abs(value) : Math.abs(value);
       inputRef?.focus();
-    }}"
+    }}
   >
     {#if isNegative}
       <span class="absolute" transition:scale|local>
@@ -48,11 +48,11 @@
   </div>
   <TextField
     class="w-full pl-2 py-2 h-full bg-background border-none rounded-r-full outline-none ring-0 text-light font-mono"
-    value="{formatMoney(Math.abs(value))}"
+    value={formatMoney(Math.abs(value))}
     inputmode="numeric"
     autofocus
     bind:inputRef
-    on:input="{handleChange}"
-    on:keyup="{onKeyUp}"
+    on:input={handleChange}
+    on:keyup={onKeyUp}
   />
 </div>

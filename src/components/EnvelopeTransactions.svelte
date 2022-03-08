@@ -1,10 +1,10 @@
 <script>
-  import { formatMoney } from '$lib/helpers';
-  import { longpress } from '$lib/longpress';
-  import { scale } from 'svelte/transition';
-  import { cubicOut } from 'svelte/easing';
-  import { flip } from 'svelte/animate';
-  import { DateTime } from 'luxon';
+  import { formatMoney } from "$lib/helpers";
+  import { longpress } from "$lib/longpress";
+  import { scale } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
+  import { flip } from "svelte/animate";
+  import { DateTime } from "luxon";
 
   export let transactions = [];
   export let selectedTransactionsById = {};
@@ -14,14 +14,14 @@
   {#each transactions as transaction (transaction._id)}
     <div
       class="transaction relative"
-      class:in="{transaction.value >= 0}"
-      class:out="{transaction.value < 0}"
-      class:selected="{selectedTransactionsById[transaction._id]}"
-      in:scale|local="{{ easing: cubicOut }}"
-      out:scale|local="{{ easing: cubicOut }}"
+      class:in={transaction.value >= 0}
+      class:out={transaction.value < 0}
+      class:selected={selectedTransactionsById[transaction._id]}
+      in:scale|local={{ easing: cubicOut }}
+      out:scale|local={{ easing: cubicOut }}
       animate:flip
-      use:longpress="{300}"
-      on:longpress="{() => {
+      use:longpress={300}
+      on:longpress={() => {
         if (!selectedTransactionsById[transaction._id]) {
           selectedTransactionsById[transaction._id] = transaction;
           return;
@@ -29,9 +29,9 @@
         const { [transaction._id]: removedKey, ...newSelection } =
           selectedTransactionsById;
         selectedTransactionsById = newSelection;
-      }}"
+      }}
     >
-      <div class:hidden="{!transaction.comment}" class="whitespace-pre-wrap">
+      <div class:hidden={!transaction.comment} class="whitespace-pre-wrap">
         {transaction.comment}
       </div>
       <div class="flex justify-between">
@@ -48,7 +48,7 @@
         <span
           transition:scale
           class="bg-background absolute right-2 top-2 w-4 h-4 rounded-full"
-        ></span>
+        />
       {/if}
     </div>
   {/each}

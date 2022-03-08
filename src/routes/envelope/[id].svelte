@@ -1,41 +1,34 @@
-<script context="module">
-  import { DateTime } from 'luxon';
-
-  export const load = async ({ page }) => {
-    return { props: page.params };
-  };
-</script>
-
 <script>
-  import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
-  import { actions } from '$lib/stores';
-  import { isClient } from '$lib/helpers';
-  import TopBar from '../../components/TopBar.svelte';
-  import MoneyField from '../../components/form/MoneyField.svelte';
-  import Button from '../../components/Button.svelte';
-  import TextField from '../../components/form/TextField.svelte';
-  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import EnvelopeTransactions from "../../components/EnvelopeTransactions.svelte";
+  import { actions } from "$lib/stores";
+  import { isClient } from "$lib/helpers";
+  import MoneyField from "../../components/form/MoneyField.svelte";
+  import Button from "../../components/Button.svelte";
+  import TextField from "../../components/form/TextField.svelte";
+  import { goto } from "$app/navigation";
   import {
     TrashIcon,
     ClipboardIcon,
     CopyIcon,
     Edit2Icon,
-  } from 'svelte-feather-icons';
-  import Page from '../../components/Page.svelte';
-  import { scale } from 'svelte/transition';
-  import { ROUTES } from '$lib/constants';
-  import { formatMoney } from '$lib/helpers';
-  import { envelopes } from '$lib/stores';
-  import yaml from 'yaml';
-  import { COPY_PASTE_DATE_FORMAT } from '../../lib/constants.js';
+  } from "svelte-feather-icons";
+  import Page from "../../components/Page.svelte";
+  import { scale } from "svelte/transition";
+  import { ROUTES } from "$lib/constants";
+  import { formatMoney } from "$lib/helpers";
+  import { envelopes } from "$lib/stores";
+  import yaml from "yaml";
+  import { COPY_PASTE_DATE_FORMAT } from "../../lib/constants.js";
 
-  export let id = '';
+  const { id } = $page.params;
+
   let pasteInputRef = null;
   let savedTransaction = null;
   let isPasting = false;
 
   const handleMoneyInputEnterPressed = () => {
-    document?.getElementById('comment-input').focus();
+    document?.getElementById("comment-input").focus();
   };
   const handleDelete = async () => {
     await $actions.deleteTransactions(
@@ -48,7 +41,7 @@
   const handleSaveTransaction = () => {
     if (isPasting) {
       const transactionsToSave = yaml.parse(pasteText);
-      pasteText = '';
+      pasteText = "";
 
       // LET THE GAMBIARRA BEGIN
       isPasting = false;
@@ -78,9 +71,9 @@
     if (isClient() && transaction.value) {
       $actions
         .saveTransaction(transaction, id)
-        .then(async createdTransaction => {
+        .then(async (createdTransaction) => {
           transaction.value = 0;
-          transaction.comment = '';
+          transaction.comment = "";
           transactionsPaginated = await transactionsPaginated.refresh();
 
           moneyInput.focus();
@@ -136,42 +129,26 @@
   let selectedTransactionsById = {};
   let transaction = {
     value: 0,
-    comment: '',
+    comment: "",
   };
   let isNegative = true;
-  let pasteText = '';
+  let pasteText = "";
 
   $: envelope = $envelopes.find(({ _id }) => _id === id);
+  console.log(
+    "transactionsPaginated.transactions",
+    transactionsPaginated
+  );
 </script>
 
-<Page>
-  <TopBar>
-    {envelope?.name} |
-    {formatMoney(envelope?.value)}
-    {#if Object.keys(selectedTransactionsById).length >= 1}
-      <span on:click="{handleDelete}" class="ml-auto">
-        <TrashIcon size="20" />
-      </span>
-    {:else}
-      <span
-        class="cursor-pointer flex space-x-2 items-end ml-auto"
-        on:click="{() => goto(`${ROUTES.EDIT}/${id}`)}"
-      >
-        <Edit2Icon size="20" />
-      </span>
-    {/if}
-  </TopBar>
-
+<Page hideBottomNavigation>
   <div class="pb-14">
     {#await transactionsPaginated.transactions then transactions}
-      <EnvelopeTransactions
-        transactions="{transactions}"
-        bind:selectedTransactionsById
-      />
+      <EnvelopeTransactions {transactions} bind:selectedTransactionsById />
     {/await}
   </div>
   <div
-    class="sticky mt-auto mx-2 bottom-2 left-2 right-2 box-border flex flex-col space-y-4 bg-primary rounded-3xl p-4"
+    class="sticky mt-auto mx-4 bottom-4 left-4 right-4 box-border flex flex-col space-y-4 bg-base-100 rounded-3xl p-4"
   >
     {#if isPasting}
       <div class="h-36">
@@ -179,8 +156,8 @@
           textarea
           id="comment-input"
           class="h-full bg-background w-full resize-none text-light outline-none border-none p-2 text-base rounded-xl"
-          bind:value="{pasteText}"
-          bind:inputRef="{pasteInputRef}"
+          bind:value={pasteText}
+          bind:inputRef={pasteInputRef}
         />
       </div>
     {:else}
@@ -188,8 +165,8 @@
         {#if savedTransaction || Object.keys(selectedTransactionsById)?.length}
           <button
             class="text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-            transition:scale|local="{{ duration: 300 }}"
-            on:click="{handleCopyToClipboardClicked}"
+            transition:scale|local={{ duration: 300 }}
+            on:click={handleCopyToClipboardClicked}
           >
             <CopyIcon size="20" strokeWidth="3" />
             Copy
@@ -197,7 +174,7 @@
         {/if}
         <button
           class="text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-          on:click="{handlePasteClicked}"
+          on:click={handlePasteClicked}
         >
           <ClipboardIcon size="20" strokeWidth="3" />
           Paste
@@ -205,20 +182,20 @@
       </div>
       <MoneyField
         bind:isNegative
-        bind:value="{transaction.value}"
-        on:enterPressed="{handleMoneyInputEnterPressed}"
-        bind:inputRef="{moneyInput}"
+        bind:value={transaction.value}
+        on:enterPressed={handleMoneyInputEnterPressed}
+        bind:inputRef={moneyInput}
       />
       <TextField
         textarea
         id="comment-input"
         class="bg-background w-full resize-none text-light outline-none border-none p-2 text-base rounded-xl"
-        bind:value="{transaction.comment}"
+        bind:value={transaction.comment}
       />
     {/if}
     <div class="flex justify-around text-dark">
-      <Button class="w-20" on:click="{handleBackClicked}">Back</Button>
-      <Button class="w-20 relative" on:click="{handleSaveTransaction}">
+      <Button class="w-20" on:click={handleBackClicked}>Back</Button>
+      <Button class="w-20 relative" on:click={handleSaveTransaction}>
         {#if isNegative && !isPasting}
           <span
             class="absolute inset-0 transform translate-y-1/2 top-0 inset-y-1/2"

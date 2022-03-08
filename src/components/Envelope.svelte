@@ -1,5 +1,5 @@
 <script>
-  import { formatMoney } from '$lib/helpers';
+  import { formatMoney } from "$lib/helpers";
 
   export let envelope;
 
@@ -7,18 +7,18 @@
 </script>
 
 <div
-  id="{_id}"
-  class="bg-primary border-box flex space-x-2 rounded-3xl bg-primary shadow p-2"
+  id={_id}
+  class="card overflow-visible flex-row bg-base-100 pl-5 border-box space-x-4 rounded-full p-2"
   on:click
 >
-  <div class="text-5xl">
+  <div class="text-3xl self-center rounded-full">
     {emoji}
   </div>
-  <div class="text-dark flex flex-col overflow-hidden">
+  <div class="text-dark flex flex-col">
     <div class="text-2xl truncate">
       {name}
     </div>
-    <div class="font-mono text-base">
+    <div class="font-mono text-base text-content opacity-75">
       {formatMoney(value)}
     </div>
   </div>

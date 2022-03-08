@@ -1,6 +1,6 @@
-import { IndexedDb } from 'minimongo';
+import { IndexedDb } from "minimongo";
 
-const wrapCollection = collection => {
+const wrapCollection = (collection) => {
   return {
     ...collection,
     find: (selector, options) => {
@@ -16,7 +16,7 @@ const wrapCollection = collection => {
         collection.upsert(docs, bases, accept, reject)
       );
     },
-    remove: id => {
+    remove: (id) => {
       return new Promise((accept, reject) =>
         collection.remove(id, accept, reject)
       );
@@ -24,13 +24,13 @@ const wrapCollection = collection => {
   };
 };
 
-export const createIndexedDb = async options => {
+export const createIndexedDb = async (options) => {
   const db = await new Promise(
     (accept, reject) => new IndexedDb(options, accept, reject)
   );
   const addCollection = db.addCollection;
 
-  db.addCollection = async name => {
+  db.addCollection = async (name) => {
     const result = await new Promise((accept, reject) =>
       addCollection.bind(db)(name, accept, reject)
     );
