@@ -1,12 +1,11 @@
 module.exports = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
-	theme: {
-		extend: {},
+  content: ["./src/**/*.{html,js,svelte,ts}"],
+  theme: {
+    extend: {},
     fontFamily: {
-      'display': ['"Fredoka"'],
-      'body': ['"Fredoka"'],
-    }
-	},
-	plugins: [require('daisyui')]
+      display: ['"Fredoka"'],
+      body: ['"Fredoka"'],
+    },
+  },
+  plugins: [require("@tailwindcss/forms"), require("daisyui")],
 };
-

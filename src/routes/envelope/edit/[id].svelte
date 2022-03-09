@@ -1,6 +1,5 @@
 <script>
   import { page } from '$app/stores';
-  import TextField from "../../../components/form/TextField.svelte";
   import EmojiPicker from "../../../components/form/EmojiPicker.svelte";
   import { goto } from "$app/navigation";
   import { envelopes, actions } from "$lib/stores";
@@ -10,31 +9,29 @@
   // This page creates a new envelope if id === 'new'
   const { id } = $page.params;
 
-  const envelope = $envelopes.find((envelope) => id === envelope._id);
-
-
-  let name = envelope?.name || "";
-  let emoji = envelope?.emoji || undefined;
+  $: envelope = $envelopes.find((envelope) => id === envelope._id);
+  $: name = envelope?.name || "";
+  $: emoji = envelope?.emoji || undefined;
 </script>
 
 <Page hideBottomNavigation>
-  <div class="flex flex-col space-y-2 mt-auto justify-end p-4">
+  <div class="flex flex-col space-y-8 mt-auto justify-end p-4">
     <div
-      class="border-box flex p-4 rounded-full space-x-2 space-y-1 bg-base-100"
+      class="flex overflow-visible bg-base-100 p-4 border-box space-x-2 rounded-3xl"
     >
       <div
-        class="flex w-full items-center pl-2 border rounded-3xl space-x-2"
+        class="flex w-full items-center border rounded-3xl space-x-2"
       >
         <EmojiPicker bind:value={emoji} />
-        <TextField
-          class="bg-transparent placeholder-opacity-70 resize-none border-0 border-l border-dotted border-background outline-none pl-2 text-dark text-3xl w-full"
+        <input
+          class="input text-base"
           bind:value={name}
           placeholder="Name"
         />
       </div>
     </div>
 
-    <div class="text-light flex justify-around">
+    <div class="flex justify-around">
       <button class="btn btn-ghost"
         on:click={() => {
           window.history.back();
@@ -42,7 +39,7 @@
       >
         Cancel
       </button>
-      <button class="btn btn-ghost"
+      <button class="btn btn-primary"
         on:click={() => {
           if (name) {
             $actions?.saveEnvelope({ ...envelope, name, emoji });

@@ -13,7 +13,7 @@
 </svelte:head>
 
 <main
-  data-theme="garden"
+  data-theme="night"
   class="border-box w-screen h-screen overflow-x-hidden overflow-y-scroll text-base-content bg-base-100"
 >
   <div class="pattern w-full absolute h-full" />

@@ -8,7 +8,7 @@
 
 <div
   id={_id}
-  class="card overflow-visible flex-row bg-base-100 p-4 border-box space-x-2 rounded-3xl"
+  class="flex overflow-visible bg-base-100 p-4 border-box space-x-2 rounded-3xl"
   on:click
 >
   <div class="text-3xl self-center">

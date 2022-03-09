@@ -31,7 +31,6 @@
   <div
     class="cursor-pointer"
     on:click={() => {
-      console.log("open", open);
       open = !open;
     }}
   >

@@ -2,7 +2,9 @@
   import Envelope from "../components/Envelope.svelte";
   import { envelopes, actions } from "$lib/stores";
   import { goto } from "$app/navigation";
+  import { PlusIcon } from "svelte-feather-icons";
   import Page from "../components/Page.svelte";
+  import Logo from "../components/atoms/Logo.svelte";
   import { ROUTES } from "$lib/constants";
   import { longpress } from "$lib/longpress";
   import { onMount } from "svelte";
@@ -46,6 +48,21 @@
 </script>
 
 <Page>
+  <div
+    class="opacity-70 flex items-center justify-around flex-nowrap font-base mx-4 px-4 py-6"
+  >
+    <span class="w-14 fill-current">
+      <Logo />
+    </span>
+    <span
+      class="cursor-pointer whitespace-nowrap flex space-x-2 items-center"
+      on:click={() => goto(`${ROUTES.EDIT}/new`)}
+    >
+      <PlusIcon strokeWidth="2.7" size="28" />
+      <span class="text-4xl font-normal">lopy</span>
+    </span>
+  </div>
+
   <div
     class="w-full p-4 pb-20 flex flex-col space-y-3"
     use:orderableChildren={{

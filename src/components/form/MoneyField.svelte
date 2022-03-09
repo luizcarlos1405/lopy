@@ -2,57 +2,60 @@
   import { formatMoney, stripNonDigits } from "$lib/helpers";
   import { createEventDispatcher } from "svelte";
   import { PlusIcon, MinusIcon } from "svelte-feather-icons";
-  import TextField from "./TextField.svelte";
-  import { scale } from "svelte/transition";
 
   export let inputRef = null;
-  export let value = 0;
+  export let value = formatMoney(0);
   export let isNegative = false;
 
-  const transitionDuration = 200;
   const dispatch = createEventDispatcher();
-  const onKeyUp = ({ key }) => {
+  const handleKeyUp = ({ key }) => {
     if (key === "Enter") {
       dispatch("enterPressed");
     }
   };
-  const handleChange = (event) => {
+  const handleChange = () => {
     event.preventDefault();
-    const newValue = +`${stripNonDigits(event.target.value)}`;
+    const newValue = +`${stripNonDigits(value)}`;
 
     value = isNegative ? -newValue : newValue;
-    event.target.value = formatMoney(Math.abs(value), { showSign: false });
+    value = formatMoney(Math.abs(value), { showSign: false });
   };
 </script>
 
 <div
-  class="flex space-x-2 items-stretch h-8 pl-2 text-dark w-full border border-dark rounded-2xl"
+  class="flex items-center overflow-clip text-neutral-content w-full min-h-max bg-base-100 rounded-full"
 >
   <div
-    class="relative cursor-pointer w-6 flex items-center"
+    class="swap swap-rotate relative cursor-pointer p-1"
+    class:minus={isNegative}
+    class:plus={!isNegative}
     on:click={() => {
       isNegative = !isNegative;
       value = isNegative ? -Math.abs(value) : Math.abs(value);
       inputRef?.focus();
     }}
   >
-    {#if isNegative}
-      <span class="absolute" transition:scale|local>
-        <MinusIcon size="24" />
-      </span>
-    {:else}
-      <span class="absolute" transition:scale|local>
-        <PlusIcon size="24" />
-      </span>
-    {/if}
+    <MinusIcon class="swap-on" size="24" />
+    <PlusIcon class="swap-off" size="24" />
   </div>
-  <TextField
-    class="w-full pl-2 py-2 h-full bg-background border-none rounded-r-full outline-none ring-0 text-light font-mono"
-    value={formatMoney(Math.abs(value))}
-    inputmode="numeric"
+  <input
+    class="input-xs reset-input font-mono flex-grow"
+    on:change={handleChange}
+    bind:value={value}
     autofocus
-    bind:inputRef
+    inputmode="numeric"
+    bind:this={inputRef}
     on:input={handleChange}
-    on:keyup={onKeyUp}
+    on:keyup={handleKeyUp}
   />
 </div>
+
+<style>
+  .minus {
+    @apply bg-error text-error-content swap-active;
+  }
+
+  .plus {
+    @apply bg-success text-success-content;
+  }
+</style>

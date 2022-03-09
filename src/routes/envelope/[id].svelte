@@ -1,5 +1,5 @@
 <script>
-  import { page } from '$app/stores';
+  import { page } from "$app/stores";
   import EnvelopeTransactions from "../../components/EnvelopeTransactions.svelte";
   import { actions } from "$lib/stores";
   import { isClient } from "$lib/helpers";
@@ -135,10 +135,6 @@
   let pasteText = "";
 
   $: envelope = $envelopes.find(({ _id }) => _id === id);
-  console.log(
-    "transactionsPaginated.transactions",
-    transactionsPaginated
-  );
 </script>
 
 <Page hideBottomNavigation>
@@ -148,18 +144,17 @@
     {/await}
   </div>
   <div
-    class="sticky mt-auto mx-4 bottom-4 left-4 right-4 box-border flex flex-col space-y-4 bg-base-100 rounded-3xl p-4"
+    class="sticky mt-auto mx-4 bottom-4 border border-neutral-focus left-4 right-4 box-border flex flex-col space-y-4 bg-base-300 rounded-3xl p-6"
   >
     {#if isPasting}
-      <div class="h-36">
-        <TextField
-          textarea
-          id="comment-input"
-          class="h-full bg-background w-full resize-none text-light outline-none border-none p-2 text-base rounded-xl"
-          bind:value={pasteText}
-          bind:inputRef={pasteInputRef}
-        />
-      </div>
+      <textarea
+        id="comment-input"
+        rows="7"
+        class="textarea ease-linear leading-4 resize-none self-stretch"
+        placeholder="Transaction values"
+        bind:value={pasteText}
+        bind:this={pasteInputRef}
+      />
     {:else}
       <div class="inline-flex self-end gap-4">
         {#if savedTransaction || Object.keys(selectedTransactionsById)?.length}
@@ -186,28 +181,32 @@
         on:enterPressed={handleMoneyInputEnterPressed}
         bind:inputRef={moneyInput}
       />
-      <TextField
-        textarea
-        id="comment-input"
-        class="bg-background w-full resize-none text-light outline-none border-none p-2 text-base rounded-xl"
+      <textarea
         bind:value={transaction.comment}
+        id="comment-input"
+        rows="3"
+        class="textarea ease-linear leading-4 resize-none"
+        placeholder="Description"
       />
     {/if}
-    <div class="flex justify-around text-dark">
-      <Button class="w-20" on:click={handleBackClicked}>Back</Button>
-      <Button class="w-20 relative" on:click={handleSaveTransaction}>
-        {#if isNegative && !isPasting}
-          <span
-            class="absolute inset-0 transform translate-y-1/2 top-0 inset-y-1/2"
-            transition:scale|local>Spend</span
-          >
-        {:else}
-          <span
-            class="absolute inset-0 transform translate-y-1/2 top-0 inset-y-1/2"
-            transition:scale|local>Save</span
-          >
-        {/if}
-      </Button>
+    <div class="flex justify-around">
+      <button class="btn btn-outline w-22" on:click={handleBackClicked}
+        >Back</button
+      >
+      <button
+        class:swapActive={isNegative && !isPasting}
+        class="swap btn btn-primary w-22"
+        on:click={handleSaveTransaction}
+      >
+        <span class="swap-on">Remove</span>
+        <span class="swap-off">Add</span>
+      </button>
     </div>
   </div>
 </Page>
+
+<style>
+  .swapActive {
+    @apply swap-active;
+  }
+</style>
