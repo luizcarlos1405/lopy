@@ -9,7 +9,7 @@
   export let hideBottomNavigation = false;
 </script>
 
-<div class="flex p-4 flex-col align-stretch flex-grow h-full w-full">
+<div class="flex p-4 flex-col align-stretch w-full min-h-screen max-w-lg mx-auto">
   <div
     class="relative max-w-md h-full flex-grow flex flex-col"
     in:scale={{ y: -1000, duration: 500, start: 0.95, easing: quintOut }}

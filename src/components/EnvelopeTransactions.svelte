@@ -10,10 +10,10 @@
   export let selectedTransactionsById = {};
 </script>
 
-<div class="flex flex-col space-y-2 text-dark w-full p-4">
+<div class="flex flex-col space-y-2 w-full p-4">
   {#each transactions as transaction (transaction._id)}
     <div
-      class="transaction relative"
+      class="p-4 rounded-3xl space-y-2 self-stretch"
       class:in={transaction.value >= 0}
       class:out={transaction.value < 0}
       class:selected={selectedTransactionsById[transaction._id]}
@@ -31,16 +31,18 @@
         selectedTransactionsById = newSelection;
       }}
     >
-      <div class:hidden={!transaction.comment} class="whitespace-pre-wrap">
-        {transaction.comment}
-      </div>
-      <div class="flex justify-between">
-        <span class="font-mono">
+      {#if transaction.comment}
+        <div class="text-base">
+          {transaction.comment}
+        </div>
+      {/if}
+      <div class="flex justify-between text-sm">
+        <span class="font-mono font-semibold">
           {formatMoney(transaction.value, { showSign: false })}
         </span>
-        <span>
+        <span class="opacity-70">
           {DateTime.fromSeconds(transaction.date).toLocaleString(
-            DateTime.DATETIME_MED
+            DateTime.DATETIME_SHORT
           )}
         </span>
       </div>
@@ -55,27 +57,11 @@
 </div>
 
 <style>
-  .selected {
-  }
-
-  .transaction {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 1em;
-
-    padding: 1em;
-    width: 100%;
-    border-radius: 1em;
-    box-sizing: border-box;
-
-    color: var(--color-text-dark);
-  }
-
   .in {
-    background: var(--color-transaction-in);
+    @apply bg-success text-success-content;
   }
 
   .out {
-    background: var(--color-transaction-out);
+    @apply bg-error text-error-content;
   }
 </style>

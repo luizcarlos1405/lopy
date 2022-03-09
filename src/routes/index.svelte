@@ -64,7 +64,7 @@
   </div>
 
   <div
-    class="w-full p-4 pb-20 flex flex-col space-y-3"
+    class="w-full p-4 flex flex-col space-y-3"
     use:orderableChildren={{
       startEvent: "longpress",
       onStart: handleOnDragStart,

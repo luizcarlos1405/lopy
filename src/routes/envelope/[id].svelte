@@ -4,8 +4,6 @@
   import { actions } from "$lib/stores";
   import { isClient } from "$lib/helpers";
   import MoneyField from "../../components/form/MoneyField.svelte";
-  import Button from "../../components/Button.svelte";
-  import TextField from "../../components/form/TextField.svelte";
   import { goto } from "$app/navigation";
   import {
     TrashIcon,
@@ -76,12 +74,13 @@
           transaction.comment = "";
           transactionsPaginated = await transactionsPaginated.refresh();
 
-          moneyInput.focus();
+          moneyInput?.focus();
           savedTransaction = createdTransaction;
           selectedTransactionsById = {};
         });
     }
   };
+
   const handleBackClicked = () => {
     if (isPasting) {
       isPasting = false;

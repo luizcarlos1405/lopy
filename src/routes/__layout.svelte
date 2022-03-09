@@ -14,9 +14,9 @@
 
 <main
   data-theme="night"
-  class="border-box w-screen h-screen overflow-x-hidden overflow-y-scroll text-base-content bg-base-100"
+  class="relative border-box w-screen h-screen overflow-x-hidden overflow-y-scroll text-base-content bg-base-100"
 >
-  <div class="pattern w-full absolute h-full" />
+  <div class="pattern h-full w-full fixed bottom-0 top-0" />
   <slot />
 </main>
 

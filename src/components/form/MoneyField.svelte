@@ -4,21 +4,31 @@
   import { PlusIcon, MinusIcon } from "svelte-feather-icons";
 
   export let inputRef = null;
-  export let value = formatMoney(0);
+  export let value = 0;
   export let isNegative = false;
 
   const dispatch = createEventDispatcher();
+
+  let inputValue = formatMoney(value);
+
   const handleKeyUp = ({ key }) => {
     if (key === "Enter") {
       dispatch("enterPressed");
     }
   };
-  const handleChange = () => {
+
+  const handleChange = (event) => {
     event.preventDefault();
-    const newValue = +`${stripNonDigits(value)}`;
+    const newValue = +`${stripNonDigits(inputValue)}`;
 
     value = isNegative ? -newValue : newValue;
-    value = formatMoney(Math.abs(value), { showSign: false });
+    inputValue = formatMoney(Math.abs(value), { showSign: false });
+  };
+
+  const handleSelectionHange = (event) => {
+    const valueLength = event.target.value.length;
+    event.target.selectionEnd = valueLength;
+    event.target.selectionStart = valueLength;
   };
 </script>
 
@@ -41,7 +51,8 @@
   <input
     class="input-xs reset-input font-mono flex-grow"
     on:change={handleChange}
-    bind:value={value}
+    on:selectionchange={handleSelectionHange}
+    bind:value={inputValue}
     autofocus
     inputmode="numeric"
     bind:this={inputRef}
