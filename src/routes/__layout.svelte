@@ -4,10 +4,7 @@
   import { writable } from "svelte/store";
   import "../app.css";
 
-  let localStorageTheme;
-  if (browser) {
-    localStorageTheme = localStorage.getItem("theme");
-  }
+  const localStorageTheme = browser && localStorage.getItem("theme");
   const themes = [
     "light",
     "dark",
@@ -35,9 +32,8 @@
   setContext("themeStore", themeStore);
 
   $: {
-    console.log("theme", $themeStore.currentTheme);
-
     if (browser && localStorageTheme !== $themeStore.currentTheme) {
+      console.log("theme", $themeStore.currentTheme);
       localStorage.setItem("theme", $themeStore.currentTheme);
     }
   }
