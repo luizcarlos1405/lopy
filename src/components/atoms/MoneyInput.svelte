@@ -49,7 +49,7 @@
     <PlusIcon class="swap-off" size="24" />
   </div>
   <input
-    class="input-xs reset-input font-mono flex-grow"
+    class="input-xs reset-input text-base-content font-mono flex-grow"
     on:change={handleChange}
     on:selectionchange={handleSelectionHange}
     bind:value={inputValue}

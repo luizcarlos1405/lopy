@@ -10,7 +10,9 @@
   import { onMount } from "svelte";
   import { orderableChildren } from "../lib/orderableChildren.js";
   import { moveArrayItem } from "$lib/helpers";
+  import { getContext } from "svelte";
 
+  const themeStore = getContext("themeStore");
   let isDragging = false;
 
   const handleEnvelopeClicked = (envelope) => {
@@ -49,9 +51,21 @@
 
 <Page>
   <div
-    class="opacity-70 flex items-center justify-around flex-nowrap font-base mx-4 px-4 py-6"
+    class="flex items-center text-neutral-content justify-around flex-nowrap font-base mb-4 mx-4 py-6"
   >
-    <span class="w-14 fill-current">
+    <span
+      class="w-14 fill-current"
+      on:click={() => {
+        const { currentTheme, themes } = $themeStore;
+        const themeIndex = themes.findIndex(
+          (themeName) => currentTheme === themeName
+        );
+        themeStore.set({
+          themes,
+          currentTheme: themes[themeIndex + 1] || themes[0],
+        });
+      }}
+    >
       <Logo />
     </span>
     <span
@@ -64,7 +78,7 @@
   </div>
 
   <div
-    class="w-full p-4 flex flex-col space-y-3"
+    class="w-full flex flex-col space-y-3 mb-4"
     use:orderableChildren={{
       startEvent: "longpress",
       onStart: handleOnDragStart,

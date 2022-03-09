@@ -11,7 +11,7 @@
 
 <div class="flex p-4 flex-col align-stretch w-full min-h-screen max-w-lg mx-auto">
   <div
-    class="relative max-w-md h-full flex-grow flex flex-col"
+    class="relative max-w-md h-full flex-grow flex flex-col p-4"
     in:scale={{ y: -1000, duration: 500, start: 0.95, easing: quintOut }}
   >
     <slot />

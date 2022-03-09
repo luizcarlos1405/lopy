@@ -20,11 +20,13 @@
       class="flex overflow-visible bg-base-100 p-4 border-box space-x-2 rounded-3xl"
     >
       <div
-        class="flex w-full items-center border rounded-3xl space-x-2"
+        class="flex w-full items-center overflow-clip border rounded-3xl space-x-2"
       >
-        <EmojiPicker bind:value={emoji} />
+        <span class="bg-base-300 border-base-content border-r p-2">
+          <EmojiPicker bind:value={emoji} />
+        </span>
         <input
-          class="input text-base"
+          class="text-base reset-input"
           bind:value={name}
           placeholder="Name"
         />
@@ -32,7 +34,7 @@
     </div>
 
     <div class="flex justify-around">
-      <button class="btn btn-ghost"
+      <button class="btn btn-outline"
         on:click={() => {
           window.history.back();
         }}

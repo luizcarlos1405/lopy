@@ -1,9 +1,10 @@
 <script>
   import { page } from "$app/stores";
   import EnvelopeTransactions from "../../components/EnvelopeTransactions.svelte";
+  import Envelope from "../../components/Envelope.svelte";
   import { actions } from "$lib/stores";
   import { isClient } from "$lib/helpers";
-  import MoneyField from "../../components/form/MoneyField.svelte";
+  import MoneyInput from "../../components/atoms/MoneyInput.svelte";
   import { goto } from "$app/navigation";
   import {
     TrashIcon,
@@ -22,8 +23,15 @@
   const { id } = $page.params;
 
   let pasteInputRef = null;
+  let descriptionInput = null;
+  let moneyInput = null;
   let savedTransaction = null;
   let isPasting = false;
+
+  // TODO: hide the form if it isn't writing/adding an entry
+  $: isWriting =
+    document.activeElement === moneyInput ||
+    document.activeElement === descriptionInput;
 
   const handleMoneyInputEnterPressed = () => {
     document?.getElementById("comment-input").focus();
@@ -117,7 +125,6 @@
     pasteInputRef?.focus();
   };
 
-  let moneyInput;
   let transactionsPaginated = $actions
     ? $actions.getTransactionsPaginated({
         actions: $actions,
@@ -137,71 +144,75 @@
 </script>
 
 <Page hideBottomNavigation>
-  <div class="pb-14">
+    <span class="sticky top-8 mb-4 z-10">
+      <Envelope {envelope} />
+    </span>
     {#await transactionsPaginated.transactions then transactions}
+    <span class="mb-4">
       <EnvelopeTransactions {transactions} bind:selectedTransactionsById />
+    </span>
     {/await}
-  </div>
-  <div
-    class="sticky mt-auto mx-4 bottom-4 border border-neutral-focus left-4 right-4 box-border flex flex-col space-y-4 bg-base-300 rounded-3xl p-6"
-  >
-    {#if isPasting}
-      <textarea
-        id="comment-input"
-        rows="7"
-        class="textarea ease-linear leading-4 resize-none self-stretch"
-        placeholder="Transaction values"
-        bind:value={pasteText}
-        bind:this={pasteInputRef}
-      />
-    {:else}
-      <div class="inline-flex self-end gap-4">
-        {#if savedTransaction || Object.keys(selectedTransactionsById)?.length}
+    <div
+      class="sticky mt-auto bottom-8 box-border flex flex-col space-y-4 bg-base-300 rounded-3xl p-6"
+    >
+      {#if isPasting}
+        <textarea
+          id="comment-input"
+          rows="7"
+          class="textarea ease-linear leading-4 resize-none self-stretch"
+          placeholder="Transaction values"
+          bind:value={pasteText}
+          bind:this={pasteInputRef}
+        />
+      {:else}
+        <div class="inline-flex self-end gap-4">
+          {#if savedTransaction || Object.keys(selectedTransactionsById)?.length}
+            <button
+              class="text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
+              transition:scale|local={{ duration: 300 }}
+              on:click={handleCopyToClipboardClicked}
+            >
+              <CopyIcon size="20" strokeWidth="3" />
+              Copy
+            </button>
+          {/if}
           <button
             class="text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-            transition:scale|local={{ duration: 300 }}
-            on:click={handleCopyToClipboardClicked}
+            on:click={handlePasteClicked}
           >
-            <CopyIcon size="20" strokeWidth="3" />
-            Copy
+            <ClipboardIcon size="20" strokeWidth="3" />
+            Paste
           </button>
-        {/if}
+        </div>
+        <MoneyInput
+          bind:isNegative
+          bind:value={transaction.value}
+          on:enterPressed={handleMoneyInputEnterPressed}
+          bind:inputRef={moneyInput}
+        />
+        <textarea
+          bind:value={transaction.comment}
+          bind:this={descriptionInput}
+          id="comment-input"
+          rows="3"
+          class="textarea ease-linear leading-4 resize-none"
+          placeholder="Description"
+        />
+      {/if}
+      <div class="flex justify-around">
+        <button class="btn btn-outline w-22" on:click={handleBackClicked}>
+          Back
+        </button>
         <button
-          class="text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-          on:click={handlePasteClicked}
+          class:swapActive={isNegative && !isPasting}
+          class="swap btn btn-primary w-22"
+          on:click={handleSaveTransaction}
         >
-          <ClipboardIcon size="20" strokeWidth="3" />
-          Paste
+          <span class="swap-on">Remove</span>
+          <span class="swap-off">Add</span>
         </button>
       </div>
-      <MoneyField
-        bind:isNegative
-        bind:value={transaction.value}
-        on:enterPressed={handleMoneyInputEnterPressed}
-        bind:inputRef={moneyInput}
-      />
-      <textarea
-        bind:value={transaction.comment}
-        id="comment-input"
-        rows="3"
-        class="textarea ease-linear leading-4 resize-none"
-        placeholder="Description"
-      />
-    {/if}
-    <div class="flex justify-around">
-      <button class="btn btn-outline w-22" on:click={handleBackClicked}
-        >Back</button
-      >
-      <button
-        class:swapActive={isNegative && !isPasting}
-        class="swap btn btn-primary w-22"
-        on:click={handleSaveTransaction}
-      >
-        <span class="swap-on">Remove</span>
-        <span class="swap-off">Add</span>
-      </button>
     </div>
-  </div>
 </Page>
 
 <style>

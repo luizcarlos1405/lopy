@@ -10,7 +10,7 @@
   export let selectedTransactionsById = {};
 </script>
 
-<div class="flex flex-col space-y-2 w-full p-4">
+<div class="flex flex-col space-y-2 w-full">
   {#each transactions as transaction (transaction._id)}
     <div
       class="p-4 rounded-3xl space-y-2 self-stretch"
