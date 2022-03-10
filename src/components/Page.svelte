@@ -9,9 +9,9 @@
   export let hideBottomNavigation = false;
 </script>
 
-<div class="flex p-4 flex-col align-stretch w-full min-h-screen max-w-lg mx-auto">
+<div class="relative flex flex-col align-stretch w-full min-h-screen max-w-lg mx-auto">
   <div
-    class="relative max-w-md h-full flex-grow flex flex-col p-4"
+    class="max-w-md h-full flex-grow flex flex-col p-4"
     in:scale={{ y: -1000, duration: 500, start: 0.95, easing: quintOut }}
   >
     <slot />
@@ -19,7 +19,7 @@
 
   {#if !hideBottomNavigation}
     <div
-      class="inline-flex justify-evenly sticky mx-4 bottom-6 p-2 bg-base-100 rounded-3xl"
+      class="inline-flex justify-evenly sticky bottom-0 p-2 bg-base-100 rounded-t-3xl"
     >
       <button
         on:click={() => goto(`${ROUTES.HOME}`)}
