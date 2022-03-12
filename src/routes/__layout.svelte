@@ -55,7 +55,7 @@
   data-theme={$themeStore.currentTheme}
   class="relative border-box w-screen h-screen overflow-x-hidden overflow-y-scroll text-base-content"
 >
-  <div class="pattern h-full w-full fixed bottom-0 top-0" />
+  <div class="pattern h-full w-full fixed bottom-0 top-0 -z-50" />
   <slot />
 </main>
 

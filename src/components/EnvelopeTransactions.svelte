@@ -48,8 +48,8 @@
       </div>
       {#if selectedTransactionsById[transaction._id]}
         <span
-          transition:scale
           class="bg-background absolute right-2 top-2 w-4 h-4 rounded-full"
+          transition:scale
         />
       {/if}
     </div>
@@ -63,5 +63,9 @@
 
   .out {
     @apply bg-error text-error-content;
+  }
+
+  .selected {
+    @apply outline outline-white/80 outline-2;
   }
 </style>

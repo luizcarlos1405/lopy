@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,11 +10,15 @@ main {
 
 @layer base {
   html {
-    font-family: "Nunito", "Fredoka", Roboto, system-ui, sans-serif;
+    font-family: 'Nunito', 'Fredoka', Roboto, system-ui, sans-serif;
   }
 
   .reset-input {
-    @apply bg-transparent outline-transparent focus:outline-none focus:border-none focus:ring-transparent border-none;
+    @apply border-none bg-transparent outline-transparent focus:border-none focus:outline-none focus:ring-transparent;
+  }
+
+  .grid-layout {
+    @apply grid grid-cols-12;
   }
 
   /* Remove arrows from number inputs */
@@ -25,7 +30,7 @@ main {
   }
 
   /* Firefox */
-  input[type="number"] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 }

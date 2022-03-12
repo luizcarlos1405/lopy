@@ -1,25 +1,22 @@
 <script>
-  import { page } from "$app/stores";
-  import { browser } from "$app/env";
-  import { goto } from "$app/navigation";
-  import EnvelopeTransactions from "../../components/EnvelopeTransactions.svelte";
-  import Envelope from "../../components/atoms/Envelope.svelte";
-  import { actions } from "$lib/stores";
-  import { isClient } from "$lib/helpers";
-  import MoneyInput from "../../components/atoms/MoneyInput.svelte";
+  import { page } from '$app/stores';
+  import { browser } from '$app/env';
+  import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
+  import Envelope from '../../components/atoms/Envelope.svelte';
+  import { actions } from '$lib/stores';
+  import { isClient } from '$lib/helpers';
+  import MoneyInput from '../../components/atoms/MoneyInput.svelte';
   import {
     TrashIcon,
     ClipboardIcon,
     CopyIcon,
     Edit2Icon,
-  } from "svelte-feather-icons";
-  import Page from "../../components/Page.svelte";
-  import { scale } from "svelte/transition";
-  import { ROUTES } from "$lib/constants";
-  import { formatMoney } from "$lib/helpers";
-  import { envelopes } from "$lib/stores";
-  import yaml from "yaml";
-  import { COPY_PASTE_DATE_FORMAT } from "../../lib/constants.js";
+    Trash2Icon,
+  } from 'svelte-feather-icons';
+  import { scale } from 'svelte/transition';
+  import { envelopes } from '$lib/stores';
+  import yaml from 'yaml';
+  import { COPY_PASTE_DATE_FORMAT } from '../../lib/constants.js';
 
   const { id } = $page.params;
 
@@ -42,7 +39,7 @@
   }
 
   const handleMoneyInputEnterPressed = () => {
-    document?.getElementById("comment-input").focus();
+    document?.getElementById('comment-input').focus();
   };
   const handleDelete = async () => {
     await $actions.deleteTransactions(
@@ -55,7 +52,7 @@
   const handleSaveTransaction = () => {
     if (isPasting) {
       const transactionsToSave = yaml.parse(pasteText);
-      pasteText = "";
+      pasteText = '';
 
       // LET THE GAMBIARRA BEGIN
       isPasting = false;
@@ -85,9 +82,9 @@
     if (isClient() && transaction.value) {
       $actions
         .saveTransaction(transaction, id)
-        .then(async (createdTransaction) => {
+        .then(async createdTransaction => {
           transaction.value = 0;
-          transaction.comment = "";
+          transaction.comment = '';
           transactionsPaginated = await transactionsPaginated.refresh();
 
           moneyInput?.focus();
@@ -143,30 +140,31 @@
   let selectedTransactionsById = {};
   let transaction = {
     value: 0,
-    comment: "",
+    comment: '',
   };
   let isNegative = true;
-  let pasteText = "";
-
+  let pasteText = '';
 </script>
 
-<Page hideBottomNavigation>
-  <span class="sticky top-4 mb-4 z-10">
+<div class="layout-template-rows grid-layout min-h-full">
+  <span class="sticky top-4 z-10 col-start-2 col-end-12 my-4">
     <Envelope {envelope} />
   </span>
   {#await transactionsPaginated.transactions then transactions}
-    <span class="mb-4">
+    <span class="col-start-2 col-end-12 mb-4">
       <EnvelopeTransactions {transactions} bind:selectedTransactionsById />
     </span>
   {/await}
+
+  <!-- FORM AND ACTIONS -->
   <div
-    class="sticky mt-auto bottom-0 box-border flex flex-col space-y-4 bg-base-300 rounded-t-3xl p-6"
+    class="sticky bottom-0 col-span-full mt-8 box-border flex flex-col space-y-4 rounded-t-3xl bg-base-100 p-6"
   >
     {#if isPasting}
       <textarea
         id="comment-input"
         rows="7"
-        class="textarea ease-linear leading-4 resize-none self-stretch"
+        class="textarea resize-none self-stretch leading-4 ease-linear"
         placeholder="Transaction values"
         bind:value={pasteText}
         bind:this={pasteInputRef}
@@ -183,13 +181,22 @@
             Copy
           </button>
         {/if}
-        <button
-          class="text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-          on:click={handlePasteClicked}
-        >
-          <ClipboardIcon size="20" strokeWidth="3" />
-          Paste
-        </button>
+        <span class="swap swap-flip" class:swapActive={Object.keys(selectedTransactionsById).length}>
+            <button
+              class="swap-on text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
+              on:click={handleDelete}
+            >
+              <Trash2Icon size="20" strokeWidth="3" />
+              Delete
+            </button>
+            <button
+              class="swap-off text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
+              on:click={handlePasteClicked}
+            >
+              <ClipboardIcon size="20" strokeWidth="3" />
+              Paste
+            </button>
+        </span>
       </div>
       <MoneyInput
         bind:isNegative
@@ -198,21 +205,21 @@
         bind:inputRef={moneyInput}
       />
       <textarea
+        class="textarea bg-base-200 ease-linear leading-4 resize-none"
         bind:value={transaction.comment}
         bind:this={descriptionInput}
         id="comment-input"
         rows="3"
-        class="textarea ease-linear leading-4 resize-none"
         placeholder="Description"
       />
     {/if}
     <div class="flex justify-around">
-      <button class="btn btn-outline w-22" on:click={handleBackClicked}>
+      <button class="w-22 btn btn-outline" on:click={handleBackClicked}>
         Back
       </button>
       <button
         class:swapActive={isNegative && !isPasting}
-        class="swap btn btn-primary w-22"
+        class="w-22 btn swap btn-primary"
         on:click={handleSaveTransaction}
       >
         <span class="swap-on">Remove</span>
@@ -220,9 +227,13 @@
       </button>
     </div>
   </div>
-</Page>
+</div>
 
 <style>
+  .layout-template-rows {
+    grid-template-rows: min-content 1fr min-content;
+  }
+
   .swapActive {
     @apply swap-active;
   }
