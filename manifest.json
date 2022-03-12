@@ -5,7 +5,7 @@
   "name": "Lopy",
   "short_name": "Lopy",
   "display": "standalone",
-  "start_url": ".",
+  "start_url": "/",
   "icons": [
     {
       "src": "logo-192.png",
