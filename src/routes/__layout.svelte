@@ -4,29 +4,31 @@
   import { writable } from "svelte/store";
   import "../app.css";
 
+  const defaultTheme = "cupcake";
   const localStorageTheme = browser && localStorage.getItem("theme");
   const themes = [
     "light",
     "dark",
     "cupcake",
     "bumblebee",
-    "emerald",
     "corporate",
+    "synthwave",
+    "retro",
+    "valentine",
     "halloween",
     "garden",
-    "forest",
+    "lofi",
     "pastel",
     "fantasy",
+    "luxury",
     "dracula",
+    "cmyk",
     "autumn",
-    "business",
-    "acid",
-    "lemonade",
     "night",
-    "coffee",
+    "winter",
   ];
   const themeStore = writable({
-    currentTheme: localStorageTheme || "light",
+    currentTheme: localStorageTheme || defaultTheme,
     themes,
   });
   setContext("themeStore", themeStore);

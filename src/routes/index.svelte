@@ -1,5 +1,5 @@
 <script>
-  import Envelope from "../components/Envelope.svelte";
+  import Envelope from "../components/atoms/Envelope.svelte";
   import { envelopes, actions } from "$lib/stores";
   import { goto } from "$app/navigation";
   import { PlusIcon } from "svelte-feather-icons";
@@ -51,10 +51,10 @@
 
 <Page>
   <div
-    class="flex items-center text-neutral-content justify-around flex-nowrap font-base mb-4 mx-4 py-6"
+    class="flex items-center text-neutral-content justify-around flex-nowrap font-base mx-4 py-14"
   >
     <span
-      class="w-14 fill-current"
+      class="cursor-pointer w-14 fill-current"
       on:click={() => {
         const { currentTheme, themes } = $themeStore;
         const themeIndex = themes.findIndex(
@@ -68,17 +68,19 @@
     >
       <Logo />
     </span>
-    <span
-      class="cursor-pointer whitespace-nowrap flex space-x-2 items-center"
-      on:click={() => goto(`${ROUTES.EDIT}/new`)}
-    >
-      <PlusIcon strokeWidth="2.7" size="28" />
+    <span class="whitespace-nowrap flex space-x-2 items-center">
+      <button
+        class="btn btn-circle btn-sm glass"
+        on:click={() => goto(`${ROUTES.EDIT}/new`)}
+      >
+        <PlusIcon strokeWidth="2.6" size="28" />
+      </button>
       <span class="text-4xl font-normal">lopy</span>
     </span>
   </div>
 
   <div
-    class="w-full flex flex-col space-y-3 mb-4 px-4"
+    class="w-full flex flex-col space-y-3 mb-4 px-8"
     use:orderableChildren={{
       startEvent: "longpress",
       onStart: handleOnDragStart,

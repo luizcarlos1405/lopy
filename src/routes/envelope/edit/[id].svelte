@@ -34,7 +34,7 @@
     </div>
 
     <div class="flex justify-around">
-      <button class="btn btn-outline"
+      <button class="btn"
         on:click={() => {
           window.history.back();
         }}
