@@ -9,7 +9,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let inputValue = formatMoney(value);
+  $: inputValue = formatMoney(Math.abs(value), { showSign: false });
 
   const handleKeyUp = ({ key }) => {
     if (key === 'Enter') {
@@ -22,7 +22,6 @@
     const newValue = +`${stripNonDigits(inputValue)}`;
 
     value = isNegative ? -newValue : newValue;
-    inputValue = formatMoney(Math.abs(value), { showSign: false });
   };
 
   const handleSelectionHange = event => {
