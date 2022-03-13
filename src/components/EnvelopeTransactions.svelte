@@ -10,7 +10,7 @@
   export let selectedTransactionsById = {};
 </script>
 
-<div class="flex w-full flex-col space-y-2">
+<div class="flex w-full flex-col space-y-3">
   {#each transactions as transaction (transaction._id)}
     <div
       class="space-y-2 self-stretch rounded-3xl p-4"
@@ -32,7 +32,7 @@
       }}
     >
       {#if transaction.comment}
-        <div class="text-base">
+        <div class="text-base opacity-80">
           {transaction.comment}
         </div>
       {/if}
@@ -40,7 +40,7 @@
         <span class="font-mono font-semibold">
           {formatMoney(transaction.value, { showSign: false })}
         </span>
-        <span class="opacity-70">
+        <span class="opacity-80">
           {DateTime.fromSeconds(transaction.date).toLocaleString(
             DateTime.DATETIME_SHORT
           )}

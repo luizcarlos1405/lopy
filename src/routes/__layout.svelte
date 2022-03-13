@@ -1,5 +1,5 @@
 <script>
-  import { browser } from '$app/env';
+  import { browser, dev } from '$app/env';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import '../app.css';
@@ -47,42 +47,44 @@
   $: {
     $themeStore;
     if (themeColoredNode && metaNode) {
+      const baseUrl = dev
+        ? 'http://localhost:3000/'
+        : 'https://lopy.suaveware.dev/';
       themeColor = window.getComputedStyle(themeColoredNode).backgroundColor;
       metaNode.content = themeColor;
 
-      console.log('themeColor', themeColor);
       // DYNAMIC manifest.json
-      let manifest = {
-        background_color: themeColor,
-        description: 'Simple budgeting app',
-        theme_color: themeColor,
+      const manifest = {
         name: 'Lopy',
         short_name: 'Lopy',
+        description: 'Simple budgeting app',
+        theme_color: themeColor,
+        background_color: themeColor,
         display: 'standalone',
-        start_url: '/',
+        start_url: baseUrl,
         icons: [
           {
-            src: 'data:application/logo-192.png',
+            src: `${baseUrl}logo-192.png`,
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any',
           },
           {
-            src: 'data:application/logo-512.png',
+            src: `${baseUrl}logo-512.png`,
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any',
           },
           {
-            src: 'data:application/logo-maskable-512.png',
+            src: `${baseUrl}logo-maskable-512.png`,
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
           },
         ],
       };
-      let content = encodeURIComponent(JSON.stringify(manifest));
-      let url = 'data:application/manifest+json,' + content;
+      const content = encodeURIComponent(JSON.stringify(manifest));
+      const url = 'data:application/manifest+json,' + content;
 
       manifestNode.setAttribute('href', url);
     }

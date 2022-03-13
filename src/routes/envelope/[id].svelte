@@ -157,10 +157,10 @@
   >
     {#if isPasting}
       <textarea
+        class="textarea resize-none self-stretch bg-base-200 leading-4 ease-linear"
         id="comment-input"
         rows="7"
-        class="textarea resize-none self-stretch leading-4 ease-linear"
-        placeholder="Transaction values"
+        placeholder="Transactions"
         bind:value={pasteText}
         bind:this={pasteInputRef}
       />

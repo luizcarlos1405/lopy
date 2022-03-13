@@ -1,8 +1,8 @@
 <script>
-  import { formatMoney } from "$lib/helpers";
-  import { goto } from "$app/navigation";
-  import { Edit2Icon } from "svelte-feather-icons";
-  import { ROUTES } from "$lib/constants";
+  import { formatMoney } from '$lib/helpers';
+  import { goto } from '$app/navigation';
+  import { Edit2Icon } from 'svelte-feather-icons';
+  import { ROUTES } from '$lib/constants';
 
   export let envelope;
 
@@ -10,21 +10,21 @@
 
   const handleEditClick = () => {
     goto(`${ROUTES.EDIT}/${_id}`);
-  }
+  };
 </script>
 
 <div
   id={_id}
-  class="flex overflow-visible bg-base-100 text-base-content items-center p-2 border-box rounded-3xl"
+  class="border-box flex items-center overflow-visible rounded-3xl bg-base-100 p-2 text-base-content"
   on:click
 >
   <div
-    class="flex items-center justify-center text-2xl flex-shrink-0 self-center bg-base-200 rounded-2xl p-1 h-12 w-12 bg-opacity-80"
+    class="flex h-12 w-12 flex-shrink-0 items-center justify-center self-center rounded-2xl bg-base-200 bg-opacity-80 p-1 text-2xl"
   >
     {emoji}
   </div>
-  <div class="font-semibold flex flex-col truncate justify-center mx-2">
-    <div class="text-base truncate">
+  <div class="mx-2 flex flex-col justify-center truncate font-semibold">
+    <div class="truncate text-base">
       {name}
     </div>
     <div class="font-mono text-sm opacity-70">
@@ -33,7 +33,7 @@
   </div>
   <button
     on:click|stopPropagation={handleEditClick}
-    class="ml-auto btn btn-sm btn-ghost btn-circle"
+    class="btn btn-ghost btn-circle btn-sm ml-auto opacity-80"
   >
     <Edit2Icon size="16" />
   </button>
