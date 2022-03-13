@@ -1,5 +1,6 @@
 <script>
   import { page } from '$app/stores';
+  import { browser } from '$app/env';
   import EmojiPicker from '../../../components/form/EmojiPicker.svelte';
   import { goto } from '$app/navigation';
   import { envelopes, actions } from '$lib/stores';
@@ -8,19 +9,23 @@
   // This page creates a new envelope if id === 'new'
   const { id } = $page.params;
 
-  $: envelope = $envelopes.find(envelope => id === envelope._id);
-  $: name = envelope?.name || '';
-  $: emoji = envelope?.emoji || undefined;
+  const envelope =
+    id === 'new' || !browser
+      ? console.log('what the actuall fuck') || {}
+      : $envelopes.find(({ _id }) => _id === id);
+
+  $: name = envelope.name;
+  $: emoji = envelope.emoji;
 </script>
 
 <div class="layout-template-rows grid-layout min-h-full">
   <div
-    class="col-start-2 col-end-12 row-start-2 self-end border-box flex space-x-2 overflow-visible rounded-3xl bg-base-100 p-4"
+    class="border-box col-start-2 col-end-12 row-start-2 flex space-x-2 self-end overflow-visible rounded-3xl bg-base-100 p-4"
   >
     <div
-      class="flex w-full items-center space-x-2 overflow-clip rounded-3xl border"
+      class="flex w-full items-center space-x-2 rounded-3xl border bg-base-200"
     >
-      <span class="border-r border-base-content bg-base-300 p-2">
+      <span class="rounded-l-3xl border-r border-base-content bg-base-300 p-2">
         <EmojiPicker bind:value={emoji} />
       </span>
       <input
@@ -31,10 +36,11 @@
     </div>
   </div>
 
-  <div class="col-start-2 col-end-12 row-start-3 flex justify-around my-8">
+  <div class="col-start-2 col-end-12 row-start-3 my-8 flex justify-around">
     <button
       class="btn"
       on:click={() => {
+        console.log('back');
         window.history.back();
       }}
     >

@@ -48,7 +48,7 @@
     $themeStore;
     if (themeColoredNode && metaNode) {
       const baseUrl = dev
-        ? 'http://localhost:3000/'
+        ? 'http://localhost:4000/'
         : 'https://lopy.suaveware.dev/';
       themeColor = window.getComputedStyle(themeColoredNode).backgroundColor;
       metaNode.content = themeColor;
