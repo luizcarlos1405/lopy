@@ -13,7 +13,7 @@
 <div class="flex w-full flex-col space-y-3">
   {#each transactions as transaction (transaction._id)}
     <div
-      class="space-y-2 self-stretch rounded-3xl p-4"
+      class="space-y-1 self-stretch rounded-3xl p-4"
       class:in={transaction.value >= 0}
       class:out={transaction.value < 0}
       class:selected={selectedTransactionsById[transaction._id]}
@@ -32,11 +32,11 @@
       }}
     >
       {#if transaction.comment}
-        <div class="text-base opacity-80">
+        <div class="text-base opacity-80 leading-5">
           {transaction.comment}
         </div>
       {/if}
-      <div class="flex justify-between text-sm">
+      <div class="flex justify-between text-xs">
         <span class="font-mono font-semibold">
           {formatMoney(transaction.value, { showSign: false })}
         </span>
@@ -46,12 +46,6 @@
           )}
         </span>
       </div>
-      {#if selectedTransactionsById[transaction._id]}
-        <span
-          class="bg-background absolute right-2 top-2 h-4 w-4 rounded-full"
-          transition:scale
-        />
-      {/if}
     </div>
   {/each}
 </div>
