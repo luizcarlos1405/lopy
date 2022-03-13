@@ -1,6 +1,5 @@
 <script>
   import { page } from '$app/stores';
-  import { browser } from '$app/env';
   import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
   import Envelope from '../../components/atoms/Envelope.svelte';
   import { actions } from '$lib/stores';
@@ -16,22 +15,11 @@
   const { id } = $page.params;
 
   let pasteInputRef = null;
-  let descriptionInput = null;
   let moneyInput = null;
   let savedTransaction = null;
   let isPasting = false;
-  let isWriting = false;
 
   $: envelope = $envelopes.find(({ _id }) => _id === id) || {};
-
-  // TODO: hide the form if it isn't writing/adding an entry
-  $: {
-    if (browser) {
-      isWriting =
-        document.activeElement === moneyInput ||
-        document.activeElement === descriptionInput;
-    }
-  }
 
   const handleMoneyInputEnterPressed = () => {
     document?.getElementById('comment-input').focus();
@@ -205,12 +193,12 @@
       <textarea
         class="textarea bg-base-200 ease-linear leading-4 resize-none"
         bind:value={transaction.comment}
-        bind:this={descriptionInput}
         id="comment-input"
         rows="3"
         placeholder="Description"
       />
     {/if}
+
     <div class="flex justify-around">
       <button class="w-22 btn btn-outline" on:click={handleBackClicked}>
         Back
