@@ -5,7 +5,7 @@
   import '../app.css';
 
   let themeColoredNode = null;
-  let metaNode = null;
+  let themeNode = null;
   let themeColor = '';
   let manifestNode = null;
 
@@ -46,12 +46,12 @@
 
   $: {
     $themeStore;
-    if (themeColoredNode && metaNode) {
+    if (themeColoredNode && themeNode) {
       const baseUrl = dev
         ? 'http://localhost:4000/'
         : 'https://lopy.suaveware.dev/';
       themeColor = window.getComputedStyle(themeColoredNode).backgroundColor;
-      metaNode.content = themeColor;
+      themeNode.content = themeColor;
 
       // DYNAMIC manifest.json
       const manifest = {
@@ -92,7 +92,7 @@
 </script>
 
 <svelte:head>
-  <meta bind:this={metaNode} name="theme-color" content={themeColor} />
+  <meta bind:this={themeNode} name="theme-color" content={themeColor} />
   <link
     bind:this={manifestNode}
     rel="manifest"
