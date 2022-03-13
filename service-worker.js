@@ -4,7 +4,7 @@ const timestamp = {
   }
 };
 const build = [
-  "/_app/start-e60fefc2.js",
+  "/_app/start-08efd269.js",
   "/_app/pages/__layout.svelte-d758cd8b.js",
   "/_app/assets/pages/__layout.svelte-dbc66b1f.css",
   "/_app/pages/__error.svelte-f140c573.js",
@@ -15,7 +15,7 @@ const build = [
   "/_app/assets/pages/transactions.svelte-3b7c7fb7.css",
   "/_app/pages/envelope/edit/_id_.svelte-ef470fdd.js",
   "/_app/assets/pages/envelope/edit/_id_.svelte-3e00504f.css",
-  "/_app/pages/envelope/_id_.svelte-d9c87667.js",
+  "/_app/pages/envelope/_id_.svelte-5d44ffd4.js",
   "/_app/assets/pages/envelope/_id_.svelte-0bed5e77.css",
   "/_app/chunks/vendor-7e985693.js",
   "/_app/chunks/singletons-d1fb5791.js",
