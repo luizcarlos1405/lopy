@@ -6,7 +6,7 @@
 </script>
 
 <div
-  class="sticky bottom-0 flex justify-evenly rounded-t-3xl bg-base-100"
+  class="sticky bottom-0 flex justify-evenly rounded-t-3xl bg-base-100 py-1"
 >
   <button
     on:click="{() => goto(`${ROUTES.HOME}`)}"

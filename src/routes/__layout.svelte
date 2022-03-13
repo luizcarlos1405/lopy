@@ -1,60 +1,96 @@
 <script>
-  import { browser } from "$app/env";
-  import { setContext } from "svelte";
-  import { writable } from "svelte/store";
-  import "../app.css";
+  import { browser } from '$app/env';
+  import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
+  import '../app.css';
 
-	let themeColoredNode = null;
-	let metaNode = null;
-	let themeColor = '';
+  let themeColoredNode = null;
+  let metaNode = null;
+  let themeColor = '';
+  let manifestNode = null;
 
-  const defaultTheme = "cupcake";
-  const localStorageTheme = browser && localStorage.getItem("theme");
+  const defaultTheme = 'cupcake';
+  const localStorageTheme = browser && localStorage.getItem('theme');
   const themes = [
-    "light",
-    "dark",
-    "cupcake",
-    "bumblebee",
-    "corporate",
-    "synthwave",
-    "retro",
-    "valentine",
-    "halloween",
-    "garden",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "night",
-    "winter",
+    'light',
+    'dark',
+    'cupcake',
+    'bumblebee',
+    'corporate',
+    'synthwave',
+    'retro',
+    'valentine',
+    'halloween',
+    'garden',
+    'lofi',
+    'pastel',
+    'fantasy',
+    'luxury',
+    'dracula',
+    'cmyk',
+    'autumn',
+    'night',
+    'winter',
   ];
   const themeStore = writable({
     currentTheme: localStorageTheme || defaultTheme,
     themes,
   });
-  setContext("themeStore", themeStore);
+  setContext('themeStore', themeStore);
 
   $: {
     if (browser && localStorageTheme !== $themeStore.currentTheme) {
-      console.log("theme", $themeStore.currentTheme);
-      localStorage.setItem("theme", $themeStore.currentTheme);
+      localStorage.setItem('theme', $themeStore.currentTheme);
     }
   }
 
-	$: {
-		if (themeColoredNode && metaNode) {
-			themeColor = window.getComputedStyle(themeColoredNode).backgroundColor;
-			metaNode.content = themeColor;
-		}
-	}
+  $: {
+    if (themeColoredNode && metaNode) {
+      themeColor = window.getComputedStyle(themeColoredNode).backgroundColor;
+      metaNode.content = themeColor;
+
+      // DYNAMIC manifest.json
+      let manifest = {
+        background_color: themeColor,
+        description: 'Simple budgeting app',
+        theme_color: themeColor,
+        name: 'Lopy',
+        short_name: 'Lopy',
+        display: 'standalone',
+        start_url: '/',
+        icons: [
+          {
+            src: 'logo-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: 'logo-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: 'logo-maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
+      };
+      let content = encodeURIComponent(JSON.stringify(manifest));
+      let url = 'data:application/manifest+json,' + content;
+
+      manifestNode.setAttribute('href', url);
+    }
+  }
 </script>
 
 <svelte:head>
-	<meta bind:this={metaNode} name="theme-color" content={themeColor} />
+  <meta bind:this={metaNode} name="theme-color" content={themeColor} />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link bind:this={manifestNode} rel="manifest" crossorigin="use-credentials" />
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet"
@@ -63,17 +99,19 @@
   <title>Lopy</title>
 </svelte:head>
 
-
 <main
   data-theme={$themeStore.currentTheme}
-  class="relative border-box w-screen h-screen overflow-x-hidden overflow-y-scroll text-base-content"
+  class="border-box relative h-screen w-screen overflow-x-hidden overflow-y-scroll text-base-content"
 >
-  <div bind:this={themeColoredNode} class="pattern h-full w-full fixed bottom-0 top-0 -z-50" />
+  <div
+    bind:this={themeColoredNode}
+    class="pattern fixed bottom-0 top-0 -z-50 h-full w-full"
+  />
   <slot />
 </main>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
   .pattern {
     @apply bg-neutral;

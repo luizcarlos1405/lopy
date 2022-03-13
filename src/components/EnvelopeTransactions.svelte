@@ -8,9 +8,6 @@
 
   export let transactions = [];
   export let selectedTransactionsById = {};
-
-  $: console.log('transactions', transactions);
-  $: console.log('selectedTransactionsById', selectedTransactionsById);
 </script>
 
 <div class="flex w-full flex-col space-y-2">
