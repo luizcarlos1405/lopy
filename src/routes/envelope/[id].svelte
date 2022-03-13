@@ -220,8 +220,8 @@
         class="w-22 btn swap btn-primary"
         on:click={handleSaveTransaction}
       >
-        <span class="swap-on">Remove</span>
-        <span class="swap-off">Add</span>
+        <span class="swap-on">Spend</span>
+        <span class="swap-off">Save</span>
       </button>
     </div>
   </div>
