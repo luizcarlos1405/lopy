@@ -6,13 +6,8 @@
   import { actions } from '$lib/stores';
   import { isClient } from '$lib/helpers';
   import MoneyInput from '../../components/atoms/MoneyInput.svelte';
-  import {
-    TrashIcon,
-    ClipboardIcon,
-    CopyIcon,
-    Edit2Icon,
-    Trash2Icon,
-  } from 'svelte-feather-icons';
+  import { ClipboardIcon, CopyIcon, Trash2Icon } from 'svelte-feather-icons';
+  import { DateTime } from 'luxon';
   import { scale } from 'svelte/transition';
   import { envelopes } from '$lib/stores';
   import yaml from 'yaml';
@@ -181,21 +176,24 @@
             Copy
           </button>
         {/if}
-        <span class="swap swap-flip" class:swapActive={Object.keys(selectedTransactionsById).length}>
-            <button
-              class="swap-on text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-              on:click={handleDelete}
-            >
-              <Trash2Icon size="20" strokeWidth="3" />
-              Delete
-            </button>
-            <button
-              class="swap-off text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-              on:click={handlePasteClicked}
-            >
-              <ClipboardIcon size="20" strokeWidth="3" />
-              Paste
-            </button>
+        <span
+          class="swap swap-flip"
+          class:swapActive={Object.keys(selectedTransactionsById).length}
+        >
+          <button
+            class="swap-on text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
+            on:click={handleDelete}
+          >
+            <Trash2Icon size="20" strokeWidth="3" />
+            Delete
+          </button>
+          <button
+            class="swap-off text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
+            on:click={handlePasteClicked}
+          >
+            <ClipboardIcon size="20" strokeWidth="3" />
+            Paste
+          </button>
         </span>
       </div>
       <MoneyInput
