@@ -6,7 +6,7 @@
 </script>
 
 <div
-  class="sticky bottom-0 flex justify-evenly rounded-t-3xl bg-base-100 p-2"
+  class="sticky bottom-0 flex justify-evenly rounded-t-3xl bg-base-100"
 >
   <button
     on:click="{() => goto(`${ROUTES.HOME}`)}"
@@ -23,3 +23,10 @@
     <ListIcon size="30" />
   </button>
 </div>
+
+<style>
+  .currentButton::after {
+    content: "";
+    @apply text-accent bg-accent w-7 h-1 absolute bottom-1 rounded-full;
+  }
+</style>

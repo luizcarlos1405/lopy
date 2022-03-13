@@ -6,7 +6,7 @@
   const transactions = $actions?.getAllTransactionsPaginated?.({ $actions }) || [];
 </script>
 
-<div class="grid-layout min-h-full">
+<div class="layout-template-rows grid-layout min-h-full">
   <div class="col-start-2 col-end-12 mt-8">
     {#await transactions.transactions then transactions}
       <EnvelopeTransactions {transactions} />
@@ -17,3 +17,9 @@
     <BottomNavigation />
   </div>
 </div>
+
+<style>
+  .layout-template-rows {
+    grid-template-rows: 1fr min-content;
+  }
+</style>

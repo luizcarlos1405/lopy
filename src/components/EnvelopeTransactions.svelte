@@ -1,19 +1,22 @@
 <script>
-  import { formatMoney } from "$lib/helpers";
-  import { longpress } from "$lib/longpress";
-  import { scale } from "svelte/transition";
-  import { cubicOut } from "svelte/easing";
-  import { flip } from "svelte/animate";
-  import { DateTime } from "luxon";
+  import { formatMoney } from '$lib/helpers';
+  import { longpress } from '$lib/longpress';
+  import { scale } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
+  import { flip } from 'svelte/animate';
+  import { DateTime } from 'luxon';
 
   export let transactions = [];
   export let selectedTransactionsById = {};
+
+  $: console.log('transactions', transactions);
+  $: console.log('selectedTransactionsById', selectedTransactionsById);
 </script>
 
-<div class="flex flex-col space-y-2 w-full">
+<div class="flex w-full flex-col space-y-2">
   {#each transactions as transaction (transaction._id)}
     <div
-      class="p-4 rounded-3xl space-y-2 self-stretch"
+      class="space-y-2 self-stretch rounded-3xl p-4"
       class:in={transaction.value >= 0}
       class:out={transaction.value < 0}
       class:selected={selectedTransactionsById[transaction._id]}
@@ -48,7 +51,7 @@
       </div>
       {#if selectedTransactionsById[transaction._id]}
         <span
-          class="bg-background absolute right-2 top-2 w-4 h-4 rounded-full"
+          class="bg-background absolute right-2 top-2 h-4 w-4 rounded-full"
           transition:scale
         />
       {/if}
@@ -66,6 +69,6 @@
   }
 
   .selected {
-    @apply outline outline-white/80 outline-2;
+    @apply outline outline-2 outline-white/80;
   }
 </style>
