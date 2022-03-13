@@ -4,7 +4,7 @@ export const formatMoney = (value, { showSign = true } = {}) => {
   const sign = showSign && Math.sign(value) < 0 ? "-" : "";
   const amount = Math.abs(value);
   const whole = Math.floor(amount / 100);
-  const decimal = amount - whole * 100;
+  const decimal = Math.floor(amount - whole * 100);
 
   const thousandsSeparatedWhole = `${whole}`
     .split("")
