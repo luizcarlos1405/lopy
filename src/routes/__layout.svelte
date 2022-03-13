@@ -45,10 +45,12 @@
   }
 
   $: {
+    $themeStore;
     if (themeColoredNode && metaNode) {
       themeColor = window.getComputedStyle(themeColoredNode).backgroundColor;
       metaNode.content = themeColor;
 
+      console.log('themeColor', themeColor);
       // DYNAMIC manifest.json
       let manifest = {
         background_color: themeColor,
@@ -60,19 +62,19 @@
         start_url: '/',
         icons: [
           {
-            src: 'logo-192.png',
+            src: 'data:application/logo-192.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any',
           },
           {
-            src: 'logo-512.png',
+            src: 'data:application/logo-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any',
           },
           {
-            src: 'logo-maskable-512.png',
+            src: 'data:application/logo-maskable-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
@@ -89,8 +91,13 @@
 
 <svelte:head>
   <meta bind:this={metaNode} name="theme-color" content={themeColor} />
+  <link
+    bind:this={manifestNode}
+    rel="manifest"
+    href="manifest.json"
+    crossorigin="use-credentials"
+  />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link bind:this={manifestNode} rel="manifest" crossorigin="use-credentials" />
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet"

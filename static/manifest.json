@@ -1,7 +1,7 @@
 {
-  "background_color": "#48426D",
+  "background_color": "#000000",
   "description": "Simple budgeting app",
-  "theme_color": "#48426D",
+  "theme_color": "#000000",
   "name": "Lopy",
   "short_name": "Lopy",
   "display": "standalone",
