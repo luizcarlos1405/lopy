@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-d9245975.js",
+    "file": "start-f2b2aba9.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -25,7 +25,7 @@
       "_vendor-f84f3f19.js"
     ],
     "css": [
-      "assets/pages/__layout.svelte-ee5353b4.css"
+      "assets/pages/__layout.svelte-51c6ff14.css"
     ]
   },
   "src/routes/__error.svelte": {
@@ -41,14 +41,14 @@
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-512bb456.js",
+    "file": "pages/index.svelte-90b85a77.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_vendor-f84f3f19.js",
       "_Envelope-01f651f0.js",
-      "_BottomNavigation-bf1cfa7a.js",
+      "_BottomNavigation-2388c839.js",
       "_stores-8d0d68fa.js",
       "_longpress-a7a6c534.js",
       "_singletons-d1fb5791.js"
@@ -58,17 +58,20 @@
     ]
   },
   "src/routes/transactions.svelte": {
-    "file": "pages/transactions.svelte-d6b8e364.js",
+    "file": "pages/transactions.svelte-d2051ad0.js",
     "src": "src/routes/transactions.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_vendor-f84f3f19.js",
       "_EnvelopeTransactions-69276762.js",
-      "_BottomNavigation-bf1cfa7a.js",
+      "_BottomNavigation-2388c839.js",
       "_stores-8d0d68fa.js",
       "_longpress-a7a6c534.js",
       "_singletons-d1fb5791.js"
+    ],
+    "css": [
+      "assets/pages/transactions.svelte-3b7c7fb7.css"
     ]
   },
   "src/routes/envelope/edit/[id].svelte": {
@@ -115,11 +118,14 @@
       "_stores-8d0d68fa.js"
     ]
   },
-  "_BottomNavigation-bf1cfa7a.js": {
-    "file": "chunks/BottomNavigation-bf1cfa7a.js",
+  "_BottomNavigation-2388c839.js": {
+    "file": "chunks/BottomNavigation-2388c839.js",
     "imports": [
       "_vendor-f84f3f19.js",
       "_stores-8d0d68fa.js"
+    ],
+    "css": [
+      "assets/BottomNavigation-bd0b68b3.css"
     ]
   },
   "_stores-8d0d68fa.js": {
