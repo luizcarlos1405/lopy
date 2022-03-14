@@ -49,15 +49,13 @@
   });
 </script>
 
-<div
-  class="layout-template-rows grid-layout min-h-full"
->
+<div class="layout-template-rows grid-layout min-h-full">
   <div
-    class="font-base col-start-2 col-end-12 flex flex-nowrap items-center justify-around self-start py-14 text-neutral-content"
+    class="font-base col-start-2 col-end-12 flex flex-nowrap items-center justify-around self-start py-14 text-neutral-content md:col-start-6"
   >
     <span
       class="w-14 cursor-pointer fill-current"
-      on:click="{() => {
+      on:click={() => {
         const { currentTheme, themes } = $themeStore;
         const themeIndex = themes.findIndex(
           themeName => currentTheme === themeName
@@ -66,14 +64,14 @@
           themes,
           currentTheme: themes[themeIndex + 1] || themes[0],
         });
-      }}"
+      }}
     >
       <Logo />
     </span>
     <span class="flex items-center space-x-2 whitespace-nowrap">
       <button
         class="btn glass btn-circle btn-sm"
-        on:click="{() => goto(`${ROUTES.EDIT}/new`)}"
+        on:click={() => goto(`${ROUTES.EDIT}/new`)}
       >
         <PlusIcon strokeWidth="2.6" size="28" />
       </button>
@@ -82,25 +80,27 @@
   </div>
 
   <div
-    class="col-span-full col-start-2 col-end-12 flex w-full flex-col space-y-3"
-    use:orderableChildren="{{
+    class="col-span-full col-start-2 col-end-12 flex w-full flex-col space-y-3 md:col-start-6"
+    use:orderableChildren={{
       startEvent: 'longpress',
       onStart: handleOnDragStart,
       onMove: handleOnDragMove,
       onEnd: handleOnDragEnd,
-    }}"
+    }}
   >
     {#each $envelopes as envelope (envelope._id)}
       <span class="cursor-unset outline-none" use:longpress>
         <Envelope
-          envelope="{envelope}"
-          on:click="{() => !isDragging && handleEnvelopeClicked(envelope)}"
+          {envelope}
+          on:click={() => !isDragging && handleEnvelopeClicked(envelope)}
         />
       </span>
     {/each}
   </div>
 
-  <div class="mt-8 col-span-full sticky bottom-0">
+  <div
+    class="sticky bottom-0 col-span-full mt-8 md:col-span-3 md:col-start-2 md:row-start-1"
+  >
     <BottomNavigation />
   </div>
 </div>
