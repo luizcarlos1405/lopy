@@ -19,7 +19,7 @@
   on:click
 >
   <div
-    class="flex h-12 w-12 flex-shrink-0 items-center justify-center self-center rounded-2xl bg-base-200 bg-opacity-80 p-1 text-2xl"
+    class="flex h-12 w-12 flex-shrink-0 items-center justify-center self-center rounded-2xl bg-base-200 bg-opacity-80 p-1 text-4xl"
   >
     {emoji}
   </div>

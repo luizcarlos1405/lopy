@@ -32,7 +32,7 @@
   };
 </script>
 
-<div class="relative text-center text-2xl"
+<div class="relative text-center text-3xl"
     use:clickOutside
     on:clickedOutside={handleClickedOutsie}
 >
