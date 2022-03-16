@@ -39,7 +39,7 @@
     {value}
   </div>
   <div
-    class="fixed flex h-80 w-max flex-col rounded-3xl bg-base-100 transition-all"
+    class="fixed h-80 w-max flex flex-col rounded-3xl bg-base-100 transition-all"
     class:scale-0={!open}
     class:-translate-y-40={!open}
     class:-translate-x-36={!open}
@@ -65,7 +65,7 @@
       {/each}
     </div>
     <div
-      class="sticky bottom-0 z-50 grid grid-cols-9 justify-items-center rounded-b-3xl bg-base-200 p-2"
+      class="bottom-0 z-50 grid grid-cols-9 justify-items-center rounded-b-3xl bg-base-200 p-2"
     >
       {#each Object.entries(iconByEmojiGroup) as [group, icon]}
         <button

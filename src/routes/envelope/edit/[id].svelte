@@ -9,13 +9,16 @@
   // This page creates a new envelope if id === 'new'
   const { id } = $page.params;
 
-  const envelope =
-    id === 'new' || !browser
-      ? console.log('what the actuall fuck') || {}
-      : $envelopes.find(({ _id }) => _id === id);
+  let envelope = {
+    emoji: '✉️',
+    name: '',
+  };
 
-  $: name = envelope.name;
-  $: emoji = envelope.emoji;
+  $: {
+    if (browser && id !== 'new') {
+      envelope = $envelopes.find(({ _id }) => _id === id) || envelope;
+    }
+  }
 </script>
 
 <div class="layout-template-rows grid-layout min-h-full">
@@ -26,11 +29,11 @@
       class="flex w-full items-center space-x-2 rounded-3xl border bg-base-200"
     >
       <span class="rounded-l-3xl border-r border-base-content bg-base-300 p-2">
-        <EmojiPicker bind:value={emoji} />
+        <EmojiPicker bind:value={envelope.emoji} />
       </span>
       <input
         class="reset-input text-base"
-        bind:value={name}
+        bind:value={envelope.name}
         placeholder="Name"
       />
     </div>
@@ -49,8 +52,8 @@
     <button
       class="btn btn-primary"
       on:click={() => {
-        if (name) {
-          $actions?.saveEnvelope({ ...envelope, name, emoji });
+        if (envelope.name) {
+          $actions?.saveEnvelope({ ...envelope });
           goto(ROUTES.HOME);
         }
       }}
