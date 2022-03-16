@@ -1,7 +1,7 @@
 {
   "name": "lopy",
   "description": "Lopy",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "All Rights Reserved",
   "scripts": {
     "dev": "svelte-kit dev -p 4000 --host",
