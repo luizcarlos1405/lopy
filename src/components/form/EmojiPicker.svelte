@@ -32,11 +32,11 @@
   };
 </script>
 
-<div class="relative text-center text-3xl"
+<div class="relative text-center"
     use:clickOutside
     on:clickedOutside={handleClickedOutsie}
 >
-  <div class="cursor-pointer" on:click={handleClick}>
+  <div class="cursor-pointer text-2xl" on:click={handleClick}>
     {value}
   </div>
   <div
