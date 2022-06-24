@@ -1,5 +1,8 @@
 module.exports = {
   content: ["./src/**/*.{html,js,svelte,ts}"],
+  daisyui: {
+    logs: false
+  },
   theme: {
     extend: {},
     fontFamily: {
