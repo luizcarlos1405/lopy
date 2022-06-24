@@ -14,7 +14,7 @@
     "deploy": "zsh deploy.sh"
   },
   "dependencies": {
-    "dexie": "^3.0.3",
+    "dexie": "^3.2.2",
     "luxon": "^1.26.0",
     "unicode-emoji-json": "^0.3.1",
     "uuid": "^8.3.2",
