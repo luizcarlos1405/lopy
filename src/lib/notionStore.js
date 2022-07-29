@@ -7,6 +7,7 @@ const config = browser
       pageId: localStorage.getItem('pageId'),
       transactionsDatabaseId: localStorage.getItem('transactionsDatabaseId'),
       envelopesDatabaseId: localStorage.getItem('envelopesDatabaseId'),
+      apiEndpoint: 'https://lopy-notion-api.deno.dev/api/'
     }
   : {};
 
@@ -31,7 +32,7 @@ export const fetchEnvelopes = async () => {
   };
 
   const envelopes = await fetch(
-    'http://localhost:8000/api/notion-procedures',
+    `${config.apiEndpoint}notion-procedures`,
     requestOptions
   )
     .then(response => response.json())
@@ -58,7 +59,7 @@ export const fetchEnvelopeTransactions = async ({ envelopeId }) => {
   };
 
   const transactions = await fetch(
-    'http://localhost:8000/api/notion-procedures',
+    `${config.apiEndpoint}notion-procedures`,
     requestOptions
   )
     .then(response => response.json())
@@ -92,7 +93,7 @@ export const saveTransaction = async ({ envelopeId, transaction }) => {
     body,
   };
 
-  await fetch('http://localhost:8000/api/notion-procedures', requestOptions)
+  await fetch(`${config.apiEndpoint}notion-procedures`, requestOptions)
     .then(response => response.json())
     .catch(error => (console.error(error), []));
 
