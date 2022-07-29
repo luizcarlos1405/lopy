@@ -1,5 +1,6 @@
 <script>
   import { ChevronLeftIcon } from 'svelte-feather-icons';
+  import { config } from '$lib/notionStore';
 
   const handleBackClicked = () => {
     window.history.back();
@@ -13,12 +14,15 @@
       localStorage.setItem('token', values.token);
       localStorage.setItem('pageId', values.pageId);
 
-      const { transactionsDatabaseId, envelopesDatabaseId } = await fetch('http://localhost:8000/api/notion-databases', {
-        headers: {
-          pageId: values.pageId,
-          authorization: values.token,
-        },
-      }).then(async response => await response.json());
+      const { transactionsDatabaseId, envelopesDatabaseId } = await fetch(
+        `${config.apiEndpoint}notion-databases`,
+        {
+          headers: {
+            pageId: values.pageId,
+            authorization: values.token,
+          },
+        }
+      ).then(async response => await response.json());
 
       localStorage.setItem('transactionsDatabaseId', transactionsDatabaseId);
       localStorage.setItem('envelopesDatabaseId', envelopesDatabaseId);
@@ -28,7 +32,7 @@
   };
 </script>
 
-<div class="space-y-10 p-8">
+<div class="space-y-10 p-8 text-neutral-content">
   <button class="btn btn-ghost btn-circle btn-sm" on:click={handleBackClicked}>
     <ChevronLeftIcon size="30" />
   </button>
@@ -43,18 +47,8 @@
   </div>
 
   <form class="flex flex-col space-y-4" on:submit|preventDefault={handleSubmit}>
-    <input
-      class="input"
-      name="token"
-      placeholder="Token"
-      type="text"
-    />
-    <input
-      class="input"
-      name="pageId"
-      placeholder="Page ID"
-      type="text"
-    />
+    <input class="input" name="token" placeholder="Token" type="text" />
+    <input class="input" name="pageId" placeholder="Page ID" type="text" />
     <button class="btn btn-primary self-end" type="submit">Save</button>
   </form>
 </div>

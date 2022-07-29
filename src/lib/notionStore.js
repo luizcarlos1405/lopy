@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/env';
 
-const config = browser
+export const config = browser
   ? {
       token: localStorage.getItem('token'),
       pageId: localStorage.getItem('pageId'),
