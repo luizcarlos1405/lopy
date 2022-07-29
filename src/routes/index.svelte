@@ -15,8 +15,6 @@
 
   fetchEnvelopes();
 
-  $: console.log('notionStore', $notionStore);
-
   const themeStore = getContext('themeStore');
   let isDragging = false;
 

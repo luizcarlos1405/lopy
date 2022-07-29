@@ -5,6 +5,7 @@
   import { goto } from '$app/navigation';
   import { envelopes, actions } from '$lib/stores';
   import { ROUTES } from '$lib/constants';
+  import { Trash2Icon } from 'svelte-feather-icons';
 
   // This page creates a new envelope if id === 'new'
   const { id } = $page.params;
@@ -19,9 +20,19 @@
       envelope = $envelopes.find(({ _id }) => _id === id) || envelope;
     }
   }
+
+  const handleDeleteClicked = () => {
+    $actions.deleteEnvelope({ _id: id });
+    window.history.back();
+  };
 </script>
 
 <div class="layout-template-rows grid-layout min-h-full">
+  <div class="p-8">
+    <button class="text-neutral-content" on:click={handleDeleteClicked}>
+      <Trash2Icon size="24" />
+    </button>
+  </div>
   <div
     class="border-box col-start-2 col-end-12 row-start-2 flex space-x-2 self-end overflow-visible rounded-3xl bg-base-100 p-4"
   >
