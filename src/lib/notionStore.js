@@ -37,8 +37,40 @@ export const fetchEnvelopes = async () => {
     .then(response => response.json())
     .catch(error => (console.error(error), []));
 
-  console.log(envelopes);
   notionStore.update(currentState => ({ ...currentState, envelopes }));
+};
+
+export const fetchEnvelopeTransactions = async ({ envelopeId }) => {
+  const headers = new Headers();
+  headers.append('procedure', 'listEnvelopeTransactions');
+  headers.append('Authorization', `Bearer ${config.token}`);
+  headers.append('Content-Type', 'application/json');
+
+  const body = JSON.stringify({
+    transactionsDatabaseId: config.transactionsDatabaseId,
+    envelopePageId: envelopeId,
+  });
+
+  const requestOptions = {
+    method: 'POST',
+    headers,
+    body,
+  };
+
+  const transactions = await fetch(
+    'http://localhost:8000/api/notion-procedures',
+    requestOptions
+  )
+    .then(response => response.json())
+    .catch(error => (console.error(error), []));
+
+  notionStore.update(currentState => ({
+    ...currentState,
+    transactionsByEnvelopeId: {
+      ...currentState.transactionsByEnvelopeId,
+      [envelopeId]: transactions,
+    },
+  }));
 };
 
 export const saveTransaction = async ({ envelopeId, transaction }) => {
@@ -51,7 +83,7 @@ export const saveTransaction = async ({ envelopeId, transaction }) => {
     transactionsDatabaseId: config.transactionsDatabaseId,
     envelopePageId: envelopeId,
     description: transaction.comment || '',
-    value: transaction.value / 100.00,
+    value: transaction.value / 100.0,
   });
 
   const requestOptions = {
@@ -65,4 +97,5 @@ export const saveTransaction = async ({ envelopeId, transaction }) => {
     .catch(error => (console.error(error), []));
 
   await fetchEnvelopes();
+  await fetchEnvelopeTransactions({ envelopeId });
 };

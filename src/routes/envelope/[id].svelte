@@ -9,7 +9,12 @@
   import { DateTime } from 'luxon';
   import { scale } from 'svelte/transition';
   import { envelopes } from '$lib/stores';
-  import { notionStore, saveTransaction } from '$lib/notionStore';
+  import {
+    notionStore,
+    fetchEnvelopeTransactions,
+    saveTransaction,
+    fetchEnvelopes,
+  } from '$lib/notionStore';
   import yaml from 'yaml';
   import { COPY_PASTE_DATE_FORMAT } from '../../lib/constants.js';
 
@@ -21,6 +26,12 @@
   let moneyInput = null;
   let savedTransaction = null;
   let isPasting = false;
+
+  if ($notionStore.envelopes.length) {
+    fetchEnvelopeTransactions({ envelopeId: id });
+  } else {
+    fetchEnvelopes().then(() => fetchEnvelopeTransactions({ envelopeId: id }));
+  }
 
   $: notionEnvelope = $notionStore.envelopes.find(({ _id }) => _id === id);
   $: envelope =
@@ -165,11 +176,18 @@
   <span class="sticky top-4 z-10 col-start-2 col-end-12 my-4">
     <Envelope {envelope} />
   </span>
-  {#await transactionsPaginated.transactions then transactions}
-    <span class="col-start-2 col-end-12 mb-4">
-      <EnvelopeTransactions {transactions} bind:selectedTransactionsById />
-    </span>
-  {/await}
+  <span class="col-start-2 col-end-12 mb-4">
+    {#if envelopeOrigin === NOTION}
+      <EnvelopeTransactions
+        transactions={$notionStore.transactionsByEnvelopeId?.[id] || []}
+        bind:selectedTransactionsById
+      />
+    {:else}
+      {#await transactionsPaginated.transactions then transactions}
+        <EnvelopeTransactions {transactions} bind:selectedTransactionsById />
+      {/await}
+    {/if}
+  </span>
 
   <!-- FORM AND ACTIONS -->
   <div

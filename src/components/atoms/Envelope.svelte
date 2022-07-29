@@ -8,6 +8,7 @@
 
   $: ({ _id, emoji, name, value } = envelope);
 
+  console.log(envelope);
   const handleEditClick = () => {
     goto(`${ROUTES.EDIT}/${_id}`);
   };
@@ -21,7 +22,7 @@
   <div
     class="flex h-12 w-12 flex-shrink-0 items-center justify-center self-center rounded-2xl bg-base-200 bg-opacity-80 p-1 text-4xl"
   >
-    {emoji || "✉️"}
+    {emoji || '✉️'}
   </div>
   <div class="mx-2 flex flex-col justify-center truncate font-semibold">
     <div class="truncate text-base">
@@ -31,10 +32,13 @@
       {formatMoney(value)}
     </div>
   </div>
-  <button
-    on:click|stopPropagation={handleEditClick}
-    class="btn btn-ghost btn-circle btn-sm ml-auto opacity-80"
-  >
-    <Edit2Icon size="16" />
-  </button>
+    <!-- Checking if it comes from Notion then we do not edit it in the app -->
+  {#if !envelope.url}
+    <button
+      on:click|stopPropagation={handleEditClick}
+      class="btn btn-ghost btn-circle btn-sm ml-auto opacity-80"
+    >
+      <Edit2Icon size="16" />
+    </button>
+  {/if}
 </div>
