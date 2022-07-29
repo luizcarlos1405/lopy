@@ -4,7 +4,7 @@ const timestamp = {
   }
 };
 const build = [
-  "/_app/start-3501365f.js",
+  "/_app/start-042294af.js",
   "/_app/pages/__layout.svelte-8a537c80.js",
   "/_app/assets/pages/__layout.svelte-e52c889b.css",
   "/_app/pages/__error.svelte-a2d583c7.js",
@@ -17,7 +17,7 @@ const build = [
   "/_app/assets/pages/envelope/edit/_id_.svelte-3e00504f.css",
   "/_app/pages/envelope/_id_.svelte-14c08fe6.js",
   "/_app/assets/pages/envelope/_id_.svelte-0bed5e77.css",
-  "/_app/pages/settings.svelte-4c17aa4e.js",
+  "/_app/pages/settings.svelte-ec67e5fd.js",
   "/_app/chunks/vendor-4d7ef4b9.js",
   "/_app/chunks/singletons-d1fb5791.js",
   "/_app/chunks/notionStore-bf962b63.js",
