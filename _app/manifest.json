@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-c9629b63.js",
+    "file": "start-7dae706b.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -42,14 +42,15 @@
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-76ee9fab.js",
+    "file": "pages/index.svelte-dadb969f.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_vendor-4d7ef4b9.js",
-      "_notionStore-bf962b63.js",
+      "_Envelope-da227db2.js",
       "_BottomNavigation-c57ea8ca.js",
+      "_notionStore-2bb5252e.js",
       "_stores-34ec517f.js",
       "_longpress-a7a6c534.js",
       "_singletons-d1fb5791.js"
@@ -90,7 +91,7 @@
     ]
   },
   "src/routes/envelope/[id].svelte": {
-    "file": "pages/envelope/_id_.svelte-14c08fe6.js",
+    "file": "pages/envelope/_id_.svelte-810ca9f8.js",
     "src": "src/routes/envelope/[id].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -98,7 +99,8 @@
       "_vendor-4d7ef4b9.js",
       "_stores-34ec517f.js",
       "_EnvelopeTransactions-7c8098d3.js",
-      "_notionStore-bf962b63.js",
+      "_Envelope-da227db2.js",
+      "_notionStore-2bb5252e.js",
       "_singletons-d1fb5791.js",
       "_longpress-a7a6c534.js"
     ],
@@ -107,12 +109,13 @@
     ]
   },
   "src/routes/settings.svelte": {
-    "file": "pages/settings.svelte-6d4ecc5e.js",
+    "file": "pages/settings.svelte-72d02e13.js",
     "src": "src/routes/settings.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-4d7ef4b9.js"
+      "_vendor-4d7ef4b9.js",
+      "_notionStore-2bb5252e.js"
     ]
   },
   "_vendor-4d7ef4b9.js": {
@@ -121,8 +124,8 @@
   "_singletons-d1fb5791.js": {
     "file": "chunks/singletons-d1fb5791.js"
   },
-  "_notionStore-bf962b63.js": {
-    "file": "chunks/notionStore-bf962b63.js",
+  "_Envelope-da227db2.js": {
+    "file": "chunks/Envelope-da227db2.js",
     "imports": [
       "_vendor-4d7ef4b9.js",
       "_stores-34ec517f.js"
@@ -136,6 +139,12 @@
     ],
     "css": [
       "assets/BottomNavigation-a22f806f.css"
+    ]
+  },
+  "_notionStore-2bb5252e.js": {
+    "file": "chunks/notionStore-2bb5252e.js",
+    "imports": [
+      "_vendor-4d7ef4b9.js"
     ]
   },
   "_stores-34ec517f.js": {
