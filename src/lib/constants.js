@@ -8,4 +8,5 @@ export const ROUTES = {
   ENVELOPE: `${BASE_URL}envelope`,
   EDIT: `${BASE_URL}envelope/edit`,
   TRANSACTIONS: `${BASE_URL}transactions`,
+  SETTINGS: `${BASE_URL}settings`,
 };

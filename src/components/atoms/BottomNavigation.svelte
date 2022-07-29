@@ -1,5 +1,5 @@
 <script>
-  import { HomeIcon, ListIcon } from 'svelte-feather-icons';
+  import { HomeIcon, ListIcon, SettingsIcon } from 'svelte-feather-icons';
   import { ROUTES } from '$lib/constants';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
@@ -23,6 +23,14 @@
   >
     <ListIcon size="30" />
     <span class="hidden md:inline">Transactions</span>
+  </button>
+  <button
+    on:click={() => goto(`${ROUTES.SETTINGS}`)}
+    class="btn btn-ghost relative text-base-content md:justify-start md:gap-2 md:pl-4"
+    class:currentButton={$page.url.pathname == ROUTES.SETTINGS}
+  >
+    <SettingsIcon size="30" />
+    <span class="hidden md:inline">Settings</span>
   </button>
 </div>
 

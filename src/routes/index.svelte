@@ -1,6 +1,7 @@
 <script>
   import Envelope from '../components/atoms/Envelope.svelte';
   import BottomNavigation from '../components/atoms/BottomNavigation.svelte';
+  import { notionStore, fetchEnvelopes } from '$lib/notionStore';
   import { envelopes, actions } from '$lib/stores';
   import { goto } from '$app/navigation';
   import { PlusIcon } from 'svelte-feather-icons';
@@ -11,6 +12,10 @@
   import { orderableChildren } from '../lib/orderableChildren.js';
   import { moveArrayItem } from '$lib/helpers';
   import { getContext } from 'svelte';
+
+  fetchEnvelopes();
+
+  $: console.log('notionStore', $notionStore);
 
   const themeStore = getContext('themeStore');
   let isDragging = false;
@@ -88,7 +93,7 @@
       onEnd: handleOnDragEnd,
     }}
   >
-    {#each $envelopes as envelope (envelope._id)}
+    {#each [...$notionStore.envelopes, ...$envelopes] as envelope (envelope._id)}
       <span class="cursor-unset outline-none" use:longpress>
         <Envelope
           {envelope}

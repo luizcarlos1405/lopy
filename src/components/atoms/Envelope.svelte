@@ -21,7 +21,7 @@
   <div
     class="flex h-12 w-12 flex-shrink-0 items-center justify-center self-center rounded-2xl bg-base-200 bg-opacity-80 p-1 text-4xl"
   >
-    {emoji}
+    {emoji || "✉️"}
   </div>
   <div class="mx-2 flex flex-col justify-center truncate font-semibold">
     <div class="truncate text-base">

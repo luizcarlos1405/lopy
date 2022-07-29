@@ -9,9 +9,12 @@
   import { DateTime } from 'luxon';
   import { scale } from 'svelte/transition';
   import { envelopes } from '$lib/stores';
+  import { notionStore, saveTransaction } from '$lib/notionStore';
   import yaml from 'yaml';
   import { COPY_PASTE_DATE_FORMAT } from '../../lib/constants.js';
 
+  const LOCAL = 'LOCAL';
+  const NOTION = 'NOTION';
   const { id } = $page.params;
 
   let pasteInputRef = null;
@@ -19,7 +22,10 @@
   let savedTransaction = null;
   let isPasting = false;
 
-  $: envelope = $envelopes.find(({ _id }) => _id === id) || {};
+  $: notionEnvelope = $notionStore.envelopes.find(({ _id }) => _id === id);
+  $: envelope =
+    $envelopes.find(({ _id }) => _id === id) || notionEnvelope || {};
+  $: envelopeOrigin = notionEnvelope ? NOTION : LOCAL;
 
   const handleMoneyInputEnterPressed = () => {
     document?.getElementById('comment-input').focus();
@@ -33,47 +39,61 @@
     transactionsPaginated = await transactionsPaginated.refresh();
   };
   const handleSaveTransaction = () => {
-    if (isPasting) {
-      const transactionsToSave = yaml.parse(pasteText);
-      pasteText = '';
+    switch (envelopeOrigin) {
+      case LOCAL:
+        if (isPasting) {
+          const transactionsToSave = yaml.parse(pasteText);
+          pasteText = '';
 
-      // LET THE GAMBIARRA BEGIN
-      isPasting = false;
-      transactionsToSave?.forEach(
-        ({ envelope, value, date, ...pastedTransaction }) => {
+          // LET THE GAMBIARRA BEGIN
+          isPasting = false;
+          transactionsToSave?.forEach(
+            ({ envelope, value, date, ...pastedTransaction }) => {
+              $actions
+                .saveTransaction(
+                  {
+                    ...pastedTransaction,
+                    value: value * 100,
+                    date: DateTime.fromFormat(
+                      date,
+                      COPY_PASTE_DATE_FORMAT
+                    ).toSeconds(),
+                  },
+                  id
+                )
+                .then(async () => {
+                  selectedTransactionsById = {};
+                  transactionsPaginated = await transactionsPaginated.refresh();
+                });
+            }
+          );
+          return;
+        }
+
+        if (isClient() && transaction.value) {
           $actions
-            .saveTransaction(
-              {
-                ...pastedTransaction,
-                value: value * 100,
-                date: DateTime.fromFormat(
-                  date,
-                  COPY_PASTE_DATE_FORMAT
-                ).toSeconds(),
-              },
-              id
-            )
-            .then(async () => {
-              selectedTransactionsById = {};
+            .saveTransaction(transaction, id)
+            .then(async createdTransaction => {
+              transaction.value = 0;
+              transaction.comment = '';
               transactionsPaginated = await transactionsPaginated.refresh();
+
+              moneyInput?.focus();
+              savedTransaction = createdTransaction;
+              selectedTransactionsById = {};
             });
         }
-      );
-      return;
-    }
 
-    if (isClient() && transaction.value) {
-      $actions
-        .saveTransaction(transaction, id)
-        .then(async createdTransaction => {
+        break;
+      case NOTION:
+        if (transaction.value) {
+          // This is async but we don't wait it to clear the results
+          saveTransaction({ envelopeId: envelope._id, transaction });
           transaction.value = 0;
           transaction.comment = '';
-          transactionsPaginated = await transactionsPaginated.refresh();
+        }
 
-          moneyInput?.focus();
-          savedTransaction = createdTransaction;
-          selectedTransactionsById = {};
-        });
+        break;
     }
   };
 
@@ -85,32 +105,44 @@
     window.history.back();
   };
   const handleCopyToClipboardClicked = () => {
-    const transactionsToCopy = savedTransaction
-      ? [savedTransaction]
-      : Object.values(selectedTransactionsById);
+    switch (envelopeOrigin) {
+      case LOCAL:
+        const transactionsToCopy = savedTransaction
+          ? [savedTransaction]
+          : Object.values(selectedTransactionsById);
 
-    navigator.clipboard
-      .writeText(
-        yaml.stringify(
-          transactionsToCopy.map(({ envelopeId, _id, ...relevantFields }) => ({
-            envelope: envelope?.name,
-            ...relevantFields,
-            value: relevantFields.value / 100,
-            date: DateTime.fromSeconds(relevantFields.date).toFormat(
-              COPY_PASTE_DATE_FORMAT
-            ),
-          }))
-        )
-      )
-      .then(() => {
-        savedTransaction = null;
-        selectedTransactionsById = {};
-      })
-      .catch(console.error);
+        navigator.clipboard
+          .writeText(
+            yaml.stringify(
+              transactionsToCopy.map(
+                ({ envelopeId, _id, ...relevantFields }) => ({
+                  envelope: envelope?.name,
+                  ...relevantFields,
+                  value: relevantFields.value / 100,
+                  date: DateTime.fromSeconds(relevantFields.date).toFormat(
+                    COPY_PASTE_DATE_FORMAT
+                  ),
+                })
+              )
+            )
+          )
+          .then(() => {
+            savedTransaction = null;
+            selectedTransactionsById = {};
+          })
+          .catch(console.error);
+
+        break;
+    }
   };
   const handlePasteClicked = async () => {
-    isPasting = true;
-    pasteInputRef?.focus();
+    switch (envelopeOrigin) {
+      case LOCAL:
+        isPasting = true;
+        pasteInputRef?.focus();
+
+        break;
+    }
   };
 
   let transactionsPaginated = $actions
@@ -164,25 +196,27 @@
             Copy
           </button>
         {/if}
-        <span
-          class="swap swap-flip"
-          class:swapActive={Object.keys(selectedTransactionsById).length}
-        >
-          <button
-            class="swap-on text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-            on:click={handleDelete}
+        {#if envelopeOrigin === LOCAL}
+          <span
+            class="swap swap-flip"
+            class:swapActive={Object.keys(selectedTransactionsById).length}
           >
-            <Trash2Icon size="20" strokeWidth="3" />
-            Delete
-          </button>
-          <button
-            class="swap-off text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
-            on:click={handlePasteClicked}
-          >
-            <ClipboardIcon size="20" strokeWidth="3" />
-            Paste
-          </button>
-        </span>
+            <button
+              class="swap-on text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
+              on:click={handleDelete}
+            >
+              <Trash2Icon size="20" strokeWidth="3" />
+              Delete
+            </button>
+            <button
+              class="swap-off text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
+              on:click={handlePasteClicked}
+            >
+              <ClipboardIcon size="20" strokeWidth="3" />
+              Paste
+            </button>
+          </span>
+        {/if}
       </div>
       <MoneyInput
         bind:isNegative
