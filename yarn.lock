@@ -1679,10 +1679,10 @@ svelte-hmr@^0.14.9:
   resolved "https://registry.npmjs.org/svelte-hmr/-/svelte-hmr-0.14.10.tgz"
   integrity sha512-VffsN0fT4cTJ7b4apf9VDIrgsbLFaJzPypcAuy4NcHx2PKKayfwLwabaYPWdHK5lJ/uQ/HBrkEsWHzo64NU6mQ==
 
-svelte@^3.38.2, svelte@^3.46.0:
-  version "3.46.4"
-  resolved "https://registry.npmjs.org/svelte/-/svelte-3.46.4.tgz"
-  integrity sha512-qKJzw6DpA33CIa+C/rGp4AUdSfii0DOTCzj/2YpSKKayw5WGSS624Et9L1nU1k2OVRS9vaENQXp2CVZNU+xvIg==
+svelte@^3.38.2, svelte@^3.49.0:
+  version "3.49.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.49.0.tgz#5baee3c672306de1070c3b7888fc2204e36a4029"
+  integrity sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==
 
 table@^6.0.9:
   version "6.8.0"
