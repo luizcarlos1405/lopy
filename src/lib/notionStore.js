@@ -83,7 +83,7 @@ export const saveTransaction = async ({ envelopeId, transaction }) => {
   const body = JSON.stringify({
     transactionsDatabaseId: config.transactionsDatabaseId,
     envelopePageId: envelopeId,
-    description: transaction.comment || '',
+    comment: transaction.comment || '',
     value: transaction.value / 100.0,
   });
 

@@ -247,7 +247,7 @@
         bind:value={transaction.comment}
         id="comment-input"
         rows="3"
-        placeholder="Description"
+        placeholder="Comment"
       />
     {/if}
 
