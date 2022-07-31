@@ -3,7 +3,7 @@ const i = {
     throw new Error("`timestamp` has been removed from $service-worker. Use `version` instead");
   }
 }, m = [
-  "/_app/immutable/start-be27199f.js",
+  "/_app/immutable/start-8720558f.js",
   "/_app/immutable/pages/__layout.svelte-cff67f27.js",
   "/_app/immutable/assets/__layout-ef931c5d.css",
   "/_app/immutable/pages/__error.svelte-3893db4c.js",
