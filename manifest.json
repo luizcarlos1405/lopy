@@ -1,29 +1,225 @@
 {
-  "background_color": "#000000",
-  "description": "Simple budgeting app",
-  "theme_color": "#000000",
-  "name": "Lopy",
-  "short_name": "Lopy",
-  "display": "standalone",
-  "start_url": "/",
-  "icons": [
-    {
-      "src": "logo-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "logo-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "logo-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ]
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "_app/immutable/start-aca5b326.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_index-a5fb40b1.js",
+      "_singletons-eca981c1.js"
+    ],
+    "dynamicImports": [
+      "src/routes/__layout.svelte",
+      "src/routes/__error.svelte",
+      "src/routes/envelope/[id].svelte",
+      "src/routes/envelope/edit/[id].svelte",
+      "src/routes/index.svelte",
+      "src/routes/settings.svelte",
+      "src/routes/transactions.svelte"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "_app/immutable/pages/__layout.svelte-36900d43.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_index-a5fb40b1.js"
+    ],
+    "css": [
+      "_app/immutable/assets/__layout-7872798b.css"
+    ]
+  },
+  "src/routes/__error.svelte": {
+    "file": "_app/immutable/pages/__error.svelte-46665dcd.js",
+    "src": "src/routes/__error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js"
+    ],
+    "css": [
+      "_app/immutable/assets/__error-222277ab.css"
+    ]
+  },
+  "src/routes/envelope/[id].svelte": {
+    "file": "_app/immutable/pages/envelope/_id_.svelte-49313f31.js",
+    "src": "src/routes/envelope/[id].svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_stores-6241235a.js",
+      "_EnvelopeTransactions-166505be.js",
+      "_Envelope-87461f17.js",
+      "_Trash2Icon-4a809962.js",
+      "_notionStore-61880af3.js",
+      "_singletons-eca981c1.js",
+      "_index-a5fb40b1.js",
+      "_longpress-f0a75fa9.js"
+    ],
+    "css": [
+      "_app/immutable/assets/[id]-ad3ef020.css"
+    ]
+  },
+  "src/routes/envelope/edit/[id].svelte": {
+    "file": "_app/immutable/pages/envelope/edit/_id_.svelte-94a62ab7.js",
+    "src": "src/routes/envelope/edit/[id].svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_stores-6241235a.js",
+      "_Trash2Icon-4a809962.js",
+      "_singletons-eca981c1.js",
+      "_index-a5fb40b1.js"
+    ],
+    "css": [
+      "_app/immutable/assets/[id]-98577166.css"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "_app/immutable/pages/index.svelte-2b97a019.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_Envelope-87461f17.js",
+      "_BottomNavigation-5e4ce5cd.js",
+      "_notionStore-61880af3.js",
+      "_stores-6241235a.js",
+      "_longpress-f0a75fa9.js",
+      "_index-a5fb40b1.js",
+      "_singletons-eca981c1.js"
+    ],
+    "css": [
+      "_app/immutable/assets/index-e4405f24.css"
+    ]
+  },
+  "src/routes/settings.svelte": {
+    "file": "_app/immutable/pages/settings.svelte-159a0674.js",
+    "src": "src/routes/settings.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_notionStore-61880af3.js",
+      "_index-a5fb40b1.js"
+    ]
+  },
+  "src/routes/transactions.svelte": {
+    "file": "_app/immutable/pages/transactions.svelte-bb6aa0be.js",
+    "src": "src/routes/transactions.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_EnvelopeTransactions-166505be.js",
+      "_BottomNavigation-5e4ce5cd.js",
+      "_stores-6241235a.js",
+      "_longpress-f0a75fa9.js",
+      "_singletons-eca981c1.js",
+      "_index-a5fb40b1.js"
+    ],
+    "css": [
+      "_app/immutable/assets/transactions-fab3a9ea.css"
+    ]
+  },
+  "_index-2c5b7e63.js": {
+    "file": "_app/immutable/chunks/index-2c5b7e63.js"
+  },
+  "_index-a5fb40b1.js": {
+    "file": "_app/immutable/chunks/index-a5fb40b1.js",
+    "imports": [
+      "_index-2c5b7e63.js"
+    ]
+  },
+  "_singletons-eca981c1.js": {
+    "file": "_app/immutable/chunks/singletons-eca981c1.js"
+  },
+  "_stores-6241235a.js": {
+    "file": "_app/immutable/chunks/stores-6241235a.js",
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_singletons-eca981c1.js",
+      "_index-a5fb40b1.js"
+    ]
+  },
+  "_EnvelopeTransactions-166505be.js": {
+    "file": "_app/immutable/chunks/EnvelopeTransactions-166505be.js",
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_stores-6241235a.js",
+      "_longpress-f0a75fa9.js"
+    ],
+    "css": [
+      "_app/immutable/assets/EnvelopeTransactions-9a6e8b8e.css"
+    ]
+  },
+  "_Envelope-87461f17.js": {
+    "file": "_app/immutable/chunks/Envelope-87461f17.js",
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_stores-6241235a.js"
+    ]
+  },
+  "_Trash2Icon-4a809962.js": {
+    "file": "_app/immutable/chunks/Trash2Icon-4a809962.js",
+    "imports": [
+      "_index-2c5b7e63.js"
+    ]
+  },
+  "_notionStore-61880af3.js": {
+    "file": "_app/immutable/chunks/notionStore-61880af3.js",
+    "imports": [
+      "_index-a5fb40b1.js"
+    ]
+  },
+  "_longpress-f0a75fa9.js": {
+    "file": "_app/immutable/chunks/longpress-f0a75fa9.js"
+  },
+  "_BottomNavigation-5e4ce5cd.js": {
+    "file": "_app/immutable/chunks/BottomNavigation-5e4ce5cd.js",
+    "imports": [
+      "_index-2c5b7e63.js",
+      "_stores-6241235a.js"
+    ],
+    "css": [
+      "_app/immutable/assets/BottomNavigation-d370ba13.css"
+    ]
+  },
+  "src/routes/__error.css": {
+    "file": "_app/immutable/assets/__error-222277ab.css",
+    "src": "src/routes/__error.css"
+  },
+  "src/routes/envelope/[id].css": {
+    "file": "_app/immutable/assets/[id]-ad3ef020.css",
+    "src": "src/routes/envelope/[id].css"
+  },
+  "src/routes/envelope/edit/[id].css": {
+    "file": "_app/immutable/assets/[id]-98577166.css",
+    "src": "src/routes/envelope/edit/[id].css"
+  },
+  "src/routes/transactions.css": {
+    "file": "_app/immutable/assets/transactions-fab3a9ea.css",
+    "src": "src/routes/transactions.css"
+  },
+  "EnvelopeTransactions.css": {
+    "file": "_app/immutable/assets/EnvelopeTransactions-9a6e8b8e.css",
+    "src": "EnvelopeTransactions.css"
+  },
+  "src/routes/index.css": {
+    "file": "_app/immutable/assets/index-e4405f24.css",
+    "src": "src/routes/index.css"
+  },
+  "BottomNavigation.css": {
+    "file": "_app/immutable/assets/BottomNavigation-d370ba13.css",
+    "src": "BottomNavigation.css"
+  },
+  "src/routes/__layout.css": {
+    "file": "_app/immutable/assets/__layout-7872798b.css",
+    "src": "src/routes/__layout.css"
+  }
 }

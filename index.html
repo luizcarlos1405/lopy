@@ -8,22 +8,25 @@
     <!-- This contains the contents of the <svelte:head> component, if
 	     the current page has one -->
     <meta http-equiv="content-security-policy" content=""><title>Lopy</title><meta name="theme-color" content="" data-svelte="svelte-1uxnp54"><link rel="manifest" href="manifest.json" crossorigin="use-credentials" data-svelte="svelte-1uxnp54"><link rel="preconnect" href="https://fonts.gstatic.com" data-svelte="svelte-1uxnp54"><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" data-svelte="svelte-1uxnp54">
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-e52c889b.css">
-	<link rel="stylesheet" href="/_app/assets/pages/index.svelte-e9433e1a.css">
-	<link rel="stylesheet" href="/_app/assets/BottomNavigation-a22f806f.css">
-	<link rel="modulepreload" href="/_app/start-f11f0999.js">
-	<link rel="modulepreload" href="/_app/chunks/vendor-c0a95dcb.js">
-	<link rel="modulepreload" href="/_app/chunks/singletons-d1fb5791.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-d0b0eadb.js">
-	<link rel="modulepreload" href="/_app/pages/index.svelte-8cf9366a.js">
-	<link rel="modulepreload" href="/_app/chunks/Envelope-f11463df.js">
-	<link rel="modulepreload" href="/_app/chunks/stores-2000987a.js">
-	<link rel="modulepreload" href="/_app/chunks/BottomNavigation-334748b7.js">
-	<link rel="modulepreload" href="/_app/chunks/notionStore-26f6cc43.js">
-	<link rel="modulepreload" href="/_app/chunks/longpress-a7a6c534.js">
-				<script>
+	<link rel="stylesheet" href="/_app/immutable/assets/__layout-7872798b.css">
+	<link rel="stylesheet" href="/_app/immutable/assets/index-e4405f24.css">
+	<link rel="stylesheet" href="/_app/immutable/assets/BottomNavigation-d370ba13.css">
+	<link rel="modulepreload" href="/_app/immutable/start-aca5b326.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-2c5b7e63.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-a5fb40b1.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/singletons-eca981c1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-36900d43.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/index.svelte-2b97a019.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/Envelope-87461f17.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/stores-6241235a.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/BottomNavigation-5e4ce5cd.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/notionStore-61880af3.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/longpress-f0a75fa9.js">
+			<script>
 		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('/service-worker.js');
+			addEventListener('load', function () {
+				navigator.serviceWorker.register('/service-worker.js');
+			});
 		}
 	</script>
   </head>
@@ -51,10 +54,13 @@
 </main>
 
 
-		<script type="module" data-hydrate="paozc3">
-		import { start } from "/_app/start-f11f0999.js";
+		<script type="module" data-sveltekit-hydrate="paozc3">
+		import { set_public_env, start } from "/_app/immutable/start-aca5b326.js";
+
+		set_public_env({});
+
 		start({
-			target: document.querySelector('[data-hydrate="paozc3"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="paozc3"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -63,11 +69,9 @@
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-d0b0eadb.js"),
-						import("/_app/pages/index.svelte-8cf9366a.js")
-				],
-				params: {}
+				nodes: [0, 4],
+				params: {},
+				routeId: ""
 			}
 		});
 	</script>
