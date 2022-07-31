@@ -52,7 +52,7 @@
   });
 </script>
 
-<div class="layout-template-rows grid-layout min-h-full">
+<div class="layout-template-rows grid-layout min-h-full bg-transparent">
   <div
     class="font-base col-start-2 col-end-12 flex flex-nowrap items-center justify-around self-start py-14 text-neutral-content md:col-start-6"
   >
