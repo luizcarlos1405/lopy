@@ -7,7 +7,7 @@ export const config = browser
       pageId: localStorage.getItem('pageId'),
       transactionsDatabaseId: localStorage.getItem('transactionsDatabaseId'),
       envelopesDatabaseId: localStorage.getItem('envelopesDatabaseId'),
-      apiEndpoint: 'https://lopy-notion-api.deno.dev/api/'
+      apiEndpoint: 'https://lopy-notion-api.deno.dev/api/',
     }
   : {};
 
@@ -16,6 +16,10 @@ export const notionStore = writable({
 });
 
 export const fetchEnvelopes = async () => {
+  if (!browser) {
+    return;
+  }
+
   const headers = new Headers();
   headers.append('procedure', 'listEnvelopes');
   headers.append('Authorization', `Bearer ${config.token}`);
