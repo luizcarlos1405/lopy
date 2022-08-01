@@ -3,18 +3,18 @@ const i = {
     throw new Error("`timestamp` has been removed from $service-worker. Use `version` instead");
   }
 }, m = [
-  "/_app/immutable/start-e4ecb5df.js",
+  "/_app/immutable/start-d868eeb7.js",
   "/_app/immutable/pages/__layout.svelte-4b9e5fdf.js",
   "/_app/immutable/assets/__layout-d024e4af.css",
   "/_app/immutable/pages/__error.svelte-3893db4c.js",
   "/_app/immutable/assets/__error-e110fe52.css",
-  "/_app/immutable/pages/envelope/_id_.svelte-804020c7.js",
-  "/_app/immutable/assets/[id]-fbd122f3.css",
+  "/_app/immutable/pages/envelope/_id_.svelte-e46e882e.js",
+  "/_app/immutable/assets/[id]-1dfe0678.css",
   "/_app/immutable/pages/envelope/edit/_id_.svelte-e3bcf9a8.js",
   "/_app/immutable/assets/[id]-b4ff5028.css",
-  "/_app/immutable/pages/index.svelte-0ba5b735.js",
+  "/_app/immutable/pages/index.svelte-a23cd06d.js",
   "/_app/immutable/assets/index-11e754cf.css",
-  "/_app/immutable/pages/settings.svelte-2c5e5025.js",
+  "/_app/immutable/pages/settings.svelte-bda0f534.js",
   "/_app/immutable/pages/transactions.svelte-2147d6a5.js",
   "/_app/immutable/assets/transactions-e1b5d252.css",
   "/_app/immutable/chunks/index-2c5b7e63.js",
@@ -25,7 +25,7 @@ const i = {
   "/_app/immutable/assets/EnvelopeTransactions-22c204af.css",
   "/_app/immutable/chunks/Envelope-87461f17.js",
   "/_app/immutable/chunks/Trash2Icon-4a809962.js",
-  "/_app/immutable/chunks/notionStore-c930df84.js",
+  "/_app/immutable/chunks/notionStore-ff41b8f5.js",
   "/_app/immutable/chunks/longpress-f0a75fa9.js",
   "/_app/immutable/chunks/BottomNavigation-4071f616.js",
   "/_app/immutable/assets/BottomNavigation-a95123cd.css"
@@ -36,39 +36,39 @@ const i = {
   "/logo-maskable-512.png",
   "/manifest.json"
 ], t = self, o = `cache${i}`, p = m.concat(r), u = new Set(p);
-t.addEventListener("install", (s) => {
-  s.waitUntil(
-    caches.open(o).then((e) => e.addAll(p)).then(() => {
+t.addEventListener("install", (e) => {
+  e.waitUntil(
+    caches.open(o).then((s) => s.addAll(p)).then(() => {
       t.skipWaiting();
     })
   );
 });
-t.addEventListener("activate", (s) => {
-  s.waitUntil(
-    caches.keys().then(async (e) => {
-      for (const a of e)
+t.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys().then(async (s) => {
+      for (const a of s)
         a !== o && await caches.delete(a);
       t.clients.claim();
     })
   );
 });
-async function h(s) {
-  const e = await caches.open(`offline${i}`);
+async function h(e) {
+  const s = await caches.open(`offline${i}`);
   try {
-    const a = await fetch(s);
-    return e.put(s, a.clone()), a;
+    const a = await fetch(e);
+    return s.put(e, a.clone()), a;
   } catch (a) {
-    const c = await e.match(s);
+    const c = await s.match(e);
     if (c)
       return c;
     throw a;
   }
 }
-t.addEventListener("fetch", (s) => {
-  if (s.request.method !== "GET" || s.request.headers.has("range"))
+t.addEventListener("fetch", (e) => {
+  if (e.request.method !== "GET" || e.request.headers.has("range"))
     return;
-  const e = new URL(s.request.url), a = e.protocol.startsWith("http"), c = e.hostname === self.location.hostname && e.port !== self.location.port, n = e.host === self.location.host && u.has(e.pathname), l = s.request.cache === "only-if-cached" && !n;
-  a && !c && !l && s.respondWith(
-    (async () => n && await caches.match(s.request) || h(s.request))()
+  const s = new URL(e.request.url), a = s.protocol.startsWith("http"), c = s.hostname === self.location.hostname && s.port !== self.location.port, n = s.host === self.location.host && u.has(s.pathname), l = e.request.cache === "only-if-cached" && !n;
+  a && !c && !l && e.respondWith(
+    (async () => n && await caches.match(e.request) || h(e.request))()
   );
 });

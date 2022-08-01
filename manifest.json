@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "_app/immutable/start-e4ecb5df.js",
+    "file": "_app/immutable/start-d868eeb7.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -44,7 +44,7 @@
     ]
   },
   "src/routes/envelope/[id].svelte": {
-    "file": "_app/immutable/pages/envelope/_id_.svelte-804020c7.js",
+    "file": "_app/immutable/pages/envelope/_id_.svelte-e46e882e.js",
     "src": "src/routes/envelope/[id].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -54,13 +54,13 @@
       "_EnvelopeTransactions-f9596450.js",
       "_Envelope-87461f17.js",
       "_Trash2Icon-4a809962.js",
-      "_notionStore-c930df84.js",
+      "_notionStore-ff41b8f5.js",
       "_singletons-eca981c1.js",
       "_index-a5fb40b1.js",
       "_longpress-f0a75fa9.js"
     ],
     "css": [
-      "_app/immutable/assets/[id]-fbd122f3.css"
+      "_app/immutable/assets/[id]-1dfe0678.css"
     ]
   },
   "src/routes/envelope/edit/[id].svelte": {
@@ -80,7 +80,7 @@
     ]
   },
   "src/routes/index.svelte": {
-    "file": "_app/immutable/pages/index.svelte-0ba5b735.js",
+    "file": "_app/immutable/pages/index.svelte-a23cd06d.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -88,7 +88,7 @@
       "_index-2c5b7e63.js",
       "_Envelope-87461f17.js",
       "_BottomNavigation-4071f616.js",
-      "_notionStore-c930df84.js",
+      "_notionStore-ff41b8f5.js",
       "_stores-6241235a.js",
       "_longpress-f0a75fa9.js",
       "_index-a5fb40b1.js",
@@ -99,13 +99,13 @@
     ]
   },
   "src/routes/settings.svelte": {
-    "file": "_app/immutable/pages/settings.svelte-2c5e5025.js",
+    "file": "_app/immutable/pages/settings.svelte-bda0f534.js",
     "src": "src/routes/settings.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-2c5b7e63.js",
-      "_notionStore-c930df84.js",
+      "_notionStore-ff41b8f5.js",
       "_index-a5fb40b1.js"
     ]
   },
@@ -171,8 +171,8 @@
       "_index-2c5b7e63.js"
     ]
   },
-  "_notionStore-c930df84.js": {
-    "file": "_app/immutable/chunks/notionStore-c930df84.js",
+  "_notionStore-ff41b8f5.js": {
+    "file": "_app/immutable/chunks/notionStore-ff41b8f5.js",
     "imports": [
       "_index-a5fb40b1.js"
     ]
@@ -194,25 +194,25 @@
     "file": "_app/immutable/assets/__error-e110fe52.css",
     "src": "src/routes/__error.css"
   },
-  "src/routes/envelope/[id].css": {
-    "file": "_app/immutable/assets/[id]-fbd122f3.css",
-    "src": "src/routes/envelope/[id].css"
-  },
-  "src/routes/transactions.css": {
-    "file": "_app/immutable/assets/transactions-e1b5d252.css",
-    "src": "src/routes/transactions.css"
-  },
-  "src/routes/index.css": {
-    "file": "_app/immutable/assets/index-11e754cf.css",
-    "src": "src/routes/index.css"
+  "src/routes/envelope/edit/[id].css": {
+    "file": "_app/immutable/assets/[id]-b4ff5028.css",
+    "src": "src/routes/envelope/edit/[id].css"
   },
   "EnvelopeTransactions.css": {
     "file": "_app/immutable/assets/EnvelopeTransactions-22c204af.css",
     "src": "EnvelopeTransactions.css"
   },
-  "src/routes/envelope/edit/[id].css": {
-    "file": "_app/immutable/assets/[id]-b4ff5028.css",
-    "src": "src/routes/envelope/edit/[id].css"
+  "src/routes/envelope/[id].css": {
+    "file": "_app/immutable/assets/[id]-1dfe0678.css",
+    "src": "src/routes/envelope/[id].css"
+  },
+  "src/routes/index.css": {
+    "file": "_app/immutable/assets/index-11e754cf.css",
+    "src": "src/routes/index.css"
+  },
+  "src/routes/transactions.css": {
+    "file": "_app/immutable/assets/transactions-e1b5d252.css",
+    "src": "src/routes/transactions.css"
   },
   "BottomNavigation.css": {
     "file": "_app/immutable/assets/BottomNavigation-a95123cd.css",
