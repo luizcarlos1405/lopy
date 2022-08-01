@@ -6,6 +6,7 @@
   import { flip } from 'svelte/animate';
   import { DateTime } from 'luxon';
 
+  export let origin = 'LOCAL';
   export let transactions = [];
   export let selectedTransactionsById = {};
 </script>
@@ -22,6 +23,10 @@
       animate:flip
       use:longpress={300}
       on:longpress={() => {
+        if (origin === 'NOTION') {
+          return;
+        }
+
         if (!selectedTransactionsById[transaction._id]) {
           selectedTransactionsById[transaction._id] = transaction;
           return;
@@ -32,7 +37,7 @@
       }}
     >
       {#if transaction.comment}
-        <div class="text-base opacity-80 leading-5">
+        <div class="text-base leading-5 opacity-80">
           {transaction.comment}
         </div>
       {/if}

@@ -180,7 +180,7 @@
     {#if envelopeOrigin === NOTION}
       <EnvelopeTransactions
         transactions={$notionStore.transactionsByEnvelopeId?.[id] || []}
-        bind:selectedTransactionsById
+        origin={NOTION}
       />
     {:else}
       {#await transactionsPaginated.transactions then transactions}
@@ -204,7 +204,7 @@
       />
     {:else}
       <div class="inline-flex self-end gap-4">
-        {#if savedTransaction || Object.keys(selectedTransactionsById)?.length}
+        {#if envelopeOrigin === LOCAL && (savedTransaction || Object.keys(selectedTransactionsById)?.length)}
           <button
             class="text-dark inline-flex gap-2 items-center font-bold rounded-full py-2 px-2"
             transition:scale|local={{ duration: 300 }}

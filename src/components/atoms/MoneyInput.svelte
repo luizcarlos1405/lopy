@@ -29,8 +29,6 @@
     event.target.selectionEnd = valueLength;
     event.target.selectionStart = valueLength;
   };
-
-  $: console.log('isNegative', isNegative);
 </script>
 
 <div

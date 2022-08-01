@@ -8,7 +8,6 @@
 
   $: ({ _id, emoji, name, value } = envelope);
 
-  console.log(envelope);
   const handleEditClick = () => {
     goto(`${ROUTES.EDIT}/${_id}`);
   };

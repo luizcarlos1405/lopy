@@ -54,7 +54,6 @@
     <button
       class="btn"
       on:click={() => {
-        console.log('back');
         window.history.back();
       }}
     >
