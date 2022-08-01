@@ -79,28 +79,60 @@ export const fetchEnvelopeTransactions = async ({ envelopeId }) => {
 };
 
 export const saveTransaction = async ({ envelopeId, transaction }) => {
-  const headers = new Headers();
-  headers.append('procedure', 'addTransaction');
-  headers.append('Authorization', `Bearer ${config.token}`);
-  headers.append('Content-Type', 'application/json');
+  notionStore.update(currentState => {
+    // SAVING
+    const headers = new Headers();
+    headers.append('procedure', 'addTransaction');
+    headers.append('Authorization', `Bearer ${config.token}`);
+    headers.append('Content-Type', 'application/json');
 
-  const body = JSON.stringify({
-    transactionsDatabaseId: config.transactionsDatabaseId,
-    envelopePageId: envelopeId,
-    comment: transaction.comment || '',
-    value: transaction.value / 100.0,
+    const body = JSON.stringify({
+      transactionsDatabaseId: config.transactionsDatabaseId,
+      envelopePageId: envelopeId,
+      comment: transaction.comment || '',
+      value: transaction.value / 100.0,
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers,
+      body,
+    };
+
+    fetch(`${config.apiEndpoint}notion-procedures`, requestOptions)
+      .then(response => response.json())
+      .catch(error => {
+        console.error(error);
+        // ROLLBACK
+        notionStore.update(() => currentState);
+      });
+
+    // OPTIMISTIC UI
+    const envelopeIndex = currentState.envelopes.findIndex(
+      ({ _id }) => _id === envelopeId
+    );
+
+    if (envelopeIndex < 0) {
+      return currentState;
+    }
+
+    const transactions = [
+      {
+        _id: `optimistic-ui-${Math.random()}`,
+        date: new Date().getUTCMilliseconds(),
+        ...transaction,
+      },
+      ...currentState.transactionsByEnvelopeId[envelopeId],
+    ];
+    currentState.envelopes[envelopeIndex].value += transaction.value;
+
+    return {
+      ...currentState,
+      envelopes: currentState.envelopes,
+      transactionsByEnvelopeId: {
+        ...currentState.transactionsByEnvelopeId,
+        [envelopeId]: transactions,
+      },
+    };
   });
-
-  const requestOptions = {
-    method: 'POST',
-    headers,
-    body,
-  };
-
-  await fetch(`${config.apiEndpoint}notion-procedures`, requestOptions)
-    .then(response => response.json())
-    .catch(error => (console.error(error), []));
-
-  await fetchEnvelopes();
-  await fetchEnvelopeTransactions({ envelopeId });
 };
