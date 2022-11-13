@@ -46,7 +46,7 @@
           {formatMoney(transaction.value, { showSign: false })}
         </span>
         <span class="opacity-80">
-          {DateTime.fromSeconds(transaction.date).toLocaleString(
+          {DateTime.fromMillis(transaction.date).toLocaleString(
             DateTime.DATETIME_SHORT
           )}
         </span>
