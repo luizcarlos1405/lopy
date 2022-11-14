@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { browser } from '$app/env';
+import { browser, dev } from '$app/env';
 
 export const config = browser
   ? {
@@ -7,7 +7,7 @@ export const config = browser
       pageId: localStorage.getItem('pageId'),
       transactionsDatabaseId: localStorage.getItem('transactionsDatabaseId'),
       envelopesDatabaseId: localStorage.getItem('envelopesDatabaseId'),
-      apiEndpoint: 'https://lopy-notion-api.deno.dev/api/',
+      apiEndpoint: dev ? 'http://localhost:8000/api/' : 'https://lopy-notion-api.deno.dev/api/',
     }
   : {};
 
