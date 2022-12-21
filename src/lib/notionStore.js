@@ -119,7 +119,7 @@ export const saveTransaction = async ({ envelopeId, transaction }) => {
     const transactions = [
       {
         _id: `optimistic-ui-${Math.random()}`,
-        date: new Date().getUTCMilliseconds(),
+        date: new Date().getTime(),
         ...transaction,
       },
       ...currentState.transactionsByEnvelopeId[envelopeId],

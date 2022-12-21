@@ -68,7 +68,7 @@ export const actions = readable(
         const newTransaction = {
           _id: uuid(),
           envelopeId,
-          date: DateTime.now().toSeconds(),
+          date: DateTime.now().toMillis(),
           ...transaction,
         };
         db.transaction("rw", db.transactions, db.envelopes, async () => {
