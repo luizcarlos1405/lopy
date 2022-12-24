@@ -1,16 +1,14 @@
 <script>
   import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
   import BottomNavigation from '../../components/atoms/BottomNavigation.svelte';
-  import { getAllTransactionsPaginated } from '$lib/stores/transactions';
+  import { queryTransactions } from '$lib/stores/transactions';
 
-  const transactions = getAllTransactionsPaginated();
+  const transactions = queryTransactions();
 </script>
 
 <div class="layout-template-rows grid-layout min-h-full">
   <div class="col-start-2 col-end-12 mt-8 md:col-start-6">
-    {#await transactions.transactions then transactions}
-      <EnvelopeTransactions {transactions} />
-    {/await}
+    <EnvelopeTransactions transactions={$transactions} />
   </div>
 
   <div

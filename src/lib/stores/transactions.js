@@ -36,53 +36,6 @@ export const saveTransaction = (transaction, envelopeId) =>
       .catch(reject);
   });
 
-// TODO actually make it paginated...
-export const getTransactionsPaginated = clientOnly(
-  {},
-  ({ envelopeId, limit, offset }) => {
-    return {
-      transactions: dexieDb.transactions
-        .where({ envelopeId })
-        .reverse()
-        .sortBy('date'),
-      previous: () => { },
-      next: () => { },
-      refresh: async () => {
-        const result = getTransactionsPaginated({
-          envelopeId,
-          limit,
-          offset,
-        });
-        const transactions = await result.transactions;
-
-        return { ...result, transactions };
-      },
-    };
-  }
-);
-
-// TODO actually make it paginated...
-export const getAllTransactionsPaginated = clientOnly(
-  {},
-  ({ limit, offset } = {}) => {
-    return {
-      transactions: dexieDb.transactions.reverse().sortBy('date'),
-      previous: () => { },
-      next: () => { },
-      refresh: async () => {
-        const result = getAllTransactionsPaginated({
-          actions,
-          limit,
-          offset,
-        });
-        const transactions = await result.transactions;
-
-        return { ...result, transactions };
-      },
-    };
-  }
-);
-
 export const deleteTransactions = async (transactionIds, envelopeId) => {
   return dexieDb.transaction(
     'rw',
