@@ -1,7 +1,6 @@
 import { liveQuery } from 'dexie';
 import { dexieDb } from '../databases/dexieDb';
 import { derived } from 'svelte/store';
-import { clientOnly } from '../helpers';
 import { DateTime } from 'luxon';
 
 export const queryTransactions = envelopeId =>

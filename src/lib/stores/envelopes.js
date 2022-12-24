@@ -9,19 +9,18 @@ export const envelopes = derived(
   array => array || []
 );
 
-export const saveEnvelope = ({ _id, ...envelope }) =>
-  envelopes.update(async currentState => {
-    const envelopeCount = await dexieDb.envelopes.count();
+export const saveEnvelope = async ({ _id, ...envelope }) => {
+  const envelopeCount = await dexieDb.envelopes.count();
 
-    return _id
-      ? dexieDb.envelopes.update(_id, envelope)
-      : dexieDb.envelopes.add({
-        _id: crypto.randomUUID(),
-        order: envelopeCount,
-        value: 0,
-        ...envelope,
-      });
-  });
+  return _id
+    ? dexieDb.envelopes.update(_id, envelope)
+    : dexieDb.envelopes.add({
+      _id: crypto.randomUUID(),
+      order: envelopeCount,
+      value: 0,
+      ...envelope,
+    });
+}
 
 export const deleteEnvelope = ({ _id }) =>
   dexieDb.envelopes.where({ _id }).delete();
