@@ -25,17 +25,16 @@ const themes = [
   'winter',
 ];
 
-let index = themes.findIndex(themeName => themeName === localStorageTheme);
-
 export const theme = {
   ...writable(localStorageTheme),
+  index: themes.findIndex(themeName => themeName === localStorageTheme),
   next() {
     const themeColoredDiv = document.getElementById('theme-colored');
     const themeMeta = document.getElementById('theme-meta');
     const manifestLink = document.getElementById('manifest-link');
 
-    index = (index + 1) % themes.length;
-    const newTheme = themes[index];
+    this.index = (this.index + 1) % themes.length;
+    const newTheme = themes[this.index];
 
     this.set(newTheme);
     localStorage.setItem('theme', newTheme);
