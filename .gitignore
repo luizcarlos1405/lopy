@@ -4,3 +4,4 @@
 yarn-error.log
 /.svelte-kit
 /build
+package-lock.json

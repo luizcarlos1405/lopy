@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { browser } from '$app/environment';
+import { browser, dev } from '$app/environment';
 
 const localStorageTheme = browser && localStorage.getItem('theme');
 
@@ -8,20 +8,23 @@ const themes = [
   'dark',
   'cupcake',
   'bumblebee',
+  'emerald',
   'corporate',
-  'synthwave',
-  'retro',
-  'valentine',
+  'cyberpunk',
   'halloween',
   'garden',
+  'forest',
   'lofi',
   'pastel',
   'fantasy',
-  'luxury',
+  'wireframe',
+  'black',
   'dracula',
   'cmyk',
-  'autumn',
+  'business',
+  'lemonade',
   'night',
+  'coffee',
   'winter',
 ];
 
@@ -36,6 +39,7 @@ export const theme = {
     this.index = (this.index + 1) % themes.length;
     const newTheme = themes[this.index];
 
+    console.log('newTheme', newTheme);
     this.set(newTheme);
     localStorage.setItem('theme', newTheme);
 
