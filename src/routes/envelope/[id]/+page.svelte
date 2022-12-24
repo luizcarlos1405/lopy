@@ -2,12 +2,12 @@
   import { page } from '$app/stores';
   import EnvelopeTransactions from '../../../components/EnvelopeTransactions.svelte';
   import Envelope from '../../../components/atoms/Envelope.svelte';
+  import { envelopes } from '$lib/stores/envelopes';
   import {
-    envelopes,
+    queryTransactions,
     deleteTransactions,
     saveTransaction,
-    getTransactionsPaginated
-  } from '$lib/stores/envelopes';
+  } from '$lib/stores/transactions';
   import { isClient } from '$lib/helpers';
   import MoneyInput from '../../../components/atoms/MoneyInput.svelte';
   import { ClipboardIcon, CopyIcon, Trash2Icon } from 'svelte-feather-icons';
@@ -24,6 +24,7 @@
   let isPasting = false;
 
   $: envelope = $envelopes.find(({ _id }) => _id === id) || {};
+  const transactions = queryTransactions(id);
 
   const handleMoneyInputEnterPressed = () => {
     document?.getElementById('comment-input').focus();
@@ -31,7 +32,6 @@
   const handleDelete = async () => {
     await deleteTransactions(Object.keys(selectedTransactionsById), id);
     selectedTransactionsById = {};
-    transactionsPaginated = await transactionsPaginated.refresh();
   };
   const handleSaveTransaction = () => {
     if (isPasting) {
@@ -54,7 +54,6 @@
             id
           ).then(async () => {
             selectedTransactionsById = {};
-            transactionsPaginated = await transactionsPaginated.refresh();
           });
         }
       );
@@ -65,7 +64,6 @@
       saveTransaction(transaction, id).then(async createdTransaction => {
         transaction.value = 0;
         transaction.comment = '';
-        transactionsPaginated = await transactionsPaginated.refresh();
 
         moneyInput?.focus();
         savedTransaction = createdTransaction;
@@ -110,9 +108,6 @@
     pasteInputRef?.focus();
   };
 
-  let transactionsPaginated = getTransactionsPaginated({
-    envelopeId: id,
-  });
   let selectedTransactionsById = {};
   let transaction = {
     value: 0,
@@ -127,9 +122,10 @@
     <Envelope {envelope} />
   </span>
   <span class="col-start-2 col-end-12 mb-4">
-    {#await transactionsPaginated.transactions then transactions}
-      <EnvelopeTransactions {transactions} bind:selectedTransactionsById />
-    {/await}
+    <EnvelopeTransactions
+      transactions={$transactions}
+      bind:selectedTransactionsById
+    />
   </span>
 
   <!-- FORM AND ACTIONS -->

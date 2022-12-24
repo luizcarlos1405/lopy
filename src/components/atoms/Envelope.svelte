@@ -25,10 +25,10 @@
   </div>
   <div class="mx-2 flex flex-col justify-center truncate font-semibold">
     <div class="truncate text-base">
-      {name}
+      {name || '...'}
     </div>
     <div class="font-mono text-sm opacity-70">
-      {formatMoney(value)}
+      {formatMoney(value || 0)}
     </div>
   </div>
     <!-- Checking if it comes from Notion then we do not edit it in the app -->

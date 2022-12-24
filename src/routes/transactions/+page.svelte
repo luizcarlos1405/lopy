@@ -1,9 +1,8 @@
 <script>
   import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
   import BottomNavigation from '../../components/atoms/BottomNavigation.svelte';
-  import { getAllTransactionsPaginated } from '$lib/stores/envelopes';
+  import { getAllTransactionsPaginated } from '$lib/stores/transactions';
 
-  export const ssr = false;
   const transactions = getAllTransactionsPaginated();
 </script>
 
