@@ -2,6 +2,7 @@
   import { browser, dev } from '$app/environment';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
+  import { theme } from '../lib/stores/themes';
   import '../app.css';
 
   let themeColoredNode = null;
@@ -11,89 +12,12 @@
 
   const defaultTheme = 'cupcake';
   const localStorageTheme = browser && localStorage.getItem('theme');
-  const themes = [
-    'light',
-    'dark',
-    'cupcake',
-    'bumblebee',
-    'corporate',
-    'synthwave',
-    'retro',
-    'valentine',
-    'halloween',
-    'garden',
-    'lofi',
-    'pastel',
-    'fantasy',
-    'luxury',
-    'dracula',
-    'cmyk',
-    'autumn',
-    'night',
-    'winter',
-  ];
-  const themeStore = writable({
-    currentTheme: localStorageTheme || defaultTheme,
-    themes,
-  });
-  setContext('themeStore', themeStore);
-
-  $: {
-    if (browser && localStorageTheme !== $themeStore.currentTheme) {
-      localStorage.setItem('theme', $themeStore.currentTheme);
-    }
-  }
-
-  $: {
-    $themeStore;
-    if (themeColoredNode && themeNode) {
-      const baseUrl = dev
-        ? 'http://localhost:4000/'
-        : 'https://lopy.suaveware.dev/';
-      themeColor = window.getComputedStyle(themeColoredNode).backgroundColor;
-      themeNode.content = themeColor;
-
-      // DYNAMIC manifest.json
-      const manifest = {
-        name: 'Lopy',
-        short_name: 'Lopy',
-        description: 'Simple budgeting app',
-        theme_color: themeColor,
-        background_color: themeColor,
-        display: 'standalone',
-        start_url: baseUrl,
-        icons: [
-          {
-            src: `${baseUrl}logo-192.png`,
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: `${baseUrl}logo-512.png`,
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: `${baseUrl}logo-maskable-512.png`,
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
-          },
-        ],
-      };
-      const content = encodeURIComponent(JSON.stringify(manifest));
-      const url = 'data:application/manifest+json,' + content;
-
-      manifestNode.setAttribute('href', url);
-    }
-  }
 </script>
 
 <svelte:head>
-  <meta bind:this={themeNode} name="theme-color" content={themeColor} />
+  <meta id="theme-meta" bind:this={themeNode} name="theme-color" content={themeColor} />
   <link
+    id="manifest-link"
     bind:this={manifestNode}
     rel="manifest"
     href="manifest.json"
@@ -109,10 +33,12 @@
 </svelte:head>
 
 <main
-  data-theme={$themeStore.currentTheme}
+  id="main"
+  data-theme={$theme}
   class="border-box relative bg-transparent h-screen w-screen overflow-x-hidden overflow-y-scroll text-base-content"
 >
   <div
+    id="theme-colored"
     bind:this={themeColoredNode}
     class="pattern fixed bottom-0 top-0 -z-50 h-full w-full"
   />

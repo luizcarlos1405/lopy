@@ -10,9 +10,8 @@
   import { onMount } from 'svelte';
   import { orderableChildren } from '../lib/orderableChildren.js';
   import { moveArrayItem } from '$lib/helpers';
-  import { getContext } from 'svelte';
+  import { theme } from '../lib/stores/themes';
 
-  const themeStore = getContext('themeStore');
   let isDragging = false;
 
   const handleEnvelopeClicked = envelope => {
@@ -23,7 +22,7 @@
     itemNodeCopy.style['box-shadow'] = '0px 4px 6px -2px rgba(0,0,0,0.8)';
     itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
     itemNode.style.opacity = '10%';
-    main.style['overflow-y'] = 'hidden';
+    document.getElementById("main").style['overflow-y'] = 'hidden';
   };
 
   const handleOnDragMove = ({ itemNodeCopy, fromIndex, toIndex }) => {
@@ -39,14 +38,8 @@
       isDragging = false;
     }, 0);
     itemNode.style.opacity = '100%';
-    main.style['overflow-y'] = 'scroll';
+    document.getElementById("main").style['overflow-y'] = 'scroll';
   };
-
-  let main;
-
-  onMount(() => {
-    main = document.getElementsByTagName('main')[0];
-  });
 </script>
 
 <div class="layout-template-rows grid-layout min-h-full bg-transparent">
@@ -56,14 +49,7 @@
     <span
       class="w-14 cursor-pointer fill-current"
       on:click={() => {
-        const { currentTheme, themes } = $themeStore;
-        const themeIndex = themes.findIndex(
-          themeName => currentTheme === themeName
-        );
-        themeStore.set({
-          themes,
-          currentTheme: themes[themeIndex + 1] || themes[0],
-        });
+        theme.next()
       }}
     >
       <Logo />

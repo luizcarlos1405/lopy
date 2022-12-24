@@ -7,6 +7,12 @@
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">
-    <div style="display: contents">%sveltekit.body%</div>
+    <div id="sveltekit-body" data-theme="cupcake" style="display: contents">%sveltekit.body%</div>
+
+    <script>
+      // Prevents theme blinking
+      const sveltekitBody = document.getElementById("sveltekit-body");
+      sveltekitBody.setAttribute('data-theme', localStorage.getItem('theme'));
+    </script>
   </body>
 </html>
