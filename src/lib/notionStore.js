@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { browser, dev } from '$app/env';
+import { browser, dev } from '$app/environment';
 
 export const config = browser
   ? {

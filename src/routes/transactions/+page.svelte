@@ -1,6 +1,6 @@
 <script>
-  import EnvelopeTransactions from '../components/EnvelopeTransactions.svelte';
-  import BottomNavigation from '../components/atoms/BottomNavigation.svelte';
+  import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
+  import BottomNavigation from '../../components/atoms/BottomNavigation.svelte';
   import { actions } from '$lib/stores';
 
   const transactions =

@@ -1,5 +1,5 @@
 <script>
-  import { browser, dev } from '$app/env';
+  import { browser, dev } from '$app/environment';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import '../app.css';

@@ -1,7 +1,7 @@
 <script>
   import { page } from '$app/stores';
-  import { browser } from '$app/env';
-  import EmojiPicker from '../../../components/form/EmojiPicker.svelte';
+  import { browser } from '$app/environment';
+  import EmojiPicker from '../../../../components/form/EmojiPicker.svelte';
   import { goto } from '$app/navigation';
   import { envelopes, actions } from '$lib/stores';
   import { ROUTES } from '$lib/constants';

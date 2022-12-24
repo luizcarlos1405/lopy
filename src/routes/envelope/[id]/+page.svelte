@@ -1,10 +1,10 @@
 <script>
   import { page } from '$app/stores';
-  import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
-  import Envelope from '../../components/atoms/Envelope.svelte';
+  import EnvelopeTransactions from '../../../components/EnvelopeTransactions.svelte';
+  import Envelope from '../../../components/atoms/Envelope.svelte';
   import { actions } from '$lib/stores';
   import { isClient } from '$lib/helpers';
-  import MoneyInput from '../../components/atoms/MoneyInput.svelte';
+  import MoneyInput from '../../../components/atoms/MoneyInput.svelte';
   import { ClipboardIcon, CopyIcon, Trash2Icon } from 'svelte-feather-icons';
   import { DateTime } from 'luxon';
   import { scale } from 'svelte/transition';
@@ -16,7 +16,7 @@
     fetchEnvelopes,
   } from '$lib/notionStore';
   import yaml from 'yaml';
-  import { COPY_PASTE_DATE_FORMAT } from '../../lib/constants.js';
+  import { COPY_PASTE_DATE_FORMAT } from '../../../lib/constants.js';
 
   const LOCAL = 'LOCAL';
   const NOTION = 'NOTION';
