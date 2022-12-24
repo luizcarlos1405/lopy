@@ -30,9 +30,9 @@ let index = themes.findIndex(themeName => themeName === localStorageTheme);
 export const theme = {
   ...writable(localStorageTheme),
   next() {
-    const themeColoredDiv = document.getElementById("theme-colored");
-    const themeMeta = document.getElementById("theme-meta");
-    const manifestLink = document.getElementById("manifest-link");
+    const themeColoredDiv = document.getElementById('theme-colored');
+    const themeMeta = document.getElementById('theme-meta');
+    const manifestLink = document.getElementById('manifest-link');
 
     index = (index + 1) % themes.length;
     const newTheme = themes[index];

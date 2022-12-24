@@ -3,7 +3,7 @@
   import { browser } from '$app/environment';
   import EmojiPicker from '../../../../components/form/EmojiPicker.svelte';
   import { goto } from '$app/navigation';
-  import { envelopes, actions } from '$lib/stores';
+  import { envelopes, deleteEnvelope, saveEnvelope } from '$lib/stores/envelopes';
   import { ROUTES } from '$lib/constants';
   import { Trash2Icon } from 'svelte-feather-icons';
 
@@ -22,7 +22,7 @@
   }
 
   const handleDeleteClicked = () => {
-    $actions.deleteEnvelope({ _id: id });
+    deleteEnvelope({ _id: id });
     window.history.back();
   };
 </script>
@@ -63,7 +63,7 @@
       class="btn btn-primary"
       on:click={() => {
         if (envelope.name) {
-          $actions?.saveEnvelope({ ...envelope });
+          saveEnvelope({ ...envelope });
           goto(ROUTES.HOME);
         }
       }}

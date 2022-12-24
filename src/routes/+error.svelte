@@ -1,15 +1,12 @@
 <script>
-  export let status;
-  export let error;
+  import { page } from '$app/stores';
 </script>
 
 <svelte:head>
-  <title>{status}</title>
 </svelte:head>
 
-<h1>{status}</h1>
+<h1 class="text-accent">{$page.error.message}</h1>
 
-<p>{error.message}</p>
 
 <style>
   h1,

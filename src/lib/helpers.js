@@ -1,13 +1,15 @@
-export const stripNonDigits = (str) => str.replace(/[^\d]/g, "");
+import { browser } from '$app/environment';
+
+export const stripNonDigits = str => str.replace(/[^\d]/g, '');
 
 export const formatMoney = (value, { showSign = true } = {}) => {
-  const sign = showSign && Math.sign(value) < 0 ? "-" : "";
+  const sign = showSign && Math.sign(value) < 0 ? '-' : '';
   const amount = Math.abs(value);
   const whole = Math.floor(amount / 100);
   const decimal = Math.floor(amount - whole * 100);
 
   const thousandsSeparatedWhole = `${whole}`
-    .split("")
+    .split('')
     .reduceRight(
       (acc, char, index, array) => {
         const maxIndex = array.length;
@@ -20,15 +22,15 @@ export const formatMoney = (value, { showSign = true } = {}) => {
         acc[0] = `${char}${acc[0]}`;
 
         if (isThirdFromRight) {
-          return ["", ...acc];
+          return ['', ...acc];
         }
 
         return acc;
       },
-      [""]
+      ['']
     )
-    .join(".");
-  const twoDigitsDecimal = `${decimal}`.padStart(2, "0");
+    .join('.');
+  const twoDigitsDecimal = `${decimal}`.padStart(2, '0');
 
   return `R$${sign}${thousandsSeparatedWhole},${twoDigitsDecimal}`;
 };
@@ -40,7 +42,7 @@ export const moveArrayItem = (array, fromIndex, toIndex) => {
     toIndex < 0 ||
     toIndex >= array.length
   ) {
-    console.warn("Tried to move elements from out of bounds index:", {
+    console.warn('Tried to move elements from out of bounds index:', {
       array,
       fromIndex,
       toIndex,
@@ -58,4 +60,7 @@ export const moveArrayItem = (array, fromIndex, toIndex) => {
   return newArray;
 };
 
-export const isClient = () => typeof window !== "undefined";
+export const isClient = () => typeof window !== 'undefined';
+
+export const clientOnly = (defaultValue, func) =>
+  browser ? func : () => defaultValue;

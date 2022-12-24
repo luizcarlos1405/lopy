@@ -1,10 +1,10 @@
 <script>
   import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
   import BottomNavigation from '../../components/atoms/BottomNavigation.svelte';
-  import { actions } from '$lib/stores';
+  import { getAllTransactionsPaginated } from '$lib/stores/envelopes';
 
-  const transactions =
-    $actions?.getAllTransactionsPaginated?.({ $actions }) || [];
+  export const ssr = false;
+  const transactions = getAllTransactionsPaginated();
 </script>
 
 <div class="layout-template-rows grid-layout min-h-full">

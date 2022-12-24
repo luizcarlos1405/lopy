@@ -1,7 +1,7 @@
 <script>
   import Envelope from '../components/atoms/Envelope.svelte';
   import BottomNavigation from '../components/atoms/BottomNavigation.svelte';
-  import { envelopes, actions } from '$lib/stores';
+  import { envelopes, reorderEnvelopes } from '$lib/stores/envelopes';
   import { goto } from '$app/navigation';
   import { PlusIcon } from 'svelte-feather-icons';
   import Logo from '../components/atoms/Logo.svelte';
@@ -12,6 +12,7 @@
   import { moveArrayItem } from '$lib/helpers';
   import { theme } from '../lib/stores/themes';
 
+  export const ssr = false;
   let isDragging = false;
 
   const handleEnvelopeClicked = envelope => {
@@ -30,7 +31,7 @@
     const newOrder = moveArrayItem($envelopes, fromIndex, toIndex);
     itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
 
-    $actions.reorderEnvelopes(newOrder);
+    reorderEnvelopes(newOrder);
   };
 
   const handleOnDragEnd = async ({ itemNode }) => {
