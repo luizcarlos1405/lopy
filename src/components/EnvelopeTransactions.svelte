@@ -5,14 +5,20 @@
   import { cubicOut } from 'svelte/easing';
   import { flip } from 'svelte/animate';
   import { DateTime } from 'luxon';
+  import { envelopes } from '$lib/stores/envelopes';
+  import keyBy from 'lodash/keyBy';
 
-  export let origin = 'LOCAL';
+  export let showEnvelope = false;
   export let transactions = [];
   export let selectedTransactionsById = {};
+
+  $: envelopeById = keyBy($envelopes, '_id');
 </script>
 
 <div class="flex w-full flex-col space-y-3">
   {#each transactions as transaction (transaction._id)}
+    {@const envelope = envelopeById[transaction.envelopeId]}
+
     <div
       class="space-y-1 self-stretch rounded-3xl p-4"
       class:in={transaction.value >= 0}
@@ -23,10 +29,6 @@
       animate:flip
       use:longpress={300}
       on:longpress={() => {
-        if (origin === 'NOTION') {
-          return;
-        }
-
         if (!selectedTransactionsById[transaction._id]) {
           selectedTransactionsById[transaction._id] = transaction;
           return;
@@ -41,14 +43,21 @@
           {transaction.comment}
         </div>
       {/if}
-      <div class="flex justify-between text-xs">
+      <div class="flex text-xs">
         <span class="font-mono font-semibold">
           {formatMoney(transaction.value, { showSign: false })}
         </span>
-        <span class="opacity-80">
+        {#if showEnvelope}
+          <span class="opacity-80 ml-1">
+            { transaction.value < 0 ? " removed from" : " added to" }
+            {envelope?.emoji}
+            {envelope?.name}
+          </span>
+        {/if}
+        <span class="opacity-80 ml-auto">
           {DateTime.fromMillis(transaction.date).toLocaleString(
             DateTime.DATETIME_SHORT
-          )}
+          )} 
         </span>
       </div>
     </div>

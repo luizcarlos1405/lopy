@@ -2,13 +2,17 @@
   import EnvelopeTransactions from '../../components/EnvelopeTransactions.svelte';
   import BottomNavigation from '../../components/atoms/BottomNavigation.svelte';
   import { queryTransactions } from '$lib/stores/transactions';
+  import { envelopes } from '$lib/stores/envelopes';
+  import groupBy from 'lodash/groupBy';
 
   const transactions = queryTransactions();
+  $: envelopeById = groupBy($envelopes, '_id');
+  $: console.log('envelopeById', envelopeById);
 </script>
 
-<div class="layout-template-rows grid-layout min-h-full">
-  <div class="col-start-2 col-end-12 mt-8 md:col-start-6">
-    <EnvelopeTransactions transactions={$transactions} />
+<div class="layout-template-rows grid-layout gap-8 min-h-full">
+  <div class="col-start-2 col-end-12 mt-8 md:col-start-5">
+    <EnvelopeTransactions showEnvelope transactions={$transactions} />
   </div>
 
   <div

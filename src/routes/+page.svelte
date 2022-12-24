@@ -43,9 +43,9 @@
   };
 </script>
 
-<div class="layout-template-rows grid-layout min-h-full bg-transparent">
+<div class="layout-template-rows grid-layout gap-8 min-h-full bg-transparent">
   <div
-    class="font-base col-start-2 col-end-12 flex flex-nowrap items-center justify-around self-start py-14 text-neutral-content md:col-start-6"
+    class="font-base col-start-2 col-end-12 flex flex-nowrap items-center justify-around self-start py-14 text-neutral-content md:col-start-5"
   >
     <span
       class="w-14 cursor-pointer fill-current"
@@ -67,7 +67,7 @@
   </div>
 
   <div
-    class="col-span-full col-start-2 col-end-12 flex w-full flex-col space-y-3 md:col-start-6"
+    class="col-span-full col-start-2 col-end-12 flex w-full flex-col space-y-3 md:col-start-5"
     use:orderableChildren={{
       startEvent: 'longpress',
       onStart: handleOnDragStart,

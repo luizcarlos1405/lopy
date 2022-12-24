@@ -43,7 +43,7 @@
         <EmojiPicker bind:value={envelope.emoji} />
       </span>
       <input
-        class="reset-input text-base"
+        class="reset-input text-base w-full"
         bind:value={envelope.name}
         placeholder="Name"
       />
