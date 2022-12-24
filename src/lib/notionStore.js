@@ -16,7 +16,7 @@ export const notionStore = writable({
 });
 
 export const fetchEnvelopes = async () => {
-  if (!browser) {
+  if (!browser || !config.token || !config.pageId) {
     return;
   }
 
