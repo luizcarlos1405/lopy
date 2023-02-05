@@ -5,7 +5,9 @@ import { derived } from 'svelte/store';
 // liveQuery() returns a reactive Svelte Store (or actually
 // an Observable that happens to comply with the The Svelte Store Contract).
 export const envelopes = derived(
-  liveQuery(async () => dexieDb.envelopes.toCollection().toArray()),
+  liveQuery(async () =>
+    dexieDb.envelopes.toCollection().sortBy('order')
+  ),
   array => array || []
 );
 
@@ -20,7 +22,7 @@ export const saveEnvelope = async ({ _id, ...envelope }) => {
       value: 0,
       ...envelope,
     });
-}
+};
 
 export const deleteEnvelope = ({ _id }) =>
   dexieDb.envelopes.where({ _id }).delete();
@@ -32,4 +34,3 @@ export const reorderEnvelopes = async orderedEnvelopes => {
     )
   );
 };
-

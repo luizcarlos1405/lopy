@@ -20,6 +20,7 @@
   };
 
   const handleOnDragStart = ({ itemNodeCopy, itemNode }) => {
+    isDragging = true;
     itemNodeCopy.style['box-shadow'] = '0px 4px 6px -2px rgba(0,0,0,0.8)';
     itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
     itemNode.style.opacity = '10%';
@@ -27,7 +28,6 @@
   };
 
   const handleOnDragMove = ({ itemNodeCopy, fromIndex, toIndex }) => {
-    isDragging = true;
     const newOrder = moveArrayItem($envelopes, fromIndex, toIndex);
     itemNodeCopy.style.transform = `${itemNodeCopy.style.transform} scale(1.01, 1.01)`;
 
@@ -76,10 +76,10 @@
     }}
   >
     {#each $envelopes as envelope (envelope._id)}
-      <span class="cursor-unset outline-none" use:longpress>
+      <span class="cursor-unset outline-none" class:select-none={isDragging} use:longpress>
         <Envelope
           {envelope}
-          on:click={() => !isDragging && handleEnvelopeClicked(envelope)}
+          on:click={(event) => !isDragging && handleEnvelopeClicked(envelope)}
         />
       </span>
     {/each}
